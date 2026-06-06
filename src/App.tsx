@@ -93,41 +93,22 @@ const NotFound = () => (
 
 // --- Layout Component ---
 // This wraps all pages with a shared Navbar and Footer
-const Layout = () => {
-  return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
-      {/* Navigation Bar */}
-      <nav className="bg-blue-900 text-white shadow-md">
-        <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between">
-          <Link to="/" className="text-2xl font-bold tracking-wide mb-4 md:mb-0">
-            🇱🇧 Lebanon Scholarships
-          </Link>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-medium">
-            <Link to="/" className="hover:text-blue-200 transition">Home</Link>
-            <Link to="/scholarships" className="hover:text-blue-200 transition">Scholarships</Link>
-            <Link to="/universities" className="hover:text-blue-200 transition">Universities</Link>
-            <Link to="/majors" className="hover:text-blue-200 transition">Majors</Link>
-            <Link to="/opportunities" className="hover:text-blue-200 transition">Opportunities</Link>
-            <Link to="/dashboard" className="hover:text-blue-200 transition">Dashboard</Link>
-            <Link to="/login" className="bg-white text-blue-900 px-4 py-1.5 rounded-md font-bold hover:bg-blue-100 transition">
-              Login
-            </Link>
-          </div>
-        </div>
-      </nav>
 
-      {/* Main Content Area (Outlet renders the matched child route) */}
-      <main className="flex-grow container mx-auto px-4 py-8">
-        <Outlet />
-      </main>
 
-      {/* Footer */}
+import Navbar from './components/Navbar';
+const Layout = () => (
+  <div className="flex flex-col min-h-screen bg-gray-50">
+    <Navbar />
+    <main className="flex-grow container mx-auto px-4 py-8">
+      <Outlet />
+    </main>
+    {/* Footer */}
       <footer className="bg-gray-800 text-gray-400 text-center py-6 text-sm">
         <p>&copy; {new Date().getFullYear()} Lebanon Scholarships. Empowering the next generation.</p>
       </footer>
-    </div>
-  );
-};
+  </div>
+);
+
 
 // --- Main App Component ---
 function App() {
