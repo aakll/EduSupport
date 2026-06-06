@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { supabase } from './supabaseClient'
-import { Session } from '@supabase/supabase-js'
+import type { Session } from '@supabase/supabase-js'
 import NotificationListener from './components/NotificationListener'
 import Login from './pages/Login'
 import Scholarships from './pages/Scholarships'
