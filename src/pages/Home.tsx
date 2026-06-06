@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { supabase } from "c:/Users/USER/Downloads/courses/Website/scholarships-lb/src/supabaseClient.ts";
+import { supabase } from '../supabaseClient';
 
 export default function Home() {
   interface User {
