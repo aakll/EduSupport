@@ -1,4 +1,5 @@
 
+{/*
 interface TeamMember {
   name: string;
   role: string;
@@ -31,7 +32,7 @@ const teamMembers: TeamMember[] = [
     email: "e",
     linkedin: "",
   },
-];
+]; */}
 
 export default function Home() {
 
