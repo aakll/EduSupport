@@ -52,9 +52,10 @@ const Navbar = () => {
           </div>
 
           {/* Login Button + Mobile Toggle */}
+          
           <div className="flex items-center gap-3">
             
-
+            
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
