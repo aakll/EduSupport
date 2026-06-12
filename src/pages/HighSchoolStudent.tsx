@@ -7,33 +7,33 @@ export default function HighSchoolStudent() {
   const [userName, setUserName] = useState<string | null>(null);
 
   useEffect(() => {
-  const checkSession = async () => {
-    try {
-      const { data } = await supabase.auth.getSession();
-      
-      if (!data.session) {
-        setIsGuest(true);
-      } else {
-        const { data: profile, error } = await supabase
-          .from("high_school_students")
-          .select("first_name")
-          .eq("user_id", data.session.user.id)
-          .maybeSingle(); // Use maybeSingle() instead of single()
-          
-        if (profile?.first_name && !error) {
-          setUserName(profile.first_name);
+    const checkSession = async () => {
+      try {
+        const { data } = await supabase.auth.getSession();
+        
+        if (!data.session) {
+          setIsGuest(true);
+        } else {
+          const { data: profile } = await supabase
+            .from("high_school_students")
+            .select("first_name")
+            .eq("user_id", data.session.user.id)
+            .maybeSingle();
+            
+          if (profile?.first_name) {
+            setUserName(profile.first_name);
+          }
         }
+      } catch (err) {
+        console.error("Auth check error:", err);
+        setIsGuest(true);
       }
-    } catch (err) {
-      console.error("Error checking session:", err);
-      setIsGuest(true); // Fallback to guest mode on error
-    }
-  };
-  checkSession();
-}, []);
+    };
+    checkSession();
+  }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       {/* Guest Warning Banner */}
       {isGuest && (
         <div className="bg-amber-50 border-b border-amber-200 px-4 py-3 text-center sticky top-16 z-40">
@@ -46,102 +46,74 @@ export default function HighSchoolStudent() {
         </div>
       )}
 
-      {/* Hero / Welcome Section */}
-      <section className="relative bg-gradient-to-br from-[#4CAF50] via-[#42A5F5] to-indigo-600 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Welcome back, {userName || "Student"}! 👋
+      {/* Hero Section - Same style as Home for consistency */}
+      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=1920')`,
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+
+        <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Welcome{userName ? `, ${userName}` : ""}! 
           </h1>
-          <p className="text-lg md:text-xl text-white/90 max-w-2xl leading-relaxed">
-            Your personalized hub for academic opportunities. Track your applications, 
-            discover new scholarships, and stay on top of your graduation goals.
+          <p className="text-lg text-white/90 leading-relaxed">
+            Your personal space to discover scholarships, track applications, 
+            and stay on top of your high school journey.
           </p>
-          
-          {/* Quick Stats Row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
-            {[
-              { label: "Saved Scholarships", value: isGuest ? "--" : "0", icon: "🔖" },
-              { label: "Applications", value: isGuest ? "--" : "0", icon: "📝" },
-              { label: "Deadlines Soon", value: isGuest ? "--" : "0", icon: "⏰" },
-              { label: "Profile Complete", value: isGuest ? "--" : "85%", icon: "✅" },
-            ].map((stat) => (
-              <div key={stat.label} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                <div className="text-2xl mb-1">{stat.icon}</div>
-                <div className="text-2xl font-bold">{stat.value}</div>
-                <div className="text-xs text-white/70 uppercase tracking-wider">{stat.label}</div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-8 relative z-20">
-        
-        {/* Scholarships Gateway Section */}
-        <section className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
-          <div className="p-8 md:p-10">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
-              <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#4CAF50] to-[#42A5F5] flex items-center justify-center text-white text-xl">
-                    🎓
-                  </div>
-                  <h2 className="text-2xl font-bold text-slate-900">Scholarships</h2>
-                </div>
-                <p className="text-slate-600 max-w-xl">
-                  Browse curated scholarship opportunities matched to your grade level, 
-                  school, and academic interests. Save your favorites and track application deadlines.
-                </p>
-              </div>
-              
-              <Link
-                to="/scholarships"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#4CAF50] to-[#42A5F5] text-white font-semibold rounded-xl hover:shadow-lg hover:scale-[1.02] transition-all whitespace-nowrap"
-              >
-                Explore Scholarships
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m5-4H3" />
-                </svg>
-              </Link>
+      {/* Main Content - Centered Scholarship Box */}
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-20 pb-20">
+        <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden">
+          {/* Colorful Top Accent Bar */}
+          <div className="h-2 bg-gradient-to-r from-[#4CAF50] via-[#42A5F5] to-indigo-500" />
+          
+          <div className="p-8 md:p-12 text-center">
+            {/* Icon */}
+            <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-[#4CAF50]/10 to-[#42A5F5]/10 flex items-center justify-center">
+              <svg className="w-10 h-10 text-[#4CAF50]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+              </svg>
             </div>
 
-            {/* Preview Cards (Non-clickable teasers) */}
-            <div className="grid md:grid-cols-3 gap-4">
-              {[
-                { title: "Merit-Based Awards", desc: "For students with outstanding academic records", tag: "Academic", color: "bg-blue-50 text-blue-700" },
-                { title: "Need-Based Grants", desc: "Financial aid based on family income", tag: "Financial", color: "bg-green-50 text-green-700" },
-                { title: "Community Service", desc: "Rewarding volunteer work and leadership", tag: "Service", color: "bg-purple-50 text-purple-700" },
-              ].map((card) => (
-                <div key={card.title} className="group p-5 rounded-xl border border-slate-200 hover:border-[#4CAF50]/50 hover:bg-slate-50 transition-all cursor-default">
-                  <span className={`inline-block px-2.5 py-0.5 text-xs font-semibold rounded-full mb-3 ${card.color}`}>
-                    {card.tag}
-                  </span>
-                  <h3 className="font-semibold text-slate-900 mb-1 group-hover:text-[#4CAF50] transition-colors">
-                    {card.title}
-                  </h3>
-                  <p className="text-sm text-slate-500">{card.desc}</p>
-                </div>
-              ))}
+            <h2 className="text-3xl font-bold text-slate-900 mb-3">Scholarships</h2>
+            <p className="text-slate-600 max-w-lg mx-auto mb-8 leading-relaxed">
+              Browse curated scholarship opportunities matched to your grade level, 
+              school, and academic interests. Save your favorites and never miss a deadline.
+            </p>
+
+            <Link
+              to="/scholarships"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4CAF50] to-[#42A5F5] text-white font-semibold rounded-xl hover:shadow-lg hover:scale-[1.02] transition-all text-lg"
+            >
+              Explore Scholarships
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m5-4H3" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+
+        {/* Future Sections Placeholder */}
+        <div className="grid md:grid-cols-2 gap-6 mt-8">
+          {[
+            { icon: "📅", title: "Application Tracker", desc: "Track deadlines and submission status" },
+            { icon: "💡", title: "Study Resources", desc: "Guides, tips, and preparation materials" },
+          ].map((item) => (
+            <div key={item.title} className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 flex flex-col items-center justify-center text-center min-h-[180px] opacity-60">
+              <div className="text-4xl mb-3">{item.icon}</div>
+              <h3 className="font-semibold text-slate-900 mb-1">{item.title}</h3>
+              <p className="text-sm text-slate-500">{item.desc}</p>
+              <span className="mt-3 text-xs font-medium text-slate-400 uppercase tracking-wider">Coming Soon</span>
             </div>
-          </div>
-        </section>
-
-        {/* Placeholder for Future Sections */}
-        <section className="mt-8 grid md:grid-cols-2 gap-6">
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 flex flex-col items-center justify-center text-center min-h-[200px]">
-            <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center text-3xl mb-4">📅</div>
-            <h3 className="font-semibold text-slate-900 mb-1">Application Tracker</h3>
-            <p className="text-sm text-slate-500">Coming Soon</p>
-          </div>
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 flex flex-col items-center justify-center text-center min-h-[200px]">
-            <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center text-3xl mb-4">💡</div>
-            <h3 className="font-semibold text-slate-900 mb-1">Study Resources</h3>
-            <p className="text-sm text-slate-500">Coming Soon</p>
-          </div>
-        </section>
-
+          ))}
+        </div>
       </main>
     </div>
   );
