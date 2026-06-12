@@ -121,7 +121,7 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                 </svg>
               </div>
-              <span className={`text-xl font-bold transition-colors ${isScrolled ? "text-gray-900" : "text-white"}`}>EduSupport</span>
+              <span className={`text-xl font-bold transition-colors ${isScrolled ? "text-gray-900" : "text-white"}`}></span>
             </Link>
 
             <div className="relative">
@@ -157,9 +157,9 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
         <div className="relative z-10 text-center px-4 max-w-2xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">EduSupport.LB</h1>
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">EduSupport</h1>
           <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4">Your Gateway to Academic Success</h2>
-          <p className="text-lg text-white/90 mb-10">Empowering students in Lebanon to find scholarships</p>
+          <p className="text-lg text-white/90 mb-10">Guide for students in Lebanon to find scholarships</p>
 
           <div className="grid gap-4">
             {["High School Student", "Undergraduate Student", "Volunteer with Us"].map((card, i) => (
