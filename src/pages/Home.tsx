@@ -1,32 +1,39 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../supabaseClient";
 
 export default function Home() {
   const navigate = useNavigate();
   const [isHSModalOpen, setIsHSModalOpen] = useState(false);
-  const [hasVisitedHS, setHasVisitedHS] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Check localStorage on mount to see if user already made a choice
+  // Check auth status on mount
   useEffect(() => {
-    const visited = localStorage.getItem("hs_student_visited");
-    if (visited === "true") {
-      setHasVisitedHS(true);
-    }
+    const checkAuth = async () => {
+      const { data } = await supabase.auth.getSession();
+      setIsLoggedIn(!!data.session);
+    };
+    checkAuth();
+
+    // Listen for auth changes in real-time
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session);
+    });
+
+    return () => listener.subscription.unsubscribe();
   }, []);
 
   const handleHighSchoolClick = () => {
-    if (hasVisitedHS) {
-      // Already visited before → go directly to page
+    if (isLoggedIn) {
+      // Logged-in users go directly to page, never see modal
       navigate("/high-school");
     } else {
-      // First time → show the login/signup/later modal
+      // Guests ALWAYS see the choice modal
       setIsHSModalOpen(true);
     }
   };
 
   const handleLater = () => {
-    localStorage.setItem("hs_student_visited", "true");
-    setHasVisitedHS(true);
     setIsHSModalOpen(false);
     navigate("/high-school");
   };
@@ -97,7 +104,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* High School Student Modal (First Time Only) */}
+      {/* High School Student Modal - ONLY for guests */}
       {isHSModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative">
@@ -114,33 +121,26 @@ export default function Home() {
             <p className="text-gray-600 text-center mb-6">Choose how you'd like to continue</p>
 
             <div className="space-y-3">
-              {/* Sign Up Button */}
               <button
                 onClick={() => {
-                  localStorage.setItem("hs_student_visited", "true");
-                  setHasVisitedHS(true);
                   setIsHSModalOpen(false);
-                  navigate("/signup"); // Redirect to your signup page
+                  navigate("/signup");
                 }}
                 className="w-full py-3 bg-gradient-to-r from-[#4CAF50] to-[#42A5F5] text-white font-semibold rounded-lg hover:scale-[1.02] transition-all"
               >
                 Sign Up
               </button>
 
-              {/* Login Button */}
               <button
                 onClick={() => {
-                  localStorage.setItem("hs_student_visited", "true");
-                  setHasVisitedHS(true);
                   setIsHSModalOpen(false);
-                  navigate("/login"); // Redirect to your login page
+                  navigate("/login");
                 }}
                 className="w-full py-3 bg-white border-2 border-[#4CAF50] text-[#4CAF50] font-semibold rounded-lg hover:bg-green-50 transition-all"
               >
                 Log In
               </button>
 
-              {/* Later / Guest Button */}
               <button
                 onClick={handleLater}
                 className="w-full py-3 text-gray-500 hover:text-gray-700 text-sm font-medium transition-colors"
@@ -165,14 +165,9 @@ export default function Home() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2">
-                {[
-                  ["Home", "/"],
-                  ["Scholarships", "/scholarships"],
-                ].map(([label, path]) => (
+                {[["Home", "/"], ["Scholarships", "/scholarships"]].map(([label, path]) => (
                   <li key={path}>
-                    <a href={path} className="text-gray-300 hover:text-[#4CAF50] transition-colors">
-                      {label}
-                    </a>
+                    <a href={path} className="text-gray-300 hover:text-[#4CAF50] transition-colors">{label}</a>
                   </li>
                 ))}
               </ul>
