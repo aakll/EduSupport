@@ -8,6 +8,7 @@ import Majors from './pages/Majors';
 import Opportunities from './pages/Opportunities';
 import Dashboard from './pages/Dashboard';
 import Profile from "./pages/Profile";
+import HighSchoolStudent from "./pages/HighSchoolStudent";
 
 
 
@@ -25,7 +26,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-        
+          <Route path="/high-school-student" element={<HighSchoolStudent />} />
           <Route path="/profile" element={<Profile />} />
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
