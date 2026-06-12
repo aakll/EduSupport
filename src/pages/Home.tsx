@@ -11,28 +11,28 @@ interface TeamMember {
 
 const teamMembers: TeamMember[] = [
   {
-    name: "Sarah Haddad",
-    role: "Founder & CEO",
-    email: "sarah@edusupport.lb",
-    linkedin: "linkedin.com/in/sarahhaddad",
+    name: "D",
+    role: "",
+    email: "E",
+    linkedin: "",
   },
   {
-    name: "Karim Nassar",
-    role: "Head of Partnerships",
-    email: "karim@edusupport.lb",
-    linkedin: "linkedin.com/in/karimnassar",
+    name: "C",
+    role: "s",
+    email: "e",
+    linkedin: "a",
   },
   {
-    name: "Lina Khoury",
-    role: "Student Relations",
-    email: "lina@edusupport.lb",
-    linkedin: "linkedin.com/in/linakhoury",
+    name: "B",
+    role: "",
+    email: "e",
+    linkedin: "",
   },
   {
-    name: "Omar Bitar",
-    role: "Tech Lead",
-    email: "omar@edusupport.lb",
-    linkedin: "linkedin.com/in/omarbitar",
+    name: "A",
+    role: "",
+    email: "e",
+    linkedin: "",
   },
 ];
 
@@ -150,16 +150,16 @@ export default function Home() {
           </div>
         </div>
       </nav>
-
+      ##
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=1920')` }} />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
         <div className="relative z-10 text-center px-4 max-w-2xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">EduSupport</h1>
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">EduSupport.LB</h1>
           <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4">Your Gateway to Academic Success</h2>
-          <p className="text-lg text-white/90 mb-10">Empowering Lebanese students to find scholarships, universities, and opportunities</p>
+          <p className="text-lg text-white/90 mb-10">Empowering students in Lebanon to find scholarships</p>
 
           <div className="grid gap-4">
             {["High School Student", "Undergraduate Student", "Volunteer with Us"].map((card, i) => (
@@ -167,7 +167,8 @@ export default function Home() {
                 className={`group bg-white/95 backdrop-blur-sm rounded-2xl p-5 shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-transparent ${i === 0 ? "hover:border-[#4CAF50]" : i === 1 ? "hover:border-[#42A5F5]" : "hover:border-[#81C784]"}`}>
                 <div className="flex items-center gap-4">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-xl ${i === 0 ? "bg-gradient-to-br from-[#4CAF50] to-[#81C784]" : i === 1 ? "bg-gradient-to-br from-[#42A5F5] to-[#90CAF9]" : "bg-gradient-to-br from-[#81C784] to-[#4CAF50]"}`}>
-                    {i === 0 ? "📚" : i === 1 ? "🎓" : "❤️"}
+            
+                    # not needed {i === 0 ? "📚" : i === 1 ? "🎓" : "❤️"}
                   </div>
                   <span className="text-xl font-bold text-gray-900 flex-1 text-left">{card}</span>
                   <svg className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -233,7 +234,7 @@ export default function Home() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2">
-                {[["Home", "/"], ["Scholarships", "/scholarships"], ["Universities", "/universities"], ["Majors", "/majors"], ["Opportunities", "/opportunities"]].map(([label, path]) => (
+                {[["Home", "/"], ["Scholarships", "/scholarships"]].map(([label, path]) => (
                   <li key={path}><Link to={path} className="text-gray-300 hover:text-[#4CAF50] transition-colors">{label}</Link></li>
                 ))}
               </ul>
@@ -258,7 +259,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-gray-700 mt-12 pt-8 text-center">
-            <p className="text-gray-400 text-sm">© {new Date().getFullYear()} EduSupport. All rights reserved. Made with ❤️ for Lebanese students.</p>
+            <p className="text-gray-400 text-sm">© {new Date().getFullYear()} EduSupport. All rights reserved. Made with ❤️ for students.</p>
           </div>
         </div>
       </footer>
