@@ -10,34 +10,13 @@ interface TeamMember {
 }
 
 const teamMembers: TeamMember[] = [
-  {
-    name: "D",
-    role: "",
-    email: "E",
-    linkedin: "",
-  },
-  {
-    name: "C",
-    role: "s",
-    email: "e",
-    linkedin: "a",
-  },
-  {
-    name: "B",
-    role: "",
-    email: "e",
-    linkedin: "",
-  },
-  {
-    name: "A",
-    role: "",
-    email: "e",
-    linkedin: "",
-  },
+  { name: "D", role: "", email: "E", linkedin: "" },
+  { name: "C", role: "s", email: "e", linkedin: "a" },
+  { name: "B", role: "", email: "e", linkedin: "" },
+  { name: "A", role: "", email: "e", linkedin: "" },
 ];
 
 export default function Home() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
   const [authMode, setAuthMode] = useState<"login" | "signup">("login");
@@ -49,9 +28,6 @@ export default function Home() {
   const [authError, setAuthError] = useState("");
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-
     const getUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session?.user) {
@@ -59,8 +35,6 @@ export default function Home() {
       }
     };
     getUser();
-
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleCardClick = (cardType: string) => {
@@ -110,51 +84,35 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navbar */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white shadow-lg" : "bg-transparent"}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#4CAF50] to-[#42A5F5] rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                </svg>
-              </div>
-              <span className={`text-xl font-bold transition-colors ${isScrolled ? "text-gray-900" : "text-white"}`}></span>
-            </Link>
-
-            <div className="relative">
-              <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className={`p-2 rounded-full transition-colors ${isScrolled ? "hover:bg-gray-100" : "hover:bg-white/20"}`}>
-                <svg className={`w-6 h-6 ${isScrolled ? "text-gray-700" : "text-white"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </button>
-              {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2 border border-gray-100">
-                  {user ? (
-                    <>
-                      <div className="px-4 py-2 border-b border-gray-100">
-                        <p className="text-sm text-gray-500">Signed in as</p>
-                        <p className="text-sm font-medium text-gray-900 truncate">{user.email}</p>
-                      </div>
-                      <Link to="/dashboard" onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Dashboard</Link>
-                      <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50">Logout</button>
-                    </>
-                  ) : (
-                    <button onClick={() => { setIsDropdownOpen(false); setIsModalOpen(true); }} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Login</button>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </nav>
-      
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=1920')` }} />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+
+        {/* Account dropdown (top right of hero) */}
+        <div className="absolute top-4 right-4 z-20">
+          <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="p-2 rounded-full bg-white/90 hover:bg-white transition-colors">
+            <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+          </button>
+          {isDropdownOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2 border border-gray-100">
+              {user ? (
+                <>
+                  <div className="px-4 py-2 border-b border-gray-100">
+                    <p className="text-sm text-gray-500">Signed in as</p>
+                    <p className="text-sm font-medium text-gray-900 truncate">{user.email}</p>
+                  </div>
+                  <Link to="/dashboard" onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Dashboard</Link>
+                  <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50">Logout</button>
+                </>
+              ) : (
+                <button onClick={() => { setIsDropdownOpen(false); setIsModalOpen(true); }} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Login</button>
+              )}
+            </div>
+          )}
+        </div>
 
         <div className="relative z-10 text-center px-4 max-w-2xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">EduSupport</h1>
