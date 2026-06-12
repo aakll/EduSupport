@@ -16,7 +16,7 @@ const Navbar = () => {
   const location = useLocation();
 
   const navLinks = [
-    { name: "Home", path: "/" },
+    { name: "Home", path: "/"  },
     { name: "Scholarships", path: "/scholarships" },
   ];
 
