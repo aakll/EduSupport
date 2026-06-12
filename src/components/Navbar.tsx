@@ -88,8 +88,9 @@ const Navbar = () => {
       <nav className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-lg">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid h-16 grid-cols-3 items-center">
-            <div className="grid h-16 grid-cols-3 items-center">
-              
+
+            <div className="flex h-16 items-center justify-between">
+
               {/* 1. LOGO (Left) - Force to left edge */}
               <div className="flex items-center gap-3 justify-self-start w-full">
                 <Link
