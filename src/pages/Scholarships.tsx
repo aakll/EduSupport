@@ -17,44 +17,50 @@ const programs = [
   {
     name: "MEPE",
     desc: "Middle East Partnership Initiative supporting educational excellence.",
-    icon: "",
     color: "from-blue-500 to-indigo-600",
     path: "/scholarships/mepe",
+    image:
+      "https://th.bing.com/th/id/R.ebe4fcfce02d27babc125b01a3c74945?rik=rgySSwULdNe80w&pid=ImgRaw&r=0",
   },
   {
     name: "ULYP",
     desc: "Undergraduate Lebanon Youth Program for top Lebanese students.",
-    icon: "",
     color: "from-emerald-500 to-teal-600",
     path: "/scholarships/ulyp",
+    image:
+      "https://tse1.mm.bing.net/th/id/OIP.d-_rNnvbWdzXi6UKQ84aYQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
   },
   {
     name: "LIFE",
     desc: "Lebanese International Future Education global opportunities.",
-    icon: "✨",
     color: "from-violet-500 to-purple-600",
     path: "/scholarships/life",
+    image:
+      "https://www.scholarhunter.com/wp-content/uploads/2023/10/LIFE-Scholarships-programme-768x576.jpg",
   },
   {
     name: "Habeeb",
     desc: "Community-driven fund for underprivileged high school graduates.",
-    icon: "💚",
     color: "from-green-500 to-emerald-600",
     path: "/scholarships/habeeb",
+    image:
+      "https://static.wixstatic.com/media/d895be_806800b2b18f4176abd0b8e29ad1967a~mv2.png/v1/fill/w_429,h_78,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/d895be_806800b2b18f4176abd0b8e29ad1967a~mv2.png",
   },
   {
     name: "Tomooh",
     desc: "Ambition-focused mentorship and financial aid program.",
-    icon: "",
     color: "from-orange-500 to-amber-600",
     path: "/scholarships/tomooh",
+    image:
+      "https://www.middleeast.pepsico.com/images/middleeastksalibraries/lebanon/tomooh-scholarship.png?Status=Master",
   },
   {
     name: "Tarraf",
     desc: "Bridging higher education gaps for rural communities.",
-    icon: "️",
     color: "from-cyan-500 to-blue-600",
     path: "/scholarships/tarraf",
+    image:
+      "https://cdn.firespring.com/images/880a2126-e1e4-4421-8500-d3da4fb69cf7.png",
   },
 ];
 
@@ -112,20 +118,12 @@ export default function Scholarships() {
             <Link
               key={p.name}
               to={p.path}
-              className="group bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden hover:shadow-3xl hover:-translate-y-1 transition-all duration-300 block"
+              className="group bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden hover:shadow-3xl hover:-translate-y-1 transition-all duration-300 block relative"
             >
               {/* Top Accent Bar - Uses program specific gradient */}
               <div className={`h-2 bg-gradient-to-r ${p.color}`} />
 
               <div className="p-8 md:p-12 text-center">
-                {/* Icon Container - Uses program specific colors at 10% opacity */}
-                <div
-                  className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${p.color} opacity-10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
-                >
-                  {/* Render icon as SVG or Emoji based on what you have */}
-                  <span className="text-4xl">{p.icon}</span>
-                </div>
-
                 {/* Title */}
                 <h2 className="text-3xl font-bold text-slate-900 mb-3 group-hover:text-[#4CAF50] transition-colors">
                   {p.name}
@@ -155,6 +153,11 @@ export default function Scholarships() {
                     />
                   </svg>
                 </div>
+
+                <div
+                  className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-15 transition-opacity"
+                  style={{ backgroundImage: `url('${p.image}')` }}
+                />
               </div>
             </Link>
           ))}
