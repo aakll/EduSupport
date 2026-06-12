@@ -167,8 +167,7 @@ export default function Home() {
                 className={`group bg-white/95 backdrop-blur-sm rounded-2xl p-5 shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-transparent ${i === 0 ? "hover:border-[#4CAF50]" : i === 1 ? "hover:border-[#42A5F5]" : "hover:border-[#81C784]"}`}>
                 <div className="flex items-center gap-4">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-xl ${i === 0 ? "bg-gradient-to-br from-[#4CAF50] to-[#81C784]" : i === 1 ? "bg-gradient-to-br from-[#42A5F5] to-[#90CAF9]" : "bg-gradient-to-br from-[#81C784] to-[#4CAF50]"}`}>
-            
-                    # not needed {i === 0 ? "📚" : i === 1 ? "🎓" : "❤️"}
+                   // You can replace these emojis with actual icons if you have them in your project
                   </div>
                   <span className="text-xl font-bold text-gray-900 flex-1 text-left">{card}</span>
                   <svg className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
