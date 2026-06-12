@@ -26,7 +26,7 @@ const Navbar = () => {
             </div>
             <div className="flex flex-col leading-tight">
               <span className="text-base font-bold tracking-tight text-slate-900">
-                EduSupport
+                
               </span>
               <span className="text-[10px] font-medium uppercase tracking-widest text-slate-400">
                 Guide for Students
