@@ -28,11 +28,9 @@ export default function Scholarships() {
 
   useEffect(() => {
     async function load() {
-      // Load scholarships data
       const { data } = await supabase.from('scholarships').select('*').order('deadline', { ascending: true })
       if (data) setScholarships(data)
       
-      // Check guest status
       const { data: sessionData } = await supabase.auth.getSession()
       if (!sessionData.session) setIsGuest(true)
     }
@@ -41,8 +39,6 @@ export default function Scholarships() {
 
   return (
     <div className="min-h-screen bg-white page-enter">
-      
-      {/* Guest Warning Banner - Identical to HS Page */}
       {isGuest && (
         <div className="bg-amber-50 border-b border-amber-200 px-4 py-3 text-center sticky top-16 z-40">
           <p className="text-sm text-amber-800 font-medium">
@@ -54,77 +50,81 @@ export default function Scholarships() {
         </div>
       )}
 
-      {/* Hero Section - Matches HS Page Design */}
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
-        {/* New Academic Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1920&q=80')" }}
         />
-        {/* Dark Overlay for Text Readability */}
         <div className="absolute inset-0 bg-slate-900/60" />
-        
-        {/* Content Container - Empty as requested, just maintains layout spacing */}
-        <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
-           {/* Intentionally left blank per request */}
-        </div>
+        <div className="relative z-10 text-center px-4 max-w-3xl mx-auto"></div>
       </section>
 
-      {/* Main Content Area - Floating Box Layout */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 -mt-32 relative z-20">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-20 pb-20">
         
-        {/* The White Floating Box */}
-        <div className="bg-white rounded-2xl shadow-xl border-t-4 border-[#4CAF50] p-8 md:p-12 text-center transform transition-all hover:scale-[1.01] duration-300">
-          
-          {/* Icon */}
-          <div className="w-20 h-20 mx-auto bg-green-50 rounded-2xl flex items-center justify-center text-4xl mb-6">
-            🎓
+        {/* Main Scholarships Box */}
+        <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden mb-12">
+          <div className="h-2 bg-gradient-to-r from-[#4CAF50] via-[#42A5F5] to-indigo-500" />
+          <div className="p-8 md:p-12 text-center">
+            <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-[#4CAF50]/10 to-[#42A5F5]/10 flex items-center justify-center">
+              <svg className="w-10 h-10 text-[#4CAF50]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+              </svg>
+            </div>
+            <h2 className="text-3xl font-bold text-slate-900 mb-3">Scholarships</h2>
+            <p className="text-slate-600 max-w-lg mx-auto mb-8 leading-relaxed">
+              
+            </p>
+            <Link
+              to="#all-scholarships"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4CAF50] to-[#42A5F5] text-white font-semibold rounded-xl hover:shadow-lg hover:scale-[1.02] transition-all text-lg"
+            >
+              Explore Scholarships
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m5-4H3" />
+              </svg>
+            </Link>
           </div>
-          
-          {/* Title */}
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">Scholarships</h2>
-          
-          {/* Button */}
-          <Link
-            to="#all-scholarships"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#4CAF50] to-[#42A5F5] text-white font-bold text-lg rounded-xl hover:shadow-xl hover:shadow-green-500/30 hover:-translate-y-1 transition-all duration-300"
-          >
-            Explore Scholarships
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m5-4H3" />
-            </svg>
-          </Link>
-
         </div>
 
-        {/* Programs Gateway Section (Below the box) */}
-        <section className="mt-16">
-          <h3 className="text-xl font-bold text-slate-900 mb-6 text-left">Featured Programs</h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {programs.map((p) => (
-              <Link
-                key={p.name}
-                to={p.path}
-                className="group bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md hover:border-[#4CAF50]/40 transition-all duration-300 flex items-start gap-4"
-              >
-                <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${p.color} flex items-center justify-center text-xl shrink-0`}>
-                  {p.icon}
+        {/* Programs Grid - Same Box Style */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {programs.map((p) => (
+            <Link
+              key={p.name}
+              to={p.path}
+              className="group bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              {/* Dynamic Top Accent Bar matching the main box style */}
+              <div className={`h-2 bg-gradient-to-r ${p.color}`} />
+              
+              <div className="p-8 text-center">
+                <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${p.color.replace('to-', 'to-opacity-20 ')} opacity-10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                  <span className="text-3xl">{p.icon}</span>
                 </div>
-                <div className="text-left">
-                  <h4 className="font-semibold text-slate-900 group-hover:text-[#4CAF50] transition-colors">{p.name}</h4>
-                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">{p.desc}</p>
+                
+                <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-[#4CAF50] transition-colors">
+                  {p.name}
+                </h3>
+                
+                <p className="text-sm text-slate-500 leading-relaxed mb-6">
+                  {p.desc}
+                </p>
+                
+                <div className="inline-flex items-center gap-2 text-[#4CAF50] font-semibold text-sm">
+                  View Program
+                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m5-4H3" />
+                  </svg>
                 </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        {/* Divider */}
-        <div className="my-12">
-          <hr className="border-slate-200" />
+              </div>
+            </Link>
+          ))}
         </div>
 
-        {/* Existing Scholarships Listings */}
+        <div className="my-12"><hr className="border-slate-200" /></div>
+
+        {/* All Opportunities Section */}
         <section id="all-scholarships" className="pb-16">
           <h3 className="text-xl font-bold text-slate-900 mb-6 text-left">All Opportunities</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
