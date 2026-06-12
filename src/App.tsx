@@ -28,10 +28,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
+          <Route path="/profile" element={<Profile />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/HighSchoolStudent" element={<HighSchoolStudent />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/high-school" element={<HighSchoolStudent />} />
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="scholarships" element={<Scholarships />} />

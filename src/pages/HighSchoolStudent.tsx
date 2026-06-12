@@ -7,26 +7,30 @@ export default function HighSchoolStudent() {
   const [userName, setUserName] = useState<string | null>(null);
 
   useEffect(() => {
-    const checkSession = async () => {
+  const checkSession = async () => {
+    try {
       const { data } = await supabase.auth.getSession();
       
       if (!data.session) {
         setIsGuest(true);
       } else {
-        // Fetch user's first name for personalization
-        const { data: profile } = await supabase
+        const { data: profile, error } = await supabase
           .from("high_school_students")
           .select("first_name")
           .eq("user_id", data.session.user.id)
-          .single();
+          .maybeSingle(); // Use maybeSingle() instead of single()
           
-        if (profile?.first_name) {
+        if (profile?.first_name && !error) {
           setUserName(profile.first_name);
         }
       }
-    };
-    checkSession();
-  }, []);
+    } catch (err) {
+      console.error("Error checking session:", err);
+      setIsGuest(true); // Fallback to guest mode on error
+    }
+  };
+  checkSession();
+}, []);
 
   return (
     <div className="min-h-screen bg-slate-50">
