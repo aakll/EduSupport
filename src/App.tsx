@@ -7,6 +7,9 @@ import Universities from './pages/Universities';
 import Majors from './pages/Majors';
 import Opportunities from './pages/Opportunities';
 import Dashboard from './pages/Dashboard';
+import Profile from "./pages/Profile";
+
+
 
 const Layout = () => (
   <div className="flex flex-col min-h-screen bg-gray-50">
@@ -22,6 +25,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
+        
+          <Route path="/profile" element={<Profile />} />
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="scholarships" element={<Scholarships />} />
