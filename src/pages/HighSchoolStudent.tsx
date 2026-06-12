@@ -33,7 +33,7 @@ export default function HighSchoolStudent() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white page-enter">
       {/* Guest Warning Banner */}
       {isGuest && (
         <div className="bg-amber-50 border-b border-amber-200 px-4 py-3 text-center sticky top-16 z-40">

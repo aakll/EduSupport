@@ -53,7 +53,7 @@ export default function Home() {
         <div className="relative z-10 text-center px-4 max-w-2xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">EduSupport</h1>
           <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4">Your Gateway to Academic Success</h2>
-          <p className="text-lg text-white/90 mb-10">Guide for students in Lebanon to find scholarships</p>
+          <p className="text-lg text-white/90 mb-10">A Guide for students in Lebanon to find scholarships</p>
 
           {/* Action Cards */}
           <div className="grid gap-4">
