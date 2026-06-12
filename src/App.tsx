@@ -9,7 +9,9 @@ import Opportunities from './pages/Opportunities';
 import Dashboard from './pages/Dashboard';
 import Profile from "./pages/Profile";
 import HighSchoolStudent from "./pages/HighSchoolStudent";
+import Signup from "./pages/Signup";
 
+// Inside <Routes>:
 
 
 const Layout = () => (
@@ -26,6 +28,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/high-school-student" element={<HighSchoolStudent />} />
           <Route path="/profile" element={<Profile />} />
           <Route index element={<Home />} />
