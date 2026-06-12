@@ -35,11 +35,6 @@ const teamMembers: TeamMember[] = [
 ];
 
 export default function Home() {
-  const [selectedCard, setSelectedCard] = useState<string | null>(null);
-
-  const handleCardClick = (cardType: string) => {
-    setSelectedCard(cardType);
-  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -55,7 +50,7 @@ export default function Home() {
 
           <div className="grid gap-4">
             {["High School Student", "Undergraduate Student", "Volunteer with Us"].map((card, i) => (
-              <button key={card} onClick={() => handleCardClick(card)}
+              <button key={card}
                 className={`group bg-white/95 backdrop-blur-sm rounded-2xl p-5 shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-transparent ${i === 0 ? "hover:border-[#4CAF50]" : i === 1 ? "hover:border-[#42A5F5]" : "hover:border-[#81C784]"}`}>
                 <div className="flex items-center gap-4">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-xl ${i === 0 ? "bg-gradient-to-br from-[#4CAF50] to-[#81C784]" : i === 1 ? "bg-gradient-to-br from-[#42A5F5] to-[#90CAF9]" : "bg-gradient-to-br from-[#81C784] to-[#4CAF50]"}`}>
