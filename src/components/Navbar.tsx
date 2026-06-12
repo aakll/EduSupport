@@ -8,6 +8,9 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Scholarships', path: '/scholarships' },
+    { name: 'Universities', path: '/universities' },
+    { name: 'Majors', path: '/majors' },
+    { name: 'Opportunities', path: '/opportunities' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -26,7 +29,7 @@ const Navbar = () => {
             </div>
             <div className="flex flex-col leading-tight">
               <span className="text-base font-bold tracking-tight text-slate-900">
-                EduSupport
+                Lebanon Scholarships
               </span>
               <span className="text-[10px] font-medium uppercase tracking-widest text-slate-400">
                 Empowering Students
