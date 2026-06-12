@@ -88,86 +88,8 @@ const Navbar = () => {
       <nav className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-lg">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid h-16 grid-cols-3 items-center">
-            {/* 1. Human Icon (Left) - Added justify-self: end */}
-            <div className="flex items-center gap-3 justify-self-end w-full">
-              <div className="relative">
-                <button
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="p-2 rounded-full text-slate-600 hover:bg-slate-100 transition-colors"
-                  aria-label="Account menu"
-                >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                    />
-                  </svg>
-                </button>
-                {isDropdownOpen && (
-                  <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2 border border-gray-100 z-50">
-                    {user ? (
-                      <>
-                        <div className="px-4 py-2 border-b border-gray-100">
-                          <p className="text-sm text-gray-500">Signed in as</p>
-                          <p className="text-sm font-medium text-gray-900 truncate">
-                            {user.email}
-                          </p>
-                        </div>
-                        <Link
-                          to="/dashboard"
-                          onClick={() => setIsDropdownOpen(false)}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                        >
-                          Dashboard
-                        </Link>
-                        <button
-                          onClick={handleLogout}
-                          className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50"
-                        >
-                          Logout
-                        </button>
-                      </>
-                    ) : (
-                      <button
-                        onClick={() => {
-                          setIsDropdownOpen(false);
-                          setIsModalOpen(true);
-                        }}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                      >
-                        Login
-                      </button>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* 2. Desktop Navigation (Middle) - Unchanged */}
-            <div className="hidden items-center gap-1 md:flex md:justify-self-center">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  className={`relative rounded-lg px-3.5 py-2 text-sm font-medium transition-all duration-200 ${
-                    isActive(link.path)
-                      ? "bg-indigo-50 text-indigo-700"
-                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-
-            {/* 3. Logo + Mobile Toggle (Right) - Added justify-self: start */}
+            
+            {/* 1. Logo + Mobile Toggle (Right) - Added justify-self: start */}
             <div className="flex items-center gap-3 justify-self-start w-full justify-end">
               {/* Mobile Menu Button */}
               <button
@@ -236,6 +158,86 @@ const Navbar = () => {
                 </div>
               </Link>
             </div>
+
+            {/* 2. Desktop Navigation (Middle) - Unchanged */}
+            <div className="hidden items-center gap-1 md:flex md:justify-self-center">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className={`relative rounded-lg px-3.5 py-2 text-sm font-medium transition-all duration-200 ${
+                    isActive(link.path)
+                      ? "bg-indigo-50 text-indigo-700"
+                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+
+            {/* 3. Human Icon (Left) - Added justify-self: end */}
+            <div className="flex items-center gap-3 justify-self-end w-full">
+              <div className="relative">
+                <button
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="p-2 rounded-full text-slate-600 hover:bg-slate-100 transition-colors"
+                  aria-label="Account menu"
+                >
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
+                  </svg>
+                </button>
+                {isDropdownOpen && (
+                  <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2 border border-gray-100 z-50">
+                    {user ? (
+                      <>
+                        <div className="px-4 py-2 border-b border-gray-100">
+                          <p className="text-sm text-gray-500">Signed in as</p>
+                          <p className="text-sm font-medium text-gray-900 truncate">
+                            {user.email}
+                          </p>
+                        </div>
+                        <Link
+                          to="/dashboard"
+                          onClick={() => setIsDropdownOpen(false)}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        >
+                          Dashboard
+                        </Link>
+                        <button
+                          onClick={handleLogout}
+                          className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50"
+                        >
+                          Logout
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          setIsDropdownOpen(false);
+                          setIsModalOpen(true);
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                      >
+                        Login
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+            
           </div>
         </div>
 
