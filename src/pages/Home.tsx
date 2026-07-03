@@ -53,22 +53,24 @@ export default function Home() {
         <div className="relative z-10 text-center px-4 max-w-2xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">EduSupport</h1>
           <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4">Your Gateway to Academic Success</h2>
-          <p className="text-lg text-white/90 mb-10">A Guide for students in Lebanon to find scholarships</p>
+          <p className="text-lg text-white/90 mb-10">A Guide for students in Lebanon</p>
 
           {/* Action Cards */}
           <div className="grid gap-4">
             {[
               { name: "High School Student", color: "from-[#4CAF50] to-[#81C784]", border: "hover:border-[#4CAF50]" },
               { name: "Undergraduate Student", color: "from-[#42A5F5] to-[#90CAF9]", border: "hover:border-[#42A5F5]" },
-              { name: "Volunteer with Us", color: "from-[#81C784] to-[#4CAF50]", border: "hover:border-[#81C784]" },
+              { name: "Volunteer with Us", color: "from-[#81C784] to-[#4CAF50]", border: "hover:border-[#81C784]", path: "/volunteer"  },
             ].map((card, i) => (
               <button
                 key={card.name}
                 onClick={() => {
                   if (i === 0) handleHighSchoolClick();
+                  else if (i === 2 && card.path) navigate(card.path);
                 }}
                 title={i === 1 ? "Coming Soon" : ""}
                 className={`group relative bg-white/95 backdrop-blur-sm rounded-2xl p-5 shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-transparent ${card.border}`}
+                
               >
                 <div className="flex items-center gap-4">
                   <div
@@ -159,7 +161,7 @@ export default function Home() {
             <div>
               <span className="text-xl font-bold mb-4 block">EduSupport</span>
               <p className="text-gray-300 leading-relaxed">
-                Dedicated to empowering Lebanese students with access to scholarships, universities, and career opportunities.
+                Dedicated to empowering Lebanese students with finding scholarships, universities, and career opportunities.
               </p>
             </div>
             <div>

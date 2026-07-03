@@ -218,15 +218,6 @@ const Navbar = () => {
                           ✏️ Edit Profile
                         </Link>
                         
-                        {/* Dashboard Link */}
-                        <Link
-                          to="/dashboard"
-                          onClick={() => setIsDropdownOpen(false)}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 border-b border-gray-100"
-                        >
-                          Dashboard
-                        </Link>
-                        
                         {/* Logout Button */}
                         <button
                           onClick={handleLogout}

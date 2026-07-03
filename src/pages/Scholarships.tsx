@@ -15,10 +15,10 @@ interface Scholarship {
 
 const programs = [
   {
-    name: "MEPE",
-    desc: "Middle East Partnership Initiative supporting educational excellence.",
+    name: "MEPI",
+    desc: "Full Funded. For HighSchool Students intersted in LAU and AUB.",
     color: "from-blue-500 to-indigo-600",
-    path: "/scholarships/mepe",
+    path: "/scholarships/mepi",
     image:
       "https://th.bing.com/th/id/R.ebe4fcfce02d27babc125b01a3c74945?rik=rgySSwULdNe80w&pid=ImgRaw&r=0",
   },
@@ -169,9 +169,7 @@ export default function Scholarships() {
 
         {/* All Opportunities Section */}
         <section id="all-scholarships" className="pb-16">
-          <h3 className="text-xl font-bold text-slate-900 mb-6 text-left">
-            All Opportunities
-          </h3>
+        
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {scholarships.map((s) => (
               <div

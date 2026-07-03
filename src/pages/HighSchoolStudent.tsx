@@ -61,7 +61,7 @@ export default function HighSchoolStudent() {
             Welcome{userName ? `, ${userName}` : ""}! 
           </h1>
           <p className="text-lg text-white/90 leading-relaxed">
-            Your personal space to discover scholarships as a high school student in Lebanon!
+            Discover scholarships for high school students in Lebanon!
           </p>
         </div>
       </section>
