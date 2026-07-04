@@ -17,7 +17,7 @@ export default function Login() {
       const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
       if (signInError) throw signInError;
       setMessage("Login successful! Redirecting...");
-      setTimeout(() => navigate("/high-school"), 1500);
+      setTimeout(() => navigate("/"), 1500);
     } catch (err: any) { setError(err.message); } finally { setIsLoading(false); }
   };
 
