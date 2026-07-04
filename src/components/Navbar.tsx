@@ -23,6 +23,15 @@ const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   useEffect(() => {
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      // If you store user info, update that too:
+      setUser(session?.user ? { id: session.user.id, email: session.user.email || "" } : null);
+    });
+
+    return () => listener.subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
     const getUser = async () => {
       const {
         data: { session },
