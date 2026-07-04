@@ -60,7 +60,8 @@ export default function Home() {
             {[
               { name: "High School Student", color: "from-[#4CAF50] to-[#81C784]", border: "hover:border-[#4CAF50]" },
               { name: "Undergraduate Student", color: "from-[#42A5F5] to-[#90CAF9]", border: "hover:border-[#42A5F5]" },
-              { name: "Volunteer with Us", color: "from-[#81C784] to-[#4CAF50]", border: "hover:border-[#81C784]", path: "/volunteer"  },
+              //add red color for volunteer card
+              { name: "Volunteer with Us", color: "from-[#F44336] to-[#EF5350]", border: "hover:border-[#F44336]", path: "/volunteer"  },
             ].map((card, i) => (
               <button
                 key={card.name}
