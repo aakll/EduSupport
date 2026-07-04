@@ -8,7 +8,7 @@ export default function Profile() {
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -16,22 +16,50 @@ export default function Profile() {
     schoolName: "",
     grade: "",
     graduationDate: "",
-    email: ""
+    email: "",
   });
+  const [newPassword, setNewPassword] = useState("");
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
 
+  const handlePasswordChange = async () => {
+    if (!newPassword || newPassword.length < 6) {
+      setError("Password must be at least 6 characters");
+      return;
+    }
+
+    setIsChangingPassword(true);
+    setMessage("");
+    setError("");
+
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword,
+    });
+
+    if (error) {
+      setError("Error updating password: " + error.message);
+    } else {
+      setMessage("Password updated successfully!");
+      setNewPassword("");
+      setTimeout(() => setMessage(""), 3000);
+    }
+    setIsChangingPassword(false);
+  };
+  
   useEffect(() => {
     const fetchProfile = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
       if (!session) {
         navigate("/");
         return;
       }
 
       const { data, error } = await supabase
-        .from('high_school_students')
-        .select('*')
-        .eq('user_id', session.user.id)
+        .from("high_school_students")
+        .select("*")
+        .eq("user_id", session.user.id)
         .single();
 
       if (error) {
@@ -47,7 +75,7 @@ export default function Profile() {
         schoolName: data.school_name || "",
         grade: data.grade || "",
         graduationDate: data.graduation_date || "",
-        email: session.user.email || ""
+        email: session.user.email || "",
       });
       setIsLoading(false);
     };
@@ -61,20 +89,22 @@ export default function Profile() {
     setMessage("");
     setError("");
 
-    const { data: { session } } = await supabase.auth.getSession();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
     if (!session) return;
 
     const { error } = await supabase
-      .from('high_school_students')
+      .from("high_school_students")
       .update({
         first_name: formData.firstName,
         last_name: formData.lastName,
         age: parseInt(formData.age),
         school_name: formData.schoolName,
         grade: formData.grade,
-        graduation_date: formData.graduationDate
+        graduation_date: formData.graduationDate,
       })
-      .eq('user_id', session.user.id);
+      .eq("user_id", session.user.id);
 
     if (error) {
       setError("Failed to update profile");
@@ -102,8 +132,18 @@ export default function Profile() {
             onClick={() => navigate(-1)}
             className="text-gray-600 hover:text-gray-900 mb-4 flex items-center gap-2"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
             Back
           </button>
@@ -116,28 +156,37 @@ export default function Profile() {
           {/* Profile Icon */}
           <div className="flex justify-center mb-6">
             <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#4CAF50] to-[#42A5F5] flex items-center justify-center text-white text-4xl font-bold">
-              {formData.firstName[0]}{formData.lastName[0]}
+              {formData.firstName[0]}
+              {formData.lastName[0]}
             </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  First Name
+                </label>
                 <input
                   type="text"
                   value={formData.firstName}
-                  onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, firstName: e.target.value })
+                  }
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4CAF50] focus:border-transparent"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Last Name
+                </label>
                 <input
                   type="text"
                   value={formData.lastName}
-                  onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, lastName: e.target.value })
+                  }
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4CAF50] focus:border-transparent"
                   required
                 />
@@ -146,21 +195,29 @@ export default function Profile() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Age
+                </label>
                 <input
                   type="number"
                   value={formData.age}
-                  onChange={(e) => setFormData({...formData, age: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, age: e.target.value })
+                  }
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4CAF50] focus:border-transparent"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Grade</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Grade
+                </label>
                 <input
                   type="text"
                   value={formData.grade}
-                  onChange={(e) => setFormData({...formData, grade: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, grade: e.target.value })
+                  }
                   placeholder="e.g. 11th Grade"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4CAF50] focus:border-transparent"
                   required
@@ -169,36 +226,75 @@ export default function Profile() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">School Name</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                School Name
+              </label>
               <input
                 type="text"
                 value={formData.schoolName}
-                onChange={(e) => setFormData({...formData, schoolName: e.target.value})}
+                onChange={(e) =>
+                  setFormData({ ...formData, schoolName: e.target.value })
+                }
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4CAF50] focus:border-transparent"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Expected Graduation Date</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Expected Graduation Date
+              </label>
               <input
                 type="date"
                 value={formData.graduationDate}
-                onChange={(e) => setFormData({...formData, graduationDate: e.target.value})}
+                onChange={(e) =>
+                  setFormData({ ...formData, graduationDate: e.target.value })
+                }
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4CAF50] focus:border-transparent"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email
+              </label>
               <input
                 type="email"
                 value={formData.email}
                 disabled
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-500"
               />
-              <p className="text-xs text-gray-500 mt-1">Email cannot be changed</p>
+              <p className="text-xs text-gray-500 mt-1">
+                Email cannot be changed
+              </p>
+            </div>
+
+            {/* Password Change Section */}
+            <div className="pt-6 border-t border-gray-200">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Change Password
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  placeholder="Enter new password (min 6 chars)"
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4CAF50] focus:border-transparent"
+                />
+                <button
+                  type="button"
+                  onClick={handlePasswordChange}
+                  disabled={isChangingPassword || !newPassword}
+                  className="px-6 py-3 bg-[#42A5F5] text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                >
+                  {isChangingPassword ? "Updating..." : "Update"}
+                </button>
+              </div>
+              <p className="text-xs text-gray-500 mt-2">
+                You can change your password anytime from here.
+              </p>
             </div>
 
             {message && (
