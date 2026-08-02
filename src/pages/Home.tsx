@@ -179,7 +179,7 @@ export default function Home() {
                   transition-all duration-300 ease-out flex flex-col items-center text-center gap-5
                   ${bgHover}
                   /* Center Card Styling: Larger, Higher Z-Index, Colored Border */
-                  ${isCenter ? 'w-full md:w-80 h-80 scale-110 z-20 shadow-2xl border-2 ' + themeColor : 'w-full md:w-64 h-64 hover:-translate-y-2'}
+                  ${isCenter ? 'w-full md:w-80 h-80 scale-110 z-20 shadow-2xl border-2 order-2 ' + themeColor : isLeft ? 'w-full md:w-64 h-64 hover:-translate-y-2 order-1' : 'w-full md:w-64 h-64 hover:-translate-y-2 order-3'}
                   ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
                 `}
                 style={{ transitionDelay: `${(i + 1) * 150}ms` }}
@@ -188,7 +188,7 @@ export default function Home() {
                 <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 
                   ${isCenter ? 'bg-green-100 text-green-600 group-hover:scale-110' : 
                     isLeft ? 'bg-blue-100 text-blue-600 group-hover:scale-110' : 
-                    'bg-red-100 text-red-600 group-hover:scale-110'}`}
+                    'bg-red-100 text-orange-600 group-hover:scale-110'}`}
                 >
                   {card.icon}
                 </div>
