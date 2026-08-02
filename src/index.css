@@ -15,6 +15,7 @@
   50% { transform: translate(10px, 10px); }
 }
 
+
 .animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
 .animate-float-medium { animation: float-medium 10s ease-in-out infinite; }
 .animate-float-fast { animation: float-fast 6s ease-in-out infinite; }

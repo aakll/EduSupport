@@ -147,7 +147,6 @@ export default function Home() {
             const isCenter = i === 0; 
             const isLeft = i === 1;
           
-
             // Color configurations based on your request
             let themeColor = "";
             let bgHover = "";
