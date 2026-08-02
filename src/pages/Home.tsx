@@ -146,7 +146,7 @@ export default function Home() {
             // Logic: Index 0 is High School (Center/Green), 1 is Undergrad (Left/Blue), 2 is Volunteer (Right/Red)
             const isCenter = i === 0; 
             const isLeft = i === 1;
-            const isRight = i === 2;
+          
 
             // Color configurations based on your request
             let themeColor = "";
