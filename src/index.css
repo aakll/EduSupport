@@ -1,34 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.page-enter {
-  animation: fade-in-up 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94 ) forwards;
-}
 @keyframes float-slow {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(30px, -30px) scale(1.05); }
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(20px, -20px); }
 }
-
 @keyframes float-medium {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-20px, 20px) scale(0.95); }
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-20px, 20px); }
 }
-
 @keyframes float-fast {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(15px, 15px) scale(1.02); }
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(10px, 10px); }
 }
 
 .animate-float-slow { animation: float-slow 8s ease-in-out infinite; }

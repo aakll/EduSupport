@@ -116,43 +116,37 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#E0F2FE] via-[#F0F9FF] to-[#FFFFFF]">
-        {/* Floating Motion Elements - Bright & Energetic */}
+            {/* Hero Section */}
+      <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#f8fafc] via-white to-[#e2e8f0]">
+        
+        {/* Floating Motion Elements (Bright & Energetic) */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Top Left Floating Circle */}
-          <div
-            className="absolute -top-20 -left-20 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-float-slow"
-            style={{ animationDelay: "0s" }}
-          />
-          {/* Bottom Right Floating Circle */}
-          <div
-            className="absolute -bottom-20 -right-20 w-[500px] h-[500px] bg-indigo-400/20 rounded-full blur-3xl animate-float-medium"
-            style={{ animationDelay: "1s" }}
-          />
-          {/* Center Right Accent */}
-          <div
-            className="absolute top-[30%] right-[15%] w-64 h-64 bg-emerald-400/15 rounded-full blur-2xl animate-float-fast"
-            style={{ animationDelay: "2s" }}
-          />
+          <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-float-slow" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-400/20 rounded-full blur-3xl animate-float-medium" />
+          <div className="absolute top-[40%] right-[20%] w-64 h-64 bg-emerald-400/15 rounded-full blur-2xl animate-float-fast" />
         </div>
-        <div
-          className={`relative z-10 text-center px-4 max-w-3xl mx-auto transition-all duration-1000 ease-out ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-        >
-          <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 mb-6 tracking-tight drop-shadow-lg">
+
+        {/* Text Content */}
+        <div className={`relative z-10 text-center px-4 max-w-4xl mx-auto mb-16 transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 mb-6 tracking-tight">
             EduSupport
           </h1>
           <h2 className="text-2xl md:text-3xl font-medium text-slate-700 mb-4">
             Your Gateway to Academic Success
           </h2>
-          <p className="text-lg text-slate-600 mb-12 max-w-xl mx-auto leading-relaxed">
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
             A comprehensive guide designed specifically for students in Lebanon.
-            Find scholarships, universities, and career paths.
           </p>
+        </div>
 
-          {/* Modern Action Cards */}
-          <div className="grid gap-5 max-w-md mx-auto">
-            {cards.map((card, i) => (
+        {/* Figma-Style Horizontal Layout */}
+        <div className={`relative z-10 flex flex-col md:flex-row items-center justify-center gap-6 w-full max-w-5xl px-4 transition-all duration-1000 delay-300 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          
+          {cards.map((card, i) => {
+            // Logic to make the middle card (index 0 in our array, but visually center) pop out
+            const isCenter = i === 0; 
+            
+            return (
               <button
                 key={card.name}
                 onClick={() => {
@@ -160,65 +154,45 @@ export default function Home() {
                   else if (i === 2 && card.path) navigate(card.path);
                 }}
                 title={i === 1 ? "Coming Soon" : ""}
-                className={`group relative w-full bg-white/95 backdrop-blur-md rounded-xl p-5 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-white/20 border-l-4 border-l-transparent ${card.accent} text-left flex items-center gap-5 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                className={`
+                  group relative bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-xl 
+                  border border-white/50 transition-all duration-300 ease-out
+                  flex flex-col items-center text-center gap-4
+                  ${isCenter ? 'w-full md:w-80 h-64 scale-110 z-20 shadow-2xl ring-1 ring-black/5' : 'w-full md:w-64 h-56 hover:-translate-y-2'}
+                  ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+                `}
                 style={{ transitionDelay: `${(i + 1) * 150}ms` }}
               >
-                <div
-                  className={`w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center transition-colors duration-300 group-hover:bg-slate-100 ${card.textAccent}`}
-                >
+                {/* Icon Container */}
+                <div className={`w-14 h-14 rounded-full flex items-center justify-center transition-colors duration-300 ${isCenter ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 group-hover:bg-slate-200'}`}>
                   {card.icon}
                 </div>
+                
+                {/* Text */}
+                <div className="flex-1 flex flex-col justify-center">
+                  <span className={`text-lg font-bold ${isCenter ? 'text-slate-900' : 'text-slate-700'}`}>
+                    {card.name}
+                  </span>
+                  {isCenter && <p className="text-xs text-slate-500 mt-2 font-medium">Start your journey here</p>}
+                </div>
 
-                <span className="text-lg font-semibold text-slate-800 flex-1">
-                  {card.name}
-                </span>
-
-                <svg
-                  className="w-5 h-5 text-slate-400 group-hover:translate-x-1 group-hover:text-slate-600 transition-all"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
+                {/* Arrow / Action Indicator */}
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${isCenter ? 'bg-slate-900 text-white group-hover:scale-110' : 'bg-transparent text-slate-400 group-hover:bg-slate-100'}`}>
+                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                </div>
 
                 {/* Coming Soon Badge */}
                 {i === 1 && (
-                  <span className="absolute -right-2 -top-2 bg-slate-800 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md">
+                  <span className="absolute -top-3 -right-3 bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg border-2 border-white">
                     Soon
                   </span>
                 )}
               </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div
-          className={`absolute bottom-8 left-1/2 -translate-x-1/2 transition-opacity duration-1000 delay-1000 ${mounted ? "opacity-100" : "opacity-0"}`}
-        >
-          <div className="animate-bounce p-2 rounded-full bg-slate-900/10 backdrop-blur-sm">
-            <svg
-              className="w-5 h-5 text-slate-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"
-              />
-            </svg>
-          </div>
+            );
+          })}
         </div>
       </section>
+      
 
       {/* High School Student Modal */}
       {isHSModalOpen && (
