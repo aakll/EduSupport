@@ -53,6 +53,9 @@ export default function Home() {
           viewBox="0 0 24 24"
           stroke="currentColor"
         >
+          <span className="text-xl font-bold text-slate-900">
+            High School Student
+          </span>
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -116,9 +119,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-            {/* Hero Section */}
+      {/* Hero Section */}
       <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-white">
-        
         {/* Subtle Floating Background Elements (Keeps it from looking flat) */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-green-500/5 rounded-full blur-3xl animate-float-slow" />
@@ -127,40 +129,46 @@ export default function Home() {
         </div>
 
         {/* Text Content */}
-        <div className={`relative z-10 text-center px-4 max-w-4xl mx-auto mb-20 transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 mb-6 tracking-tight">
+        <div
+          className={`relative z-10 text-center px-4 max-w-4xl mx-auto mb-20 transition-all duration-1000 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+        >
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight bg-gradient-to-r from-green-500 via-blue-500 to-green-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-shift">
             EduSupport
           </h1>
           <h2 className="text-2xl md:text-3xl font-medium text-slate-700 mb-4">
             Your Gateway to Academic Success
           </h2>
           <p className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            A comprehensive guide designed specifically for students in Lebanon.
+            A comprehensive guide for students in Lebanon.
           </p>
         </div>
 
         {/* Figma-Style Horizontal Layout */}
-        <div className={`relative z-10 flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-6xl px-4 transition-all duration-1000 delay-300 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          
+        <div
+          className={`relative z-10 flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-6xl px-4 transition-all duration-1000 delay-300 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+        >
           {cards.map((card, i) => {
             // Logic: Index 0 is High School (Center/Green), 1 is Undergrad (Left/Blue), 2 is Volunteer (Right/Red)
-            const isCenter = i === 0; 
+            const isCenter = i === 0;
             const isLeft = i === 1;
-          
+
             // Color configurations based on your request
             let themeColor = "";
             let bgHover = "";
             let textTheme = "";
-            
-            if (isCenter) { // High School - Green
+
+            if (isCenter) {
+              // High School - Green
               themeColor = "border-green-500 text-green-600";
               bgHover = "group-hover:bg-green-50 group-hover:border-green-500";
               textTheme = "text-green-700";
-            } else if (isLeft) { // Undergrad - Blue
+            } else if (isLeft) {
+              // Undergrad - Blue
               themeColor = "border-blue-500 text-blue-600";
               bgHover = "group-hover:bg-blue-50 group-hover:border-blue-500";
               textTheme = "text-blue-700";
-            } else { // Volunteer - Red
+            } else {
+              // Volunteer - Red
               themeColor = "border-red-500 text-red-600";
               bgHover = "group-hover:bg-red-50 group-hover:border-red-500";
               textTheme = "text-red-700";
@@ -179,35 +187,64 @@ export default function Home() {
                   transition-all duration-300 ease-out flex flex-col items-center text-center gap-5
                   ${bgHover}
                   /* Center Card Styling: Larger, Higher Z-Index, Colored Border */
-                  ${isCenter ? 'w-full md:w-80 h-80 scale-110 z-20 shadow-2xl border-2 order-2 ' + themeColor : isLeft ? 'w-full md:w-64 h-64 hover:-translate-y-2 order-1' : 'w-full md:w-64 h-64 hover:-translate-y-2 order-3'}
-                  ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+                  ${isCenter ? "w-full md:w-80 h-80 scale-110 z-20 shadow-2xl border-2 order-2 " + themeColor : isLeft ? "w-full md:w-64 h-64 hover:-translate-y-2 order-1" : "w-full md:w-64 h-64 hover:-translate-y-2 order-3"}
+                  ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}
                 `}
-                style={{ transitionDelay: `${(i + 1) * 150}ms` }}
+                style={{
+                  transitionDelay: `${(i + 1) * 150}ms`,
+                  animationDelay: `${i * 0.5}s`,
+                }}
               >
                 {/* Icon Container */}
-                <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 
-                  ${isCenter ? 'bg-green-100 text-green-600 group-hover:scale-110' : 
-                    isLeft ? 'bg-blue-100 text-blue-600 group-hover:scale-110' : 
-                    'bg-red-100 text-orange-600 group-hover:scale-110'}`}
+                <div
+                  className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 
+                  ${
+                    isCenter
+                      ? "bg-green-100 text-green-600 group-hover:scale-110"
+                      : isLeft
+                        ? "bg-blue-100 text-blue-600 group-hover:scale-110"
+                        : "bg-red-100 text-orange-600 group-hover:scale-110"
+                  }`}
                 >
                   {card.icon}
                 </div>
-                
+
                 {/* Text */}
                 <div className="flex-1 flex flex-col justify-center">
                   <span className={`text-xl font-bold ${textTheme}`}>
                     {card.name}
                   </span>
-                  {isCenter && <p className="text-sm text-slate-400 mt-2 font-medium">Start your journey here</p>}
+                  {isCenter && (
+                    <p className="text-sm text-slate-400 mt-2 font-medium">
+                      Start your journey here
+                    </p>
+                  )}
                 </div>
 
                 {/* Arrow Button */}
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all 
-                  ${isCenter ? 'bg-green-600 text-white group-hover:bg-green-700' : 
-                    isLeft ? 'bg-blue-600 text-white group-hover:bg-blue-700' : 
-                    'bg-red-600 text-white group-hover:bg-red-700'}`}
+                <div
+                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-all 
+                  ${
+                    isCenter
+                      ? "bg-green-600 text-white group-hover:bg-green-700"
+                      : isLeft
+                        ? "bg-blue-600 text-white group-hover:bg-blue-700"
+                        : "bg-orange-600 text-white group-hover:bg-red-700"
+                  }`}
                 >
-                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
                 </div>
 
                 {/* Coming Soon Badge */}
@@ -221,7 +258,6 @@ export default function Home() {
           })}
         </div>
       </section>
-      
 
       {/* High School Student Modal */}
       {isHSModalOpen && (
