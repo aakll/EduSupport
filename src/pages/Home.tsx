@@ -211,7 +211,7 @@ export default function Home() {
 
                 {/* Text */}
                 <div className="flex-1 flex flex-col justify-center">
-                  <span className={`text-xl font-bold ${textTheme}`}>
+                  <span className="text-xl font-bold text-slate-900">
                     {card.name}
                   </span>
                   {isCenter && (
