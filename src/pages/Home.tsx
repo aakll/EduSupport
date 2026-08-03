@@ -155,23 +155,22 @@ export default function Home() {
             // Color configurations based on your request
             let themeColor = "";
             let bgHover = "";
-            let textTheme = "";
+           
 
             if (isCenter) {
               // High School - Green
               themeColor = "border-green-500 text-green-600";
               bgHover = "group-hover:bg-green-50 group-hover:border-green-500";
-              textTheme = "text-green-700";
+              
             } else if (isLeft) {
               // Undergrad - Blue
               themeColor = "border-blue-500 text-blue-600";
               bgHover = "group-hover:bg-blue-50 group-hover:border-blue-500";
-              textTheme = "text-blue-700";
+              
             } else {
               // Volunteer - Red
               themeColor = "border-red-500 text-red-600";
               bgHover = "group-hover:bg-red-50 group-hover:border-red-500";
-              textTheme = "text-red-700";
             }
 
             return (
