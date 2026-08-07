@@ -1,4 +1,4 @@
-import CategoryLanding from "C:/Users/USER/Downloads/courses/Website/scholarships-lb/src/components/CategoryLanding.tsx";
+import CategoryLanding from "../components/CategoryLanding.tsx";
 
 export default function HighSchoolStudent() {
   return (

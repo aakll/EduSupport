@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import type { UserCategory } from "../components/AuthChoiceModal";
 
-type RealCategory = Exclude<UserCategory, "volunteer">; // "high_school" | "university" | "other" — placeholder if you also add "other" to UserCategory
 
 const CATEGORY_LABELS: Record<string, string> = {
   high_school: "High School Student",
