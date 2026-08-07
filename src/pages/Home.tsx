@@ -122,7 +122,9 @@ export default function Home() {
             return (
               <button
                 key={card.name}
-                onClick={() => handleCardClick(card.category, card.loggedInPath)}
+                onClick={() => i !== 1 && handleCardClick(card.category, card.loggedInPath)}
+                disabled={i === 1}
+                
                 className={`
                   group relative bg-white rounded-3xl p-8 shadow-lg border border-slate-100
                   transition-all duration-300 ease-out flex flex-col items-center text-center gap-5
@@ -152,6 +154,11 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </div>
+                {i === 1 && (
+                  <span className="absolute -top-3 -right-3 bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg border-2 border-white">
+                    Soon
+                  </span>
+                )}
               </button>
             );
           })}

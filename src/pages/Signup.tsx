@@ -133,7 +133,7 @@ export default function Signup() {
         <form onSubmit={handleSubmit} className="space-y-4">
 
           {/* Category picker — only shown if not preselected by the modal */}
-          {!incomingCategory || cameFromVolunteer ? (
+          {true ? (
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Which best describes you?
