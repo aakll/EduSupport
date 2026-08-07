@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import AuthChoiceModal  from "../components/AuthChoiceModal";
 import type { UserCategory } from "../components/AuthChoiceModal";
+import type { ReactElement } from "react";
 
 
 export default function Home() {
@@ -41,7 +42,7 @@ export default function Home() {
     name: string;
     category: UserCategory;
     loggedInPath: string;
-    icon: JSX.Element;
+    icon: ReactElement;
 
   }[] = [
     {
