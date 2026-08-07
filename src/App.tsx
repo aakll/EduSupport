@@ -9,6 +9,7 @@ import Opportunities from './pages/Opportunities';
 import Dashboard from './pages/Dashboard';
 import Profile from "./pages/Profile";
 import HighSchoolStudent from "./pages/HighSchoolStudent";
+import UniversityStudent from "./pages/UniversityStudent";
 import Signup from "./pages/Signup";
 import Volunteer from "./pages/Volunteer";
 
@@ -26,13 +27,13 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/volunteer" element={<Volunteer />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/high-school" element={<HighSchoolStudent />} />
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="high-school" element={<HighSchoolStudent />} />
+          <Route path="university" element={<UniversityStudent />} />
+          <Route path="volunteer" element={<Volunteer />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="scholarships" element={<Scholarships />} />
           <Route path="universities" element={<Universities />} />
           <Route path="majors" element={<Majors />} />
