@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import type { UserCategory } from "../components/AuthChoiceModal";
 
+type RealCategory = Exclude<UserCategory, "volunteer">; // "high_school" | "university" | "other" — placeholder if you also add "other" to UserCategory
 
 const CATEGORY_LABELS: Record<string, string> = {
   high_school: "High School Student",
@@ -55,67 +56,31 @@ export default function Signup() {
 
     setIsLoading(true);
     try {
-      const { data, error: signUpError } = await supabase.auth.signUp({
+      const { error: signUpError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
+        options: {
+          data: {
+            category,
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            age: formData.age,
+            school_name: formData.schoolName,
+            grade: formData.grade,
+            graduation_date: formData.graduationDate,
+            university_name: formData.universityName,
+            major: formData.major,
+            standing: formData.standing,
+            expected_graduation: formData.expectedGraduation,
+            organization: formData.organization,
+            role: formData.role,
+            wants_volunteer: wantsVolunteer,
+          },
+        },
       });
       if (signUpError) throw signUpError;
-      if (!data.user) throw new Error("Signup did not return a user.");
 
-      const userId = data.user.id;
-
-      // Insert into the correct category table. Only high_school_students
-      // exists today per the current schema — university_students and
-      // other_users need to be created in Supabase before this will work.
-      if (category === "high_school") {
-        const { error: insertError } = await supabase.from("high_school_students").insert([{
-          user_id: userId,
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          age: parseInt(formData.age) || null,
-          school_name: formData.schoolName,
-          grade: formData.grade,
-          graduation_date: formData.graduationDate,
-        }]);
-        if (insertError) throw insertError;
-      } else if (category === "university") {
-        const { error: insertError } = await supabase.from("university_students").insert([{
-          user_id: userId,
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          age: parseInt(formData.age) || null,
-          university_name: formData.universityName,
-          major: formData.major,
-          standing: formData.standing, // "undergrad" | "graduate"
-          expected_graduation: formData.expectedGraduation,
-        }]);
-        if (insertError) throw insertError;
-      } else if (category === "other") {
-        const { error: insertError } = await supabase.from("other_users").insert([{
-          user_id: userId,
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          organization: formData.organization,
-          role: formData.role,
-        }]);
-        if (insertError) throw insertError;
-      }
-
-      // Volunteer is independent of category — insert only if opted in.
-      if (wantsVolunteer) {
-        const { error: volError } = await supabase.from("volunteer_profiles").insert([{
-          user_id: userId,
-          joined_at: new Date().toISOString(),
-        }]);
-        if (volError) throw volError;
-      }
-
-      setMessage("Account created! Redirecting...");
-      const destination =
-        category === "high_school" ? "/high-school" :
-        category === "university" ? "/university" :
-        "/dashboard";
-      setTimeout(() => navigate(destination), 1500);
+      setMessage("Account created! Check your email to confirm, then log in.");
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -133,7 +98,7 @@ export default function Signup() {
         <form onSubmit={handleSubmit} className="space-y-4">
 
           {/* Category picker — only shown if not preselected by the modal */}
-          {true ? (
+          {!incomingCategory || cameFromVolunteer ? (
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Which best describes you?

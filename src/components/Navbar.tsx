@@ -3,6 +3,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 
 const Navbar = () => {
+
+  const STATUS_LABELS: Record<string, string> = {
+  high_school: "High School Student",
+  university_undergrad: "University Student (Undergrad)",
+  university_graduate: "University Student (Graduate)",
+  other: "Other",
+};
+
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [user, setUser] = useState<{ id: string; email: string } | null>(null);
@@ -40,28 +48,17 @@ const Navbar = () => {
   // A logged-in user could be in any of the three category tables — check
   // each until one matches instead of assuming high_school_students.
   useEffect(() => {
-    const fetchProfileData = async () => {
-      if (!user?.id) {
-        setProfileData(null);
-        return;
-      }
-
-      const tables = ["high_school_students", "university_students", "other_users"];
-      for (const table of tables) {
-        const { data } = await supabase
-          .from(table)
-          .select("*")
-          .eq("user_id", user.id)
-          .maybeSingle();
-        if (data) {
-          setProfileData(data);
-          return;
-        }
-      }
-      setProfileData(null);
-    };
-    fetchProfileData();
-  }, [user]);
+  const fetchProfileData = async () => {
+    if (!user?.id) { setProfileData(null); return; }
+    const { data } = await supabase
+      .from("profiles")
+      .select("first_name, last_name, status")
+      .eq("user_id", user.id)
+      .maybeSingle();
+    setProfileData(data);
+  };
+  fetchProfileData();
+}, [user]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -141,7 +138,8 @@ const Navbar = () => {
                             <p className="text-sm font-semibold text-gray-900">
                               {profileData ? `${profileData.first_name} ${profileData.last_name}` : "User"}
                             </p>
-                            <p className="text-xs text-gray-500">{profileData?.grade || profileData?.major || ""}</p>
+                            <p className="text-xs text-gray-500">{STATUS_LABELS[profileData?.status] || ""}</p>
+              
                           </div>
                         </div>
                         <p className="text-xs text-gray-500 truncate">{user.email}</p>
@@ -234,5 +232,6 @@ const Navbar = () => {
     </>
   );
 };
+
 
 export default Navbar;
