@@ -16,12 +16,10 @@ export default function Signup() {
   // (arrived via the Volunteer card), the user must pick their real category
   // below before the category-specific fields appear.
   const incomingCategory = location.state?.category as UserCategory | undefined;
-  const cameFromVolunteer = incomingCategory === "volunteer";
 
   const [category, setCategory] = useState<string>(
     incomingCategory && incomingCategory !== "volunteer" ? incomingCategory : ""
   );
-  const [wantsVolunteer, setWantsVolunteer] = useState(cameFromVolunteer);
 
   const [formData, setFormData] = useState({
     firstName: "", lastName: "", email: "", password: "",
@@ -71,7 +69,6 @@ export default function Signup() {
             expected_graduation: formData.expectedGraduation,
             organization: formData.organization,
             role: formData.role,
-            wants_volunteer: wantsVolunteer,
           },
         },
       });
@@ -95,7 +92,7 @@ export default function Signup() {
         <form onSubmit={handleSubmit} className="space-y-4">
 
           {/* Category picker — only shown if not preselected by the modal */}
-          {!incomingCategory || cameFromVolunteer ? (
+          {!incomingCategory ? (
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Which best describes you?
@@ -165,17 +162,6 @@ export default function Signup() {
 
           <input type="email" placeholder="Email" required value={formData.email} onChange={(e) => update("email", e.target.value)} className={inputClass} />
           <input type="password" placeholder="Password" required value={formData.password} onChange={(e) => update("password", e.target.value)} className={inputClass} />
-
-          {/* Volunteer opt-in — independent of category, available to everyone */}
-          <label className="flex items-center gap-2 text-sm text-slate-600">
-            <input
-              type="checkbox"
-              checked={wantsVolunteer}
-              onChange={(e) => setWantsVolunteer(e.target.checked)}
-              className="rounded border-gray-300"
-            />
-            I'd also like to sign up as a volunteer
-          </label>
 
           {message && <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">{message}</div>}
           {error && <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">{error}</div>}
