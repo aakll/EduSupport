@@ -168,12 +168,12 @@ export default function Volunteer() {
               )}
 
               {userId && volunteerStatus === "not_applied" && (
-                 <a>
+                <a
                   href="https://forms.gle/Qb9qfGkdGQXNRoTu8"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-400 to-red-600 text-white font-semibold rounded-xl hover:shadow-lg hover:scale-[1.02] transition-all text-lg"
-                
+                >
                   Fill Out Application Form
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
