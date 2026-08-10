@@ -12,11 +12,6 @@ export default function Volunteer() {
   const [volunteerStatus, setVolunteerStatus] = useState<VolunteerStatus>("not_applied");
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const [motivation, setMotivation] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-
   useEffect(() => {
     const checkAuthAndStatus = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -43,28 +38,6 @@ export default function Volunteer() {
     checkAuthAndStatus();
   }, []);
 
-  const handleApply = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!userId) return;
-
-    setIsSubmitting(true);
-    setMessage(""); setError("");
-
-    const { error: insertError } = await supabase.from("volunteer_profiles").insert([{
-      user_id: userId,
-      motivation,
-      status: "pending",
-    }]);
-
-    if (insertError) {
-      setError("Failed to submit application: " + insertError.message);
-    } else {
-      setVolunteerStatus("pending");
-      setMessage("Application submitted! We'll review it and get back to you.");
-    }
-    setIsSubmitting(false);
-  };
-
   const goToLogin = () => {
     navigate("/login", { state: { redirectTo: "/volunteer" } });
   };
@@ -79,7 +52,7 @@ export default function Volunteer() {
 
   return (
     <div className="min-h-screen bg-white page-enter">
-      {!userId && !isCheckingAuth && <GuestBanner redirectTo="/volunteer" />}
+      {!userId && <GuestBanner redirectTo="/volunteer" />}
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
         <div
@@ -156,7 +129,6 @@ export default function Volunteer() {
                 Provide useful resources and references to help them succeed.
               </p>
 
-              {/* --- Apply logic starts here --- */}
               {!userId && (
                 <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 text-center">
                   <p className="text-amber-800 font-medium mb-3">
@@ -196,34 +168,18 @@ export default function Volunteer() {
               )}
 
               {userId && volunteerStatus === "not_applied" && (
-                <form onSubmit={handleApply} className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">
-                      Why do you want to volunteer with us?
-                    </label>
-                    <textarea
-                      required
-                      value={motivation}
-                      onChange={(e) => setMotivation(e.target.value)}
-                      rows={4}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                      placeholder="Tell us a bit about your motivation..."
-                    />
-                  </div>
-
-                  {message && <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">{message}</div>}
-                  {error && <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">{error}</div>}
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-400 to-red-600 text-white font-semibold rounded-xl hover:shadow-lg hover:scale-[1.02] transition-all text-lg disabled:opacity-50"
-                  >
-                    {isSubmitting ? "Submitting..." : "Apply to Volunteer"}
-                  </button>
-                </form>
+                 <a>
+                  href="https://forms.gle/Qb9qfGkdGQXNRoTu8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-400 to-red-600 text-white font-semibold rounded-xl hover:shadow-lg hover:scale-[1.02] transition-all text-lg"
+                
+                  Fill Out Application Form
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
               )}
-              {/* --- Apply logic ends here --- */}
             </div>
           </div>
         </div>
