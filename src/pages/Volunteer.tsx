@@ -52,11 +52,16 @@ export default function Volunteer() {
   const goToLogin = () => navigate("/login", { state: { redirectTo: "/volunteer" } });
 
   const handleApply = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!userId) return;
+  e.preventDefault();
+  if (!userId) return;
 
-    setIsSubmitting(true);
-    setMessage(""); setError("");
+  if (!firstName || !lastName || !scholarshipReceived || !university || !major || !graduationDate) {
+    setError("Please fill in all required fields.");
+    return;
+  }
+
+  setIsSubmitting(true);
+  setMessage(""); setError("");
 
     const { error: insertError } = await supabase.from("volunteer_applications").insert([{
       user_id: userId,
