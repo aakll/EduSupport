@@ -3,74 +3,84 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import GuestBanner from "../components/GuestBanner";
 
-interface Application {
-  id: string;
-  role_applied_for: string;
-  status: "pending" | "approved" | "rejected";
-}
+type AppStatus = "not_applied" | "pending" | "approved" | "rejected";
 
-const ROLES = ["Scholarship Mentor", "Community Outreach", "Tech & Design Support"];
+const SCHOLARSHIPS = ["MEPI", "USAID", "ULYP", "LIFE", "Habeeb", "Tomooh", "Tarraf"];
+const LEVELS = ["1st year", "2nd year", "3rd year", "4th year", "5th year"];
 
 export default function Volunteer() {
   const navigate = useNavigate();
   const [userId, setUserId] = useState<string | null>(null);
+  const [userEmail, setUserEmail] = useState("");
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
-  const [applications, setApplications] = useState<Application[]>([]);
+  const [appStatus, setAppStatus] = useState<AppStatus>("not_applied");
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
-  const [roleAppliedFor, setRoleAppliedFor] = useState("");
-  const [motivation, setMotivation] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [scholarshipReceived, setScholarshipReceived] = useState("");
+  const [university, setUniversity] = useState("");
+  const [major, setMajor] = useState("");
+  const [level, setLevel] = useState("");
+  const [graduationDate, setGraduationDate] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  const loadApplications = async (uid: string) => {
-    const { data } = await supabase
-      .from("volunteer_applications")
-      .select("id, role_applied_for, status")
-      .eq("user_id", uid);
-    setApplications(data || []);
-  };
-
   useEffect(() => {
-    const checkAuth = async () => {
+    const init = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { setIsCheckingAuth(false); return; }
-      setUserId(session.user.id);
-      await loadApplications(session.user.id);
+      if (session) {
+        setUserId(session.user.id);
+        setUserEmail(session.user.email || "");
+
+        const { data } = await supabase
+          .from("volunteer_applications")
+          .select("status")
+          .eq("user_id", session.user.id)
+          .eq("role_applied_for", "Scholarship Mentor")
+          .maybeSingle();
+
+        if (data) setAppStatus(data.status as AppStatus);
+      }
       setIsCheckingAuth(false);
     };
-    checkAuth();
+    init();
   }, []);
+
+  const goToLogin = () => navigate("/login", { state: { redirectTo: "/volunteer" } });
 
   const handleApply = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!userId || !roleAppliedFor) return;
+    if (!userId) return;
 
     setIsSubmitting(true);
     setMessage(""); setError("");
 
     const { error: insertError } = await supabase.from("volunteer_applications").insert([{
       user_id: userId,
-      role_applied_for: roleAppliedFor,
-      motivation,
+      role_applied_for: "Scholarship Mentor",
+      first_name: firstName,
+      last_name: lastName,
+      email: userEmail,
+      scholarship_received: scholarshipReceived,
+      university,
+      major,
+      level,
+      graduation_date: graduationDate,
       status: "pending",
     }]);
 
     if (insertError) {
-      setError("Failed to submit application: " + insertError.message);
+      setError("Failed to submit: " + insertError.message);
     } else {
-      setMessage("Application submitted! We'll review it and get back to you.");
-      setRoleAppliedFor(""); setMotivation("");
-      await loadApplications(userId);
+      setAppStatus("pending");
+      setMessage("Application submitted!");
+      setTimeout(() => setShowForm(false), 1200);
     }
     setIsSubmitting(false);
   };
-
-  const goToLogin = () => navigate("/login", { state: { redirectTo: "/volunteer" } });
-
-  const appliedRoles = applications.map((a) => a.role_applied_for);
-  const availableRoles = ROLES.filter((r) => !appliedRoles.includes(r));
 
   if (isCheckingAuth) {
     return (
@@ -80,11 +90,10 @@ export default function Volunteer() {
     );
   }
 
-  const statusColor = { pending: "bg-blue-50 border-blue-200 text-blue-800", approved: "bg-green-50 border-green-200 text-green-800", rejected: "bg-slate-50 border-slate-200 text-slate-600" };
-
   return (
     <div className="min-h-screen bg-white page-enter">
       {!userId && <GuestBanner redirectTo="/volunteer" />}
+
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://conantcrier.com/wp-content/uploads/2020/10/image.png')" }} />
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/50 to-slate-900/80" />
@@ -99,18 +108,52 @@ export default function Volunteer() {
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-20 pb-20">
         <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden mb-8 transition-all duration-300">
           <div className="h-2 bg-gradient-to-r from-red-400 to-red-600" />
-          <button onClick={() => setIsExpanded(!isExpanded)} className="w-full p-8 md:p-10 text-left flex items-center justify-between group hover:bg-slate-50 transition-colors">
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900 group-hover:text-red-600 transition-colors">Volunteer Opportunities</h2>
-              <p className="text-sm text-slate-500 mt-1">Click to view and apply to roles</p>
+
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="w-full p-8 md:p-10 text-left flex items-center justify-between group hover:bg-slate-50 transition-colors"
+          >
+            <div className="flex items-center gap-5">
+              <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-red-400/10 to-red-600/10 flex items-center justify-center shrink-0">
+                <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14v7m-3-3h6" />
+                </svg>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900 group-hover:text-red-600 transition-colors">
+                  Help Students Know about Scholarships & their Application Process
+                </h2>
+                <p className="text-sm text-slate-500 mt-1">Click to learn more and apply as a mentor</p>
+              </div>
             </div>
-            <svg className={`w-6 h-6 text-slate-400 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            <svg
+              className={`w-6 h-6 text-slate-400 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+              fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </button>
 
           <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isExpanded ? "max-h-[900px] opacity-100" : "max-h-0 opacity-0"}`}>
-            <div className="px-8 md:px-10 pb-10 pt-2 border-t border-slate-100 space-y-6">
+            <div className="px-8 md:px-10 pb-10 pt-2 border-t border-slate-100">
+              <p className="text-slate-600 leading-relaxed mb-2">
+                Guide high school students through the scholarship application process by doing any of the following:
+              </p>
+              <ol className="text-slate-600 leading-relaxed mb-4 list-decimal list-inside space-y-1">
+                <li>Introduce the scholarship and what it provides.</li>
+                <li>Assist students in understanding the eligibility criteria and requirements.</li>
+                <li>Give them tips on how to present themselves effectively in their applications, including writing compelling essays and preparing for interviews.</li>
+                <li>State your experience applying for this scholarship and the challenges you faced, so they can learn from your journey.</li>
+                <li>Highlight the skills you had and you believe were important for your acceptance, and how they can develop those skills.</li>
+                <li>Walk them through the application process.</li>
+                <li>Provide useful resources and references to help them succeed.</li>
+              </ol>
+              <p className="text-slate-600 leading-relaxed mb-6">
+                You can provide the content either as written or as a video, or both.
+              </p>
 
               {!userId && (
                 <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 text-center">
@@ -121,43 +164,116 @@ export default function Volunteer() {
                 </div>
               )}
 
-              {userId && applications.length > 0 && (
-                <div className="space-y-2">
-                  <p className="font-semibold text-slate-900">Your Applications</p>
-                  {applications.map((app) => (
-                    <div key={app.id} className={`border rounded-lg p-3 flex justify-between items-center ${statusColor[app.status]}`}>
-                      <span className="font-medium">{app.role_applied_for}</span>
-                      <span className="text-xs uppercase font-semibold">{app.status}</span>
-                    </div>
-                  ))}
+              {userId && appStatus === "approved" && (
+                <div className="bg-green-50 border border-green-200 rounded-xl p-5 text-center">
+                  <p className="text-green-800 font-semibold">🎉 You're an approved volunteer. Thank you for contributing!</p>
                 </div>
               )}
 
-              {userId && availableRoles.length > 0 && (
-                <form onSubmit={handleApply} className="space-y-4">
-                  <p className="font-semibold text-slate-900">Apply for a New Role</p>
-                  <select required value={roleAppliedFor} onChange={(e) => setRoleAppliedFor(e.target.value)} className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500">
-                    <option value="" disabled>Select a role…</option>
-                    {availableRoles.map((r) => <option key={r} value={r}>{r}</option>)}
-                  </select>
-                  <textarea required value={motivation} onChange={(e) => setMotivation(e.target.value)} rows={4} placeholder="Why do you want this role?" className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500" />
-
-                  {message && <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">{message}</div>}
-                  {error && <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">{error}</div>}
-
-                  <button type="submit" disabled={isSubmitting} className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-400 to-red-600 text-white font-semibold rounded-xl hover:shadow-lg hover:scale-[1.02] transition-all text-lg disabled:opacity-50">
-                    {isSubmitting ? "Submitting..." : "Apply"}
-                  </button>
-                </form>
+              {userId && appStatus === "pending" && (
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-5 text-center">
+                  <p className="text-blue-800 font-medium">Your application is under review. We'll be in touch soon.</p>
+                </div>
               )}
 
-              {userId && availableRoles.length === 0 && (
-                <p className="text-slate-500 text-sm">You've applied to all available roles. Thank you!</p>
+              {userId && appStatus === "rejected" && (
+                <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 text-center">
+                  <p className="text-slate-600 font-medium">Your previous application wasn't approved. Feel free to reach out if your circumstances have changed.</p>
+                </div>
+              )}
+
+              {userId && appStatus === "not_applied" && (
+                <button
+                  onClick={() => setShowForm(true)}
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-400 to-red-600 text-white font-semibold rounded-xl hover:shadow-lg hover:scale-[1.02] transition-all text-lg"
+                >
+                  Fill Out Application Form
+                </button>
               )}
             </div>
           </div>
         </div>
       </main>
+
+      {/* Google Form-style application modal */}
+      {showForm && (
+        <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/50 p-4 py-10">
+          <div className="bg-white rounded-lg shadow-2xl max-w-2xl w-full">
+            <div className="border-t-8 border-red-500 rounded-t-lg p-8 pb-6">
+              <h2 className="text-2xl font-normal text-slate-900">Scholarship Mentor Application</h2>
+              <p className="text-sm text-slate-500 mt-2">* Indicates required question</p>
+            </div>
+
+            <form onSubmit={handleApply} className="px-8 pb-8 space-y-6">
+              <div className="border-t border-slate-200 pt-6">
+                <label className="block text-sm font-medium text-slate-800 mb-2">Email *</label>
+                <input type="email" required value={userEmail} disabled className="w-full border-b border-slate-300 outline-none py-2 text-sm bg-slate-50 text-slate-500" />
+              </div>
+
+              <div className="border-t border-slate-200 pt-6">
+                <label className="block text-sm font-medium text-slate-800 mb-2">Name *</label>
+                <input type="text" required value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full border-b border-slate-300 focus:border-red-500 outline-none py-2 text-sm" placeholder="Your answer" />
+              </div>
+
+              <div className="border-t border-slate-200 pt-6">
+                <label className="block text-sm font-medium text-slate-800 mb-2">Family name *</label>
+                <input type="text" required value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full border-b border-slate-300 focus:border-red-500 outline-none py-2 text-sm" placeholder="Your answer" />
+              </div>
+
+              <div className="border-t border-slate-200 pt-6">
+                <label className="block text-sm font-medium text-slate-800 mb-3">Which scholarship have you received? *</label>
+                <div className="space-y-2">
+                  {SCHOLARSHIPS.map((s) => (
+                    <label key={s} className="flex items-center gap-3 text-sm text-slate-700">
+                      <input type="radio" name="scholarship" required value={s} checked={scholarshipReceived === s} onChange={(e) => setScholarshipReceived(e.target.value)} className="text-red-600 focus:ring-red-500" />
+                      {s}
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border-t border-slate-200 pt-6">
+                <label className="block text-sm font-medium text-slate-800 mb-2">University *</label>
+                <input type="text" required value={university} onChange={(e) => setUniversity(e.target.value)} className="w-full border-b border-slate-300 focus:border-red-500 outline-none py-2 text-sm" placeholder="Your answer" />
+              </div>
+
+              <div className="border-t border-slate-200 pt-6">
+                <label className="block text-sm font-medium text-slate-800 mb-2">Major *</label>
+                <input type="text" required value={major} onChange={(e) => setMajor(e.target.value)} className="w-full border-b border-slate-300 focus:border-red-500 outline-none py-2 text-sm" placeholder="Your answer" />
+              </div>
+
+              <div className="border-t border-slate-200 pt-6">
+                <label className="block text-sm font-medium text-slate-800 mb-3">Level</label>
+                <div className="space-y-2">
+                  {LEVELS.map((l) => (
+                    <label key={l} className="flex items-center gap-3 text-sm text-slate-700">
+                      <input type="radio" name="level" value={l} checked={level === l} onChange={(e) => setLevel(e.target.value)} className="text-red-600 focus:ring-red-500" />
+                      {l}
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border-t border-slate-200 pt-6">
+                <label className="block text-sm font-medium text-slate-800 mb-2">Graduation date *</label>
+                <input type="date" required value={graduationDate} onChange={(e) => setGraduationDate(e.target.value)} className="w-full border-b border-slate-300 focus:border-red-500 outline-none py-2 text-sm" />
+              </div>
+
+              {message && <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">{message}</div>}
+              {error && <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">{error}</div>}
+
+              <div className="flex items-center justify-between pt-4">
+                <button type="submit" disabled={isSubmitting} className="px-6 py-2.5 bg-red-600 text-white font-medium rounded-md hover:bg-red-700 transition-colors disabled:opacity-50">
+                  {isSubmitting ? "Submitting..." : "Submit"}
+                </button>
+                <button type="button" onClick={() => setShowForm(false)} className="text-slate-500 hover:text-slate-700 text-sm">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
