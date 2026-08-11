@@ -55,7 +55,7 @@ export default function Volunteer() {
   e.preventDefault();
   if (!userId) return;
 
-  if (!firstName || !lastName || !scholarshipReceived || !university || !major || !graduationDate) {
+  if (!firstName || !lastName || !scholarshipReceived || !university || !major || !level || !graduationDate) {
     setError("Please fill in all required fields.");
     return;
   }
