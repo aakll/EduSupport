@@ -90,7 +90,7 @@ export default function Home() {
      
      /* Mouth Animation */
      .animated-mouth {
-       animation: moodSwing 12s infinite ease-in-out;
+       animation: moodSwing 9s infinite ease-in-out;
      }
 
      /* Base Bubble Styles */
