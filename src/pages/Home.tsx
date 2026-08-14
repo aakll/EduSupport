@@ -53,7 +53,7 @@ export default function Home() {
         /* --- NEW LAYOUT & BUBBLE ANIMATIONS --- */
             
         /* 
-            TIMELINE (12s Cycle):
+            TIMELINE (9s Cycle):
             0-1s: Smile (Empty)
             1-4s: Bubbles Appear (1->2->3)
             4-8s: All Visible (SAD)
@@ -63,7 +63,7 @@ export default function Home() {
         @keyframes moodSwing {
           0%, 30% { d: path("M243 174 Q250 182 257 174"); } /* Smile */
           35%, 65% { d: path("M243 178 Q250 172 257 178"); } /* Frown (Only when all bubbles up) */
-          70%, 100% { d: path("M243 174 Q250 182 257 174"); } /* Smile */
+          55%, 100% { d: path("M243 174 Q250 182 257 174"); } /* Smile */
         }
 
         /* Bubble 1 (Exams) - First In, First Out */
@@ -121,19 +121,19 @@ export default function Home() {
      /* --- NEW TIMING (12s Cycle) --- */
      
      /* Group 1 (Exams): Appears 1s-1.6s, Disappears 8.4s-9s */
-     .group-1 .bubble-dot-1 { animation: bubble1Anim 12s infinite; animation-delay: 0s; }
-     .group-1 .bubble-dot-2 { animation: bubble1Anim 12s infinite; animation-delay: 0.2s; }
-     .group-1 .bubble-main  { animation: bubble1Anim 12s infinite; animation-delay: 0.4s; }
+     .group-1 .bubble-dot-1 { animation: bubble1Anim 9s infinite; animation-delay: 0s; }
+     .group-1 .bubble-dot-2 { animation: bubble1Anim 9s infinite; animation-delay: 0.2s; }
+     .group-1 .bubble-main  { animation: bubble1Anim 9s infinite; animation-delay: 0.4s; }
 
      /* Group 2 (Major): Appears 2s-2.6s, Disappears 7.4s-8s */
-     .group-2 .bubble-dot-1 { animation: bubble2Anim 12s infinite; animation-delay: 0s; }
-     .group-2 .bubble-dot-2 { animation: bubble2Anim 12s infinite; animation-delay: 0.2s; }
-     .group-2 .bubble-main  { animation: bubble2Anim 12s infinite; animation-delay: 0.4s; }
+     .group-2 .bubble-dot-1 { animation: bubble2Anim 9s infinite; animation-delay: 0s; }
+     .group-2 .bubble-dot-2 { animation: bubble2Anim 9s infinite; animation-delay: 0.2s; }
+     .group-2 .bubble-main  { animation: bubble2Anim 9s infinite; animation-delay: 0.4s; }
 
      /* Group 3 (Scholarships): Appears 3s-3.6s, Disappears 6.4s-7s (First to go) */
-     .group-3 .bubble-dot-1 { animation: bubble3Anim 12s infinite; animation-delay: 0s; }
-     .group-3 .bubble-dot-2 { animation: bubble3Anim 12s infinite; animation-delay: 0.2s; }
-     .group-3 .bubble-main  { animation: bubble3Anim 12s infinite; animation-delay: 0.4s; }
+     .group-3 .bubble-dot-1 { animation: bubble3Anim 9s infinite; animation-delay: 0s; }
+     .group-3 .bubble-dot-2 { animation: bubble3Anim 9s infinite; animation-delay: 0.2s; }
+     .group-3 .bubble-main  { animation: bubble3Anim 9s infinite; animation-delay: 0.4s; }
 
         /* Hand-drawn border effect */
         .sketch-border {
