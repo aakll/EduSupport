@@ -196,187 +196,166 @@ export default function Home() {
               />
               <path d="M250 290 L250 350" stroke="black" strokeWidth="2" />
 
-              {/* Character Body (Hoodie) */}
-              <path
-                d="M180 280
-     C180 220, 210 200, 250 200
-     C290 200, 320 220, 320 280"
-                fill="white"
-                stroke="black"
-                strokeWidth="3"
-              />
-
-              {/* Hoodie */}
-              <path
-                d="M220 205
-     Q250 180 280 205
-     L270 230
-     Q250 215 230 230 Z"
-                fill="white"
-                stroke="black"
-                strokeWidth="2.5"
-              />
-
-              {/* Hoodie Strings */}
-              <line
-                x1="242"
-                y1="228"
-                x2="238"
-                y2="245"
-                stroke="black"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-              <line
-                x1="258"
-                y1="228"
-                x2="262"
-                y2="245"
-                stroke="black"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-
-              {/* Neck */}
-              <line
-                x1="242"
-                y1="205"
-                x2="242"
-                y2="220"
-                stroke="black"
-                strokeWidth="2"
-              />
-              <line
-                x1="258"
-                y1="205"
-                x2="258"
-                y2="220"
-                stroke="black"
-                strokeWidth="2"
-              />
-
-              {/* Head */}
-              <g transform="rotate(-5 250 160)">
-                <circle
-                  cx="250"
-                  cy="160"
-                  r="50"
-                  fill="white"
+              {/* ===== Character ===== */}
+              <g transform="translate(0,5)">
+                {/* Neck */}
+                <line
+                  x1="245"
+                  y1="198"
+                  x2="245"
+                  y2="214"
                   stroke="black"
-                  strokeWidth="3"
+                  strokeWidth="2"
+                />
+                <line
+                  x1="255"
+                  y1="198"
+                  x2="255"
+                  y2="214"
+                  stroke="black"
+                  strokeWidth="2"
                 />
 
-                {/* Hair */}
+                {/* Hoodie */}
                 <path
                   d="
-      M205 145
-      Q215 95 250 92
-      Q285 95 295 145
-      Q295 190 282 205
-      Q268 192 250 192
-      Q232 192 218 205
-      Q205 190 205 145
+      M185 285
+      C185 225 215 205 250 205
+      C285 205 315 225 315 285
     "
                   fill="white"
                   stroke="black"
                   strokeWidth="3"
                 />
 
-                {/* Bangs */}
+                {/* Hood */}
                 <path
                   d="
-      M214 135
-      Q235 108 250 120
-      Q265 108 286 135
+      M220 208
+      Q250 182 280 208
+      Q267 225 250 228
+      Q233 225 220 208
     "
-                  fill="none"
+                  fill="white"
                   stroke="black"
-                  strokeWidth="3"
-                  strokeLinecap="round"
+                  strokeWidth="2.5"
                 />
 
-                {/* Left Hair */}
-                <path
-                  d="M208 145 Q190 175 205 205"
-                  fill="none"
-                  stroke="black"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-
-                {/* Right Hair */}
-                <path
-                  d="M292 145 Q310 175 295 205"
-                  fill="none"
-                  stroke="black"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-
-                {/* Eyes */}
-                <g className="animate-blink">
-                  <ellipse cx="235" cy="158" rx="5" ry="7" fill="#16a34a" />
-                  <ellipse cx="265" cy="158" rx="5" ry="7" fill="#16a34a" />
-
-                  {/* Highlights */}
-                  <circle cx="236" cy="156" r="1.3" fill="white" />
-                  <circle cx="266" cy="156" r="1.3" fill="white" />
-                </g>
-
-                {/* Nose */}
-                <path
-                  d="M250 164 Q248 170 251 171"
-                  fill="none"
-                  stroke="black"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-
-                {/* Animated Mouth */}
-                <path
-                  className="animated-mouth"
-                  d="M242 181 Q250 186 258 181"
-                  fill="none"
+                {/* Hoodie strings */}
+                <line
+                  x1="243"
+                  y1="228"
+                  x2="238"
+                  y2="246"
                   stroke="black"
                   strokeWidth="2"
                   strokeLinecap="round"
                 />
+
+                <line
+                  x1="257"
+                  y1="228"
+                  x2="262"
+                  y2="246"
+                  stroke="black"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+
+                {/* Head */}
+                <g transform="rotate(-3 250 160)">
+                  {/* Hair */}
+                  <path
+                    d="
+      M205 150
+      Q208 100 250 96
+      Q292 100 295 150
+      Q296 185 282 210
+      Q270 202 250 202
+      Q230 202 218 210
+      Q204 185 205 150
+      Z"
+                    fill="white"
+                    stroke="black"
+                    strokeWidth="3"
+                    strokeLinejoin="round"
+                  />
+
+                  {/* Fringe */}
+                  <path
+                    d="
+      M218 128
+      Q232 116 244 124
+      Q250 117 256 124
+      Q268 116 282 128"
+                    fill="none"
+                    stroke="black"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                  />
+
+                  {/* Face */}
+                  <circle
+                    cx="250"
+                    cy="160"
+                    r="42"
+                    fill="white"
+                    stroke="black"
+                    strokeWidth="3"
+                  />
+
+                  {/* Eyes */}
+                  <g className="animate-blink">
+                    <circle cx="236" cy="160" r="4" fill="#16a34a" />
+                    <circle cx="264" cy="160" r="4" fill="#16a34a" />
+                  </g>
+
+                  {/* Smile */}
+                  <path
+                    d="M244 178 Q250 184 256 178"
+                    fill="none"
+                    stroke="black"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </g>
+
+                {/* Arms */}
+                <path
+                  d="M185 240 Q165 270 198 298"
+                  fill="none"
+                  stroke="black"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+
+                <path
+                  d="M315 240 Q335 270 302 298"
+                  fill="none"
+                  stroke="black"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+
+                {/* Hands */}
+                <circle
+                  cx="198"
+                  cy="298"
+                  r="4"
+                  fill="white"
+                  stroke="black"
+                  strokeWidth="2"
+                />
+
+                <circle
+                  cx="302"
+                  cy="298"
+                  r="4"
+                  fill="white"
+                  stroke="black"
+                  strokeWidth="2"
+                />
               </g>
-
-              {/* Arms */}
-              <path
-                d="M182 238 Q160 270 198 300"
-                fill="none"
-                stroke="black"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-
-              <path
-                d="M318 238 Q340 270 302 300"
-                fill="none"
-                stroke="black"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-
-              {/* Hands */}
-              <circle
-                cx="198"
-                cy="300"
-                r="4"
-                fill="white"
-                stroke="black"
-                strokeWidth="2"
-              />
-              <circle
-                cx="302"
-                cy="300"
-                r="4"
-                fill="white"
-                stroke="black"
-                strokeWidth="2"
-              />
 
               {/* COFFEE/PLANT (NOW RIGHT SIDE) */}
               <g transform="translate(360, 300)">
