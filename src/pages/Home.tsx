@@ -50,90 +50,117 @@ export default function Home() {
           100% { transform: translateY(-15px) scale(1.2); opacity: 0; }
         }
         
-        /* Bubble Appearance Loop: 12s total cycle */
-        @keyframes bubbleLife {
-          0% { opacity: 0; transform: scale(0.5); }
-          5% { opacity: 1; transform: scale(1); }
-          75% { opacity: 1; transform: scale(1); }
-          85% { opacity: 0; transform: scale(0.8); }
-          100% { opacity: 0; transform: scale(0.5); }
+        /* --- NEW LAYOUT & BUBBLE ANIMATIONS --- */
+        
+        /* Face Mood Loop: 15s total cycle */
+        /* 0-15%: Smile | 15-80%: Sad (bubbles visible) | 80-100%: Smile */
+        @keyframes moodSwing {
+          0%, 12% { d: path("M243 174 Q250 182 257 174"); } /* Smile */
+          18%, 75% { d: path("M243 178 Q250 172 257 178"); } /* Frown */
+          82%, 100% { d: path("M243 174 Q250 182 257 174"); } /* Smile */
         }
 
-        /* Face Mood Loop: Happy -> Sad when bubbles appear -> Happy when they vanish */
-        @keyframes moodSwing {
-          0%, 5% { d: path("M245 175 Q250 180 255 175"); } /* Smile */
-          10%, 75% { d: path("M245 180 Q250 175 255 180"); } /* Frown */
-          85%, 100% { d: path("M245 175 Q250 180 255 175"); } /* Smile */
+        /* Sequential Bubble Pop-in (Dot 1 -> Dot 2 -> Main Bubble) */
+        @keyframes popSeq {
+          0% { opacity: 0; transform: scale(0); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+        
+        /* Fade out all bubbles at the end of the cycle */
+        @keyframes fadeOutSeq {
+          0%, 80% { opacity: 1; }
+          90%, 100% { opacity: 0; }
         }
 
         .animate-blink { transform-origin: center; animation: blink 4s infinite; }
         .animate-wag { transform-origin: bottom left; animation: wag 2s ease-in-out infinite; }
         .animate-steam { animation: steam 2s infinite ease-out; }
         
-        /* Organic Bubble Shape */
-        .thought-bubble {
-          position: relative;
-          background: #f0fdf4;
-          border: 3px solid #16a34a;
-          border-radius: 50%;
-          padding: 12px 20px;
-          font-weight: bold;
-          color: #15803d;
-          white-space: nowrap;
+        .animated-mouth {
+          animation: moodSwing 15s infinite ease-in-out;
         }
-        /* Bubble Tail (3 small circles) */
-        .thought-bubble::before,
-        .thought-bubble::after {
-          content: '';
+
+        /* Bubble Group Container - handles the fade out */
+        .bubble-group {
+          position: absolute;
+          opacity: 0;
+          animation: fadeOutSeq 15s infinite;
+        }
+
+        /* Individual elements inside a bubble group */
+        .bubble-dot-1, .bubble-dot-2, .bubble-main {
+          opacity: 0;
           position: absolute;
           background: #f0fdf4;
-          border: 3px solid #16a34a;
+          border: 2px solid #16a34a;
           border-radius: 50%;
-        }
-        .thought-bubble::before {
-          width: 12px; height: 12px;
-          bottom: -8px; left: 20px;
-        }
-        .thought-bubble::after {
-          width: 8px; height: 8px;
-          bottom: -18px; left: 12px;
+          animation: popSeq 0.3s forwards;
         }
 
-        /* Staggered bubble animations */
-        .bubble-anim { 
-          opacity: 0; 
-          animation: bubbleLife 12s infinite ease-in-out; 
+        .bubble-dot-1 { width: 8px; height: 8px; }
+        .bubble-dot-2 { width: 14px; height: 14px; }
+        .bubble-main { 
+          padding: 8px 16px; 
+          font-weight: bold; 
+          color: #15803d; 
+          white-space: nowrap;
+          border-radius: 50px;
+          border-width: 3px;
         }
-        .bubble-delay-1 { animation-delay: 0s; }
-        .bubble-delay-2 { animation-delay: 0.8s; }
-        .bubble-delay-3 { animation-delay: 1.6s; }
 
-        /* Sad mouth class driven by CSS animation on the path */
-        .animated-mouth {
-          animation: moodSwing 12s infinite ease-in-out;
+        /* --- TIMING CONFIGURATION (15s Cycle) --- */
+        /* Bubble 1 (Exams?) starts at 1s */
+        .group-1 { animation-delay: 0s; }
+        .group-1 .bubble-dot-1 { animation-delay: 1.0s; }
+        .group-1 .bubble-dot-2 { animation-delay: 1.3s; }
+        .group-1 .bubble-main  { animation-delay: 1.6s; }
+
+        /* Bubble 2 (Major?) starts at 4s */
+        .group-2 { animation-delay: 0s; }
+        .group-2 .bubble-dot-1 { animation-delay: 4.0s; }
+        .group-2 .bubble-dot-2 { animation-delay: 4.3s; }
+        .group-2 .bubble-main  { animation-delay: 4.6s; }
+
+        /* Bubble 3 (Scholarships?) starts at 7s */
+        .group-3 { animation-delay: 0s; }
+        .group-3 .bubble-dot-1 { animation-delay: 7.0s; }
+        .group-3 .bubble-dot-2 { animation-delay: 7.3s; }
+        .group-3 .bubble-main  { animation-delay: 7.6s; }
+
+        /* Hand-drawn border effect */
+        .sketch-border {
+          border: 3px solid black;
+          border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        }
+        .sketch-border-green {
+          border: 3px solid #16a34a;
+          border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
         }
       `}</style>
 
       {/* --- MAIN SPLIT SECTION --- */}
       <main className="flex-1 flex flex-col md:flex-row min-h-[80vh]">
         {/* LEFT SIDE: ILLUSTRATION */}
-        <div className="w-full md:w-1/2 flex items-center justify-center p-8 relative border-r-0 md:border-r-2 border-black bg-white overflow-hidden">
+        <div className="w-full md:w-1/2 flex flex-col justify-between items-center p-8 pt-24 pb-16 relative border-r-0 md:border-r-2 border-black bg-white overflow-hidden">
           {/* Decorative Green Scribble Background */}
           <div className="absolute top-10 left-10 w-32 h-32 border-4 border-green-500 rounded-full opacity-20 blur-xl"></div>
 
-          <div
-            className={`relative w-full max-w-lg transition-all duration-1000 ${mounted ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
+          {/* BIG TITLE - Positioned Higher */}
+          <h1
+            className={`text-6xl md:text-7xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-600 stroke-black transition-all duration-1000 z-10 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"}`}
+            style={{ WebkitTextStroke: "2px black" }}
           >
-            {/* BIG TITLE - CENTERED */}
-            <h1
-              className="absolute top-8 left-1/2 -translate-x-1/2 text-6xl md:text-7xl font-black mb-8 tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-600 stroke-black whitespace-nowrap z-10"
-              style={{ WebkitTextStroke: "2px black" }}
-            >
-              EduSupport
-            </h1>
+            EduSupport
+          </h1>
 
-            {/* THE SCENE (SVG) */}
-            <svg viewBox="0 0 500 400" className="w-full h-auto drop-shadow-xl">
+          {/* THE SCENE (SVG) - Positioned Lower */}
+          <div
+            className={`relative w-full max-w-lg mt-auto transition-all duration-1000 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+          >
+            <svg
+              viewBox="0 0 500 400"
+              className="w-full h-auto drop-shadow-xl overflow-visible"
+            >
               {/* Desk */}
               <path
                 d="M100 350 L400 350 L420 380 L80 380 Z"
@@ -150,7 +177,6 @@ export default function Home() {
                 stroke="black"
                 strokeWidth="3"
               />
-
               {/* Laptop/Book on desk */}
               <rect
                 x="200"
@@ -162,7 +188,6 @@ export default function Home() {
                 strokeWidth="2"
               />
               <path d="M250 290 L250 350" stroke="black" strokeWidth="2" />
-
               {/* Character Body */}
               <path
                 d="M180 280 C180 200, 320 200, 320 280"
@@ -170,7 +195,6 @@ export default function Home() {
                 stroke="black"
                 strokeWidth="3"
               />
-
               {/* Head */}
               <circle
                 cx="250"
@@ -180,7 +204,6 @@ export default function Home() {
                 stroke="black"
                 strokeWidth="3"
               />
-
               {/* Hair (Messy/Sketchy) */}
               <path
                 d="M190 160 C180 100, 250 80, 280 90 C320 100, 320 160, 310 180 C330 140, 300 100, 250 100 C200 100, 180 140, 190 160"
@@ -196,22 +219,19 @@ export default function Home() {
                 strokeWidth="4"
                 strokeLinecap="round"
               />
-
               {/* Eyes (Animated) - CHANGED TO GREEN */}
               <g className="animate-blink">
                 <ellipse cx="235" cy="155" rx="4" ry="6" fill="#16a34a" />
                 <ellipse cx="265" cy="155" rx="4" ry="6" fill="#16a34a" />
               </g>
-
-              {/* Mouth - Now animated between smile and frown */}
+              {/* Mouth - Now Animated (Smile -> Sad -> Smile) */}
               <path
                 className="animated-mouth"
-                d="M245 175 Q250 180 255 175"
+                d="M243 174 Q250 182 257 174"
                 fill="none"
                 stroke="black"
                 strokeWidth="2"
               />
-
               {/* Arms */}
               <path
                 d="M180 240 Q150 280 200 300"
@@ -227,7 +247,6 @@ export default function Home() {
                 strokeWidth="3"
                 strokeLinecap="round"
               />
-
               {/* COFFEE/PLANT (NOW RIGHT SIDE) */}
               <g transform="translate(360, 300)">
                 {/* Cup/Pot */}
@@ -254,7 +273,6 @@ export default function Home() {
                   strokeWidth="2"
                 />
               </g>
-
               {/* CAT (NOW LEFT SIDE) */}
               <g transform="translate(60, 280)">
                 {/* Tail (Animated) - SWAPPED DIRECTION & REDUCED RANGE */}
@@ -266,7 +284,6 @@ export default function Home() {
                   strokeWidth="4"
                   strokeLinecap="round"
                 />
-
                 {/* Body */}
                 <path
                   d="M10 70 C10 30, 40 30, 40 70"
@@ -274,7 +291,6 @@ export default function Home() {
                   stroke="black"
                   strokeWidth="2"
                 />
-
                 {/* Head */}
                 <circle
                   cx="25"
@@ -284,7 +300,6 @@ export default function Home() {
                   stroke="black"
                   strokeWidth="2"
                 />
-
                 {/* Ears */}
                 <path
                   d="M15 15 L10 0 L25 10"
@@ -298,7 +313,6 @@ export default function Home() {
                   stroke="black"
                   strokeWidth="2"
                 />
-
                 {/* Face */}
                 <circle cx="20" cy="25" r="1" fill="black" />
                 <circle cx="30" cy="25" r="1" fill="black" />
@@ -306,20 +320,70 @@ export default function Home() {
               </g>
             </svg>
 
-            {/* THOUGHT BUBBLES (Organic Shape + Loop Animation) */}
-            {/* Exams? - Top Left */}
-            <div className="absolute top-24 left-4 bubble-anim bubble-delay-1 z-20">
-              <div className="thought-bubble">Exams?</div>
+            {/* --- SEQUENTIAL THOUGHT BUBBLES --- */}
+            {/* Positioned absolutely relative to the SVG container, originating near the head (cx=250, cy=160) */}
+
+            {/* Bubble 1: Exams? (Top Left of head) */}
+            <div
+              className="bubble-group group-1"
+              style={{ top: "10%", left: "15%" }}
+            >
+              <div
+                className="bubble-dot-1"
+                style={{ bottom: "-30px", left: "60px" }}
+              ></div>
+              <div
+                className="bubble-dot-2"
+                style={{ bottom: "-15px", left: "40px" }}
+              ></div>
+              <div
+                className="bubble-main"
+                style={{ bottom: "0px", left: "0px" }}
+              >
+                Exams?
+              </div>
             </div>
 
-            {/* Major? - Top Right (Lowered) */}
-            <div className="absolute top-32 right-8 bubble-anim bubble-delay-2 z-20">
-              <div className="thought-bubble">Major?</div>
+            {/* Bubble 2: Major? (Top Right of head) */}
+            <div
+              className="bubble-group group-2"
+              style={{ top: "5%", right: "15%" }}
+            >
+              <div
+                className="bubble-dot-1"
+                style={{ bottom: "-35px", left: "10px" }}
+              ></div>
+              <div
+                className="bubble-dot-2"
+                style={{ bottom: "-18px", left: "25px" }}
+              ></div>
+              <div
+                className="bubble-main"
+                style={{ bottom: "0px", left: "40px" }}
+              >
+                Major?
+              </div>
             </div>
 
-            {/* Scholarships? - Mid Right */}
-            <div className="absolute top-52 right-0 bubble-anim bubble-delay-3 z-20">
-              <div className="thought-bubble">Scholarships?</div>
+            {/* Bubble 3: Scholarships? (Mid Right of head) */}
+            <div
+              className="bubble-group group-3"
+              style={{ top: "35%", right: "5%" }}
+            >
+              <div
+                className="bubble-dot-1"
+                style={{ bottom: "-25px", left: "5px" }}
+              ></div>
+              <div
+                className="bubble-dot-2"
+                style={{ bottom: "-12px", left: "15px" }}
+              ></div>
+              <div
+                className="bubble-main"
+                style={{ bottom: "0px", left: "30px" }}
+              >
+                Scholarships?
+              </div>
             </div>
           </div>
         </div>
