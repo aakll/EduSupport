@@ -117,7 +117,7 @@ export default function Home() {
               {/* Laptop/Book on desk */}
               <rect
                 x="200"
-                y="190"
+                y="290"
                 width="100"
                 height="60"
                 fill="white"
