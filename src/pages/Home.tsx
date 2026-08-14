@@ -185,17 +185,7 @@ export default function Home() {
                 stroke="black"
                 strokeWidth="3"
               />
-              {/* Laptop/Book on desk */}
-              <rect
-                x="200"
-                y="290"
-                width="100"
-                height="60"
-                fill="white"
-                stroke="black"
-                strokeWidth="2"
-              />
-              <path d="M250 290 L250 350" stroke="black" strokeWidth="2" />
+              
 
               {/* ================= CHARACTER (illustration) ================= */}
               <g transform="translate(28.2,45.5) scale(0.162)">
