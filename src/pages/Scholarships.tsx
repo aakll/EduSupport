@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../supabaseClient";
+import GuestBanner from "../components/GuestBanner";
 
 interface Scholarship {
   id: string;
@@ -68,13 +69,7 @@ export default function Scholarships() {
 
   return (
     <div className="min-h-screen bg-white font-sans text-black">
-      {isGuest && (
-        <div className="bg-[#16a34a] border-b-4 border-black px-4 py-3 text-center sticky top-16 z-40">
-           <p className="text-sm text-white font-bold">
-            ⚠️ Browsing as Guest. <Link to="/login" className="underline font-black ml-1">Sign In</Link> to save progress.
-          </p>
-        </div>
-      )}
+      {isGuest && <GuestBanner redirectTo="/scholarships" />}
 
       {/* Hero Section - High Contrast */}
       <section className="relative h-[50vh] flex items-center justify-center overflow-hidden border-b-4 border-black bg-gray-100">
