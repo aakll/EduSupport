@@ -25,9 +25,15 @@ const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   useEffect(() => {
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ? { id: session.user.id, email: session.user.email || "" } : null);
-    });
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setUser(
+          session?.user
+            ? { id: session.user.id, email: session.user.email || "" }
+            : null,
+        );
+      },
+    );
     return () => listener.subscription.unsubscribe();
   }, []);
 
@@ -89,16 +95,37 @@ const Navbar = () => {
       <nav className="sticky top-0 z-50 w-full border-b-2 border-black bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
-            
             {/* 1. LOGO (Left) - Sketch Style */}
             <div className="flex items-center gap-3">
               <Link to="/" className="flex items-center gap-2 group">
-                <div className="w-10 h-10 bg-black text-white flex items-center justify-center font-bold rounded-sm transform group-hover:rotate-3 transition-transform">
-                  ES
+                <div className="flex h-10 w-10 items-center justify-center rounded-md border-[3px] border-black bg-white sketch-border-sm">
+                  <svg
+                    className="w-6 h-6 text-black"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M12 14l9-5-9-5-9 5 9 5z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+                    />
+                  </svg>
                 </div>
                 <div className="flex flex-col leading-tight">
-                  <span className="text-xl font-black tracking-tighter text-black">EduSupport</span>
-                  <span className="text-xs font-bold text-gray-500 uppercase tracking-wide">Guide for Students</span>
+                  <span className="text-xl font-black tracking-tighter text-black">
+                    EduSupport
+                  </span>
+                  <span className="text-xs font-bold text-gray-500 uppercase tracking-wide">
+                    Guide for Students
+                  </span>
                 </div>
               </Link>
             </div>
@@ -110,8 +137,8 @@ const Navbar = () => {
                   key={link.name}
                   to={link.path}
                   className={`sketch-border px-6 py-1.5 text-lg font-bold transition-all duration-200 ${
-                    isActive(link.path) 
-                      ? "bg-black text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)]" 
+                    isActive(link.path)
+                      ? "bg-black text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)]"
                       : "bg-white text-black hover:bg-gray-100 hover:translate-y-[-2px]"
                   }`}
                 >
@@ -130,26 +157,36 @@ const Navbar = () => {
                     aria-label="Account menu"
                   >
                     <div className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-xs">
-                       {profileData?.first_name?.[0] || profileData?.last_name?.[0] || "U"}
+                      {profileData?.first_name?.[0] ||
+                        profileData?.last_name?.[0] ||
+                        "U"}
                     </div>
                     <span className="hidden sm:inline">Profile</span>
                   </button>
-                  
+
                   {isDropdownOpen && (
                     <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl py-2 border-2 border-black z-50">
                       <div className="px-4 py-3 border-b-2 border-black border-dashed">
                         <div className="flex items-center gap-3 mb-2">
                           <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white font-bold border-2 border-black">
-                            {profileData?.first_name?.[0] || profileData?.last_name?.[0] || "U"}
+                            {profileData?.first_name?.[0] ||
+                              profileData?.last_name?.[0] ||
+                              "U"}
                           </div>
                           <div className="flex-1">
                             <p className="text-sm font-bold text-black">
-                              {profileData ? `${profileData.first_name} ${profileData.last_name}` : "User"}
+                              {profileData
+                                ? `${profileData.first_name} ${profileData.last_name}`
+                                : "User"}
                             </p>
-                            <p className="text-xs text-gray-500 font-medium">{STATUS_LABELS[profileData?.status] || ""}</p>
+                            <p className="text-xs text-gray-500 font-medium">
+                              {STATUS_LABELS[profileData?.status] || ""}
+                            </p>
                           </div>
                         </div>
-                        <p className="text-xs text-gray-500 truncate font-mono">{user.email}</p>
+                        <p className="text-xs text-gray-500 truncate font-mono">
+                          {user.email}
+                        </p>
                       </div>
                       <Link
                         to="/profile"
@@ -184,12 +221,23 @@ const Navbar = () => {
               >
                 <svg
                   className={`h-6 w-6 transition-transform duration-300 ${isOpen ? "rotate-90" : ""}`}
-                  fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={3}
                 >
                   {isOpen ? (
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   ) : (
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
                   )}
                 </svg>
               </button>
@@ -210,7 +258,9 @@ const Navbar = () => {
                 to={link.path}
                 onClick={() => setIsOpen(false)}
                 className={`block sketch-border px-4 py-3 text-center text-lg font-bold transition-colors ${
-                  isActive(link.path) ? "bg-black text-white" : "bg-white text-black"
+                  isActive(link.path)
+                    ? "bg-black text-white"
+                    : "bg-white text-black"
                 }`}
               >
                 {link.name}
