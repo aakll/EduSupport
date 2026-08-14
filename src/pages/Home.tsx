@@ -78,6 +78,7 @@ export default function Home() {
 
       {/* --- MAIN SPLIT SECTION --- */}
       <main className="flex-1 flex flex-col md:flex-row min-h-[80vh]">
+
         {/* LEFT SIDE: ILLUSTRATION */}
         <div className="w-full md:w-1/2 flex items-center justify-center p-8 relative border-r-0 md:border-r-2 border-black bg-white overflow-hidden">
           {/* Decorative Green Scribble Background */}
@@ -116,7 +117,7 @@ export default function Home() {
               {/* Laptop/Book on desk */}
               <rect
                 x="200"
-                y="290"
+                y="390"
                 width="100"
                 height="60"
                 fill="white"
@@ -221,10 +222,10 @@ export default function Home() {
                 {/* Tail (Animated) - SWAPPED DIRECTION & REDUCED RANGE */}
                 <path
                   className="animate-wag"
-                  d="M20 50 Q-10 20 0 0"
+                  d="M15 50 Q-10 20 0 0"
                   fill="none"
                   stroke="#16a34a"
-                  strokeWidth="4"
+                  strokeWidth="5"
                   strokeLinecap="round"
                 />
 
@@ -292,8 +293,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* RIGHT SIDE: CONTENT */}
 
+        {/* RIGHT SIDE: CONTENT */}
         <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 md:p-12 gap-10 bg-slate-50/50">
           {/* Founder Card */}
           <div
