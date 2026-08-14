@@ -62,8 +62,8 @@ export default function Home() {
         */
         @keyframes moodSwing {
           0%, 30% { d: path("M243 174 Q250 182 257 174"); } /* Smile */
-          35%, 55% { d: path("M243 178 Q250 172 257 178"); } /* Frown - Ends EXACTLY when Bubble 3 vanishes */
-          55.1%, 100% { d: path("M243 174 Q250 182 257 174"); } /* Smile returns immediately after */
+          35%, 75% { d: path("M243 178 Q250 172 257 178"); } /* Frown - Ends EXACTLY when Bubble 3 vanishes */
+          75.1%, 100% { d: path("M243 174 Q250 182 257 174"); } /* Smile returns immediately after */
         }
         /* Bubble 1 (Exams) - First In, First Out */
         @keyframes bubble1Anim {
@@ -117,7 +117,7 @@ export default function Home() {
        border-width: 3px;
      }
 
-     /* --- NEW TIMING (12s Cycle) --- */
+     /* --- NEW TIMING (9s Cycle) --- */
      
      /* Group 1 (Exams): Appears 1s-1.6s, Disappears 8.4s-9s */
      .group-1 .bubble-dot-1 { animation: bubble1Anim 9s infinite; animation-delay: 0s; }
