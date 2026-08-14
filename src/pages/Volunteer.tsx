@@ -102,7 +102,8 @@ export default function Volunteer() {
 
       {/* Hero */}
       <section className="relative h-[50vh] flex items-center justify-center overflow-hidden border-b-4 border-black">
-        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 grayscale" style={{ backgroundImage: "url('https://conantcrier.com/wp-content/uploads/2020/10/image.png')" }} />
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+        style={{ backgroundImage: "url('https://conantcrier.com/wp-content/uploads/2020/10/image.png')" }} />
         <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-black mb-4 uppercase" style={{ WebkitTextStroke: "1px black" }}>
             Volunteer
