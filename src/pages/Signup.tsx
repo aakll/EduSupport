@@ -11,27 +11,17 @@ const CATEGORY_LABELS: Record<string, string> = {
 
 export default function Signup() {
   const location = useLocation();
-
-  // Category passed from the AuthChoiceModal. If it's missing or "volunteer"
-  // (arrived via the Volunteer card), the user must pick their real category
-  // below before the category-specific fields appear.
   const incomingCategory = location.state?.category as UserCategory | undefined;
-
   const [category, setCategory] = useState<string>(
     incomingCategory && incomingCategory !== "volunteer" ? incomingCategory : ""
   );
-
   const [formData, setFormData] = useState({
-    firstName: "", lastName: "", email: "", password: "",
-    age: "",
-    // high school
-    schoolName: "", grade: "", graduationDate: "",
-    // university
-    universityName: "", major: "", standing: "undergrad", expectedGraduation: "",
-    // other
-    organization: "", role: "",
+    firstName: " ", lastName: " ", email: " ", password: " ",
+    age: " ",
+    schoolName: " ", grade: " ", graduationDate: " ",
+    universityName: " ", major: " ", standing: "undergrad ", expectedGraduation: " ",
+    organization: " ", role: " ",
   });
-
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -43,12 +33,10 @@ export default function Signup() {
     e.preventDefault();
     setMessage("");
     setError("");
-
     if (!category) {
       setError("Please select which category best describes you.");
       return;
     }
-
     setIsLoading(true);
     try {
       const { error: signUpError } = await supabase.auth.signUp({
@@ -73,7 +61,6 @@ export default function Signup() {
         },
       });
       if (signUpError) throw signUpError;
-
       setMessage("Account created! Check your email to confirm, then log in.");
     } catch (err: any) {
       setError(err.message);
@@ -82,95 +69,166 @@ export default function Signup() {
     }
   };
 
-  const inputClass =
-    "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4CAF50]";
+  // Matching Home.tsx input style
+  const inputClass = "w-full px-4 py-3 border-[3px] border-black rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#16a34a] focus:border-black transition-all placeholder:text-gray-400 font-medium";
+  const labelClass = "block text-xs font-black uppercase tracking-wider text-gray-500 mb-1 ml-1";
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
-        <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Create Account</h3>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4 font-sans text-black relative overflow-hidden">
+       {/* Decorative Background Elements matching Home */}
+       <div className="absolute top-10 right-10 w-32 h-32 border-4 border-green-500 rounded-full opacity-10 blur-xl pointer-events-none"></div>
+      
+      <div className="bg-white max-w-md w-full p-4 md:p-8 relative z-10 my-8">
+        {/* Sketchy Border Container */}
+        <div className="border-[3px] border-black p-6 md:p-8 rounded-[20px] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative">
+            
+            {/* Green Accent Scribble */}
+            <div className="absolute -top-3 -left-3 w-full h-full border-2 border-[#16a34a] rounded-[25px] -z-10 opacity-60 pointer-events-none"></div>
 
-          {/* Category picker — only shown if not preselected by the modal */}
-          {!incomingCategory ? (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Which best describes you?
-              </label>
-              <select
-                required
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className={inputClass}
+            <h3 className="text-3xl font-black text-black mb-6 text-center tracking-tighter uppercase">
+              Create Account
+            </h3>
+            
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Category picker */}
+              {!incomingCategory ? (
+                <div>
+                  <label className={labelClass}>I am a...</label>
+                  <select
+                    required
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className={`${inputClass} cursor-pointer`}
+                  >
+                    <option value="" disabled>Select one…</option>
+                    <option value="high_school">High School Student</option>
+                    <option value="university">University Student</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              ) : (
+                <div className="bg-gray-50 border-[2px] border-dashed border-gray-300 rounded-lg p-3 text-center mb-4">
+                  <span className="text-xs font-bold text-gray-400 uppercase block">Signing up as</span>
+                  <span className="font-black text-[#16a34a] text-lg">{CATEGORY_LABELS[category]}</span>
+                </div>
+              )}
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                    <label className={labelClass}>First Name</label>
+                    <input type="text" placeholder="Jane" required value={formData.firstName} onChange={(e) => update("firstName", e.target.value)} className={inputClass} />
+                </div>
+                <div>
+                    <label className={labelClass}>Last Name</label>
+                    <input type="text" placeholder="Doe" required value={formData.lastName} onChange={(e) => update("lastName", e.target.value)} className={inputClass} />
+                </div>
+              </div>
+
+              {/* Category-specific fields */}
+              {category === "high_school" && (
+                <div className="space-y-4 pt-2 border-t-2 border-dashed border-gray-100">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label className={labelClass}>Age</label>
+                        <input type="number" placeholder="16" required value={formData.age} onChange={(e) => update("age", e.target.value)} className={inputClass} />
+                    </div>
+                    <div>
+                        <label className={labelClass}>Grade</label>
+                        <input type="text" placeholder="11th" required value={formData.grade} onChange={(e) => update("grade", e.target.value)} className={inputClass} />
+                    </div>
+                  </div>
+                  <div>
+                    <label className={labelClass}>School Name</label>
+                    <input type="text" placeholder="Lincoln High" required value={formData.schoolName} onChange={(e) => update("schoolName", e.target.value)} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Expected Graduation</label>
+                    <input type="date" required value={formData.graduationDate} onChange={(e) => update("graduationDate", e.target.value)} className={inputClass} />
+                  </div>
+                </div>
+              )}
+
+              {category === "university" && (
+                <div className="space-y-4 pt-2 border-t-2 border-dashed border-gray-100">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label className={labelClass}>Age</label>
+                        <input type="number" placeholder="20" required value={formData.age} onChange={(e) => update("age", e.target.value)} className={inputClass} />
+                    </div>
+                    <div>
+                        <label className={labelClass}>Standing</label>
+                        <select required value={formData.standing} onChange={(e) => update("standing", e.target.value)} className={`${inputClass} cursor-pointer`}>
+                          <option value="undergrad">Undergraduate</option>
+                          <option value="graduate">Graduate</option>
+                        </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className={labelClass}>University Name</label>
+                    <input type="text" placeholder="State University" required value={formData.universityName} onChange={(e) => update("universityName", e.target.value)} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Major</label>
+                    <input type="text" placeholder="Computer Science" required value={formData.major} onChange={(e) => update("major", e.target.value)} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Expected Graduation</label>
+                    <input type="date" required value={formData.expectedGraduation} onChange={(e) => update("expectedGraduation", e.target.value)} className={inputClass} />
+                  </div>
+                </div>
+              )}
+
+              {category === "other" && (
+                <div className="space-y-4 pt-2 border-t-2 border-dashed border-gray-100">
+                  <div>
+                    <label className={labelClass}>Organization</label>
+                    <input type="text" placeholder="EduSupport" required value={formData.organization} onChange={(e) => update("organization", e.target.value)} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Your Role</label>
+                    <input type="text" placeholder="Volunteer" required value={formData.role} onChange={(e) => update("role", e.target.value)} className={inputClass} />
+                  </div>
+                </div>
+              )}
+
+              <div className="pt-2">
+                <label className={labelClass}>Email Address</label>
+                <input type="email" placeholder="you@example.com" required value={formData.email} onChange={(e) => update("email", e.target.value)} className={inputClass} />
+              </div>
+              
+              <div>
+                <label className={labelClass}>Password</label>
+                <input type="password" placeholder="Create a strong password" required value={formData.password} onChange={(e) => update("password", e.target.value)} className={inputClass} />
+              </div>
+
+              {message && (
+                <div className="p-3 bg-green-50 border-[2px] border-[#16a34a] rounded-lg text-[#15803d] text-sm font-bold flex items-center gap-2">
+                  <span>✓</span> {message}
+                </div>
+              )}
+              
+              {error && (
+                <div className="p-3 bg-red-50 border-[2px] border-red-600 rounded-lg text-red-700 text-sm font-bold flex items-center gap-2">
+                  <span>!</span> {error}
+                </div>
+              )}
+
+              <button 
+                type="submit" 
+                disabled={isLoading} 
+                className="w-full py-4 bg-black text-white text-lg font-bold rounded-[50px] hover:bg-[#16a34a] transition-colors duration-300 shadow-[4px_4px_0px_0px_rgba(22,163,74,1)] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] disabled:opacity-50 disabled:cursor-not-allowed mt-4"
               >
-                <option value="" disabled>Select one…</option>
-                <option value="high_school">High School Student</option>
-                <option value="university">University Student</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-          ) : (
-            <div className="text-sm text-slate-500 -mt-2 mb-2">
-              Signing up as: <span className="font-semibold text-slate-700">{CATEGORY_LABELS[category]}</span>
-            </div>
-          )}
+                {isLoading ? "Creating..." : "Sign Up"}
+              </button>
+            </form>
 
-          <div className="grid grid-cols-2 gap-4">
-            <input type="text" placeholder="First Name" required value={formData.firstName} onChange={(e) => update("firstName", e.target.value)} className={inputClass} />
-            <input type="text" placeholder="Last Name" required value={formData.lastName} onChange={(e) => update("lastName", e.target.value)} className={inputClass} />
-          </div>
-
-          {/* Category-specific fields */}
-          {category === "high_school" && (
-            <>
-              <div className="grid grid-cols-2 gap-4">
-                <input type="number" placeholder="Age" required value={formData.age} onChange={(e) => update("age", e.target.value)} className={inputClass} />
-                <input type="text" placeholder="Grade" required value={formData.grade} onChange={(e) => update("grade", e.target.value)} className={inputClass} />
-              </div>
-              <input type="text" placeholder="School Name" required value={formData.schoolName} onChange={(e) => update("schoolName", e.target.value)} className={inputClass} />
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Expected Graduation Date</label>
-                <input type="date" required value={formData.graduationDate} onChange={(e) => update("graduationDate", e.target.value)} className={inputClass} />
-              </div>
-            </>
-          )}
-
-          {category === "university" && (
-            <>
-              <div className="grid grid-cols-2 gap-4">
-                <input type="number" placeholder="Age" required value={formData.age} onChange={(e) => update("age", e.target.value)} className={inputClass} />
-                <select required value={formData.standing} onChange={(e) => update("standing", e.target.value)} className={inputClass}>
-                  <option value="undergrad">Undergraduate</option>
-                  <option value="graduate">Graduate</option>
-                </select>
-              </div>
-              <input type="text" placeholder="University Name" required value={formData.universityName} onChange={(e) => update("universityName", e.target.value)} className={inputClass} />
-              <input type="text" placeholder="Major" required value={formData.major} onChange={(e) => update("major", e.target.value)} className={inputClass} />
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Expected Graduation Date</label>
-                <input type="date" required value={formData.expectedGraduation} onChange={(e) => update("expectedGraduation", e.target.value)} className={inputClass} />
-              </div>
-            </>
-          )}
-
-          {category === "other" && (
-            <>
-              <input type="text" placeholder="Organization" required value={formData.organization} onChange={(e) => update("organization", e.target.value)} className={inputClass} />
-              <input type="text" placeholder="Your Role" required value={formData.role} onChange={(e) => update("role", e.target.value)} className={inputClass} />
-            </>
-          )}
-
-          <input type="email" placeholder="Email" required value={formData.email} onChange={(e) => update("email", e.target.value)} className={inputClass} />
-          <input type="password" placeholder="Password" required value={formData.password} onChange={(e) => update("password", e.target.value)} className={inputClass} />
-
-          {message && <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">{message}</div>}
-          {error && <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">{error}</div>}
-
-          <button type="submit" disabled={isLoading} className="w-full py-3 bg-gradient-to-r from-[#4CAF50] to-[#42A5F5] text-white font-semibold rounded-lg hover:scale-[1.02] transition-all disabled:opacity-50">
-            {isLoading ? "Creating..." : "Sign Up"}
-          </button>
-        </form>
-        <p className="text-center mt-4 text-sm text-gray-500">Already have an account? <a href="/login" className="text-[#4CAF50] font-semibold">Log In</a></p>
+            <p className="text-center mt-8 text-sm font-medium text-gray-500">
+              Already have an account?{" "}
+              <a href="/login" className="text-[#16a34a] font-black underline decoration-2 underline-offset-2 hover:text-black transition-colors">
+                Log In
+              </a>
+            </p>
+        </div>
       </div>
     </div>
   );
