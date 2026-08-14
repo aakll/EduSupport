@@ -62,10 +62,9 @@ export default function Home() {
         */
         @keyframes moodSwing {
           0%, 30% { d: path("M243 174 Q250 182 257 174"); } /* Smile */
-          35%, 65% { d: path("M243 178 Q250 172 257 178"); } /* Frown (Only when all bubbles up) */
-          55%, 100% { d: path("M243 174 Q250 182 257 174"); } /* Smile */
+          35%, 55% { d: path("M243 178 Q250 172 257 178"); } /* Frown - Ends EXACTLY when Bubble 3 vanishes */
+          55.1%, 100% { d: path("M243 174 Q250 182 257 174"); } /* Smile returns immediately after */
         }
-
         /* Bubble 1 (Exams) - First In, First Out */
         @keyframes bubble1Anim {
           0%, 5% { opacity: 0; transform: scale(0); }
