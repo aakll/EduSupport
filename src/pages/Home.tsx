@@ -74,27 +74,6 @@ export default function Home() {
         }
       `}</style>
 
-      {/* --- NAVBAR --- */}
-      <nav className="w-full p-6 flex justify-between items-center border-b-2 border-black bg-white z-50">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-black text-white flex items-center justify-center font-bold rounded-sm">ES</div>
-          <div className="leading-tight">
-            <h1 className="text-xl font-bold tracking-tighter">EduSupport</h1>
-            <p className="text-xs text-gray-500 -mt-1">Guide for Students</p>
-          </div>
-        </div>
-        <div className="hidden md:flex gap-6 font-bold text-lg">
-          <a href="#" className="sketch-border px-4 py-1 bg-black text-white hover:bg-gray-800 transition">Home</a>
-          <a href="/scholarships" className="sketch-border px-4 py-1 hover:bg-gray-100 transition">Scholarships</a>
-        </div>
-        <button 
-          onClick={() => !isLoggedIn && setOpenModalFor("high_school")}
-          className="sketch-border px-6 py-1 font-bold hover:bg-gray-100 transition"
-        >
-          {isLoggedIn ? "Profile" : "Log In"}
-        </button>
-      </nav>
-
       {/* --- MAIN SPLIT SECTION --- */}
       <main className="flex-1 flex flex-col md:flex-row min-h-[80vh]">
         
