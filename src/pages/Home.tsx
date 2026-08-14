@@ -168,67 +168,36 @@ export default function Home() {
               viewBox="0 0 500 400"
               className="w-full h-auto drop-shadow-xl overflow-visible"
             >
-              {/* Floor / Base Line */}
+              {/* Desk */}
               <path
-                d="M100 360 L400 360"
-                fill="none"
-                stroke="black"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-
-              {/* Legs (Crossed) */}
-              <path
-                d="M190 320 C170 360, 230 370, 250 350 C270 370, 330 360, 310 320"
+                d="M100 350 L400 350 L420 380 L80 380 Z"
                 fill="white"
                 stroke="black"
                 strokeWidth="3"
-                strokeLinejoin="round"
               />
-              {/* Feet details */}
-              <path
-                d="M230 355 Q240 365 250 355"
-                fill="none"
-                stroke="black"
-                strokeWidth="2"
-              />
-              <path
-                d="M270 355 Q260 365 250 355"
-                fill="none"
-                stroke="black"
-                strokeWidth="2"
-              />
-
-              {/* Book (Held in front) */}
               <rect
-                x="210"
-                y="260"
-                width="80"
+                x="150"
+                y="280"
+                width="200"
+                height="70"
+                fill="white"
+                stroke="black"
+                strokeWidth="3"
+              />
+              {/* Laptop/Book on desk */}
+              <rect
+                x="200"
+                y="290"
+                width="100"
                 height="60"
                 fill="white"
                 stroke="black"
-                strokeWidth="3"
-              />
-              {/* Book Spine/Pages detail */}
-              <path d="M250 260 L250 320" stroke="black" strokeWidth="2" />
-              <path
-                d="M210 260 Q230 250 250 260 Q270 250 290 260"
-                fill="none"
-                stroke="black"
                 strokeWidth="2"
               />
-
+              <path d="M250 290 L250 350" stroke="black" strokeWidth="2" />
               {/* Character Body */}
-              {/* Neck */}
               <path
-                d="M240 205 L240 230 M260 205 L260 230"
-                fill="none"
-                stroke="black"
-                strokeWidth="3"
-              />
-              {/* Character Body (Shoulders/Torso behind book) */}
-              <path
-                d="M190 280 C190 230, 310 230, 310 280"
+                d="M180 280 C180 200, 320 200, 320 280"
                 fill="white"
                 stroke="black"
                 strokeWidth="3"
@@ -237,20 +206,26 @@ export default function Home() {
               <circle
                 cx="250"
                 cy="160"
-                r="45"
+                r="50"
                 fill="white"
                 stroke="black"
                 strokeWidth="3"
               />
-              {/* Hair (Messy/Wavy like sketch) */}
+              {/* Hair (Messy/Sketchy) */}
               <path
-                d="M205 160 C190 160, 180 120, 200 100 C210 80, 240 70, 260 80 C290 70, 310 90, 310 120 C320 140, 310 170, 295 160 C305 180, 290 210, 280 200 C270 220, 230 220, 220 200 C210 210, 190 190, 205 160 Z"
-                fill="white"
+                d="M190 160 C180 100, 250 80, 280 90 C320 100, 320 160, 310 180 C330 140, 300 100, 250 100 C200 100, 180 140, 190 160"
+                fill="black"
+                opacity="0.1"
                 stroke="black"
-                strokeWidth="3"
-                strokeLinejoin="round"
+                strokeWidth="2"
               />
-
+              <path
+                d="M195 140 Q250 80 305 140"
+                fill="none"
+                stroke="black"
+                strokeWidth="4"
+                strokeLinecap="round"
+              />
               {/* Eyes (Animated) - CHANGED TO GREEN */}
               <g className="animate-blink">
                 <ellipse cx="235" cy="155" rx="4" ry="6" fill="#16a34a" />
@@ -264,35 +239,21 @@ export default function Home() {
                 stroke="black"
                 strokeWidth="2"
               />
-              {/* Arms (Wrapping around book) */}
+              {/* Arms */}
               <path
-                d="M195 240 C160 260, 160 300, 215 290"
+                d="M180 240 Q150 280 200 300"
                 fill="none"
                 stroke="black"
                 strokeWidth="3"
                 strokeLinecap="round"
               />
               <path
-                d="M305 240 C340 260, 340 300, 285 290"
+                d="M320 240 Q350 280 300 300"
                 fill="none"
                 stroke="black"
                 strokeWidth="3"
                 strokeLinecap="round"
               />
-              {/* Hands (Simple loops/fingers on book) */}
-              <path
-                d="M215 285 Q225 280 225 295"
-                fill="none"
-                stroke="black"
-                strokeWidth="2"
-              />
-              <path
-                d="M285 285 Q275 280 275 295"
-                fill="none"
-                stroke="black"
-                strokeWidth="2"
-              />
-
               {/* COFFEE/PLANT (NOW RIGHT SIDE) */}
               <g transform="translate(360, 300)">
                 {/* Cup/Pot */}
