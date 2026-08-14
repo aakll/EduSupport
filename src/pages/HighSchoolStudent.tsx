@@ -5,11 +5,12 @@ export default function HighSchoolStudent() {
     <CategoryLanding
       tableName="high_school_students"
       heroImage="https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=1920"
-      heroTitle="Welcome"
-      heroSubtitle="Discover scholarships for high school students in Lebanon!"
-      gradientFrom="from-[#4CAF50]"
-      gradientTo="to-[#42A5F5]"
-      iconColor="text-[#4CAF50]"
+      heroTitle="High School Hub"
+      heroSubtitle="Your path to university starts here."
+      // Changed from Blue gradients to Green/Black logic
+      gradientFrom="from-[#16a34a]" 
+      gradientTo="to-black"
+      iconColor="text-[#16a34a]"
       ctaLabel="Explore Scholarships"
       ctaPath="/scholarships"
       selfPath="/high-school"
