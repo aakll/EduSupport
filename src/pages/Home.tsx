@@ -141,7 +141,7 @@ export default function Home() {
       {/* --- MAIN SPLIT SECTION --- */}
       <main className="flex-1 flex flex-col md:flex-row min-h-[80vh]">
         {/* LEFT SIDE: ILLUSTRATION */}
-        <div className="w-full md:w-1/2 flex flex-col justify-between items-center p-8 pt-24 pb-16 relative border-r-0 md:border-r-2 border-black bg-white overflow-hidden">
+        <div className="w-full md:w-1/2 flex flex-col justify-between items-center p-8 pt-24 pb-12 relative border-r-0 md:border-r-2 border-black bg-white overflow-hidden">
           {/* Decorative Green Scribble Background */}
           <div className="absolute top-10 left-10 w-32 h-32 border-4 border-green-500 rounded-full opacity-20 blur-xl"></div>
 
@@ -155,7 +155,7 @@ export default function Home() {
 
           {/* THE SCENE (SVG) - Positioned Lower */}
           <div
-            className={`relative w-full max-w-lg mt-auto transition-all duration-1000 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+            className={`relative w-full max-w-lg mt-auto transition-all duration-1000 ${mounted ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
           >
             <svg
               viewBox="0 0 500 400"
