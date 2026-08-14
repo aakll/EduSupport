@@ -43,7 +43,7 @@ export default function Home() {
         }
         @keyframes wag {
           0%, 100% { transform: rotate(0deg); }
-          50% { transform: rotate(-10deg); } /* Negative for left swing, smaller degree */
+          50% { transform: rotate(-5deg); } /* Negative for left swing, smaller degree */
         }
         @keyframes steam {
           0% { transform: translateY(0) scale(1); opacity: 0.8; }
@@ -222,7 +222,7 @@ export default function Home() {
                 {/* Tail (Animated) - SWAPPED DIRECTION & REDUCED RANGE */}
                 <path
                   className="animate-wag"
-                  d="M20 50 Q-10 20 0 0"
+                  d="M20 50 Q0 30 5 0"
                   fill="none"
                   stroke="#16a34a"
                   strokeWidth="4"
