@@ -169,22 +169,7 @@ export default function Home() {
               viewBox="0 0 500 400"
               className="w-full h-auto drop-shadow-xl overflow-visible"
             >
-              {/* Desk */}
-              <path
-                d="M100 350 L400 350 L420 380 L80 380 Z"
-                fill="white"
-                stroke="black"
-                strokeWidth="3"
-              />
-              <rect
-                x="150"
-                y="280"
-                width="200"
-                height="70"
-                fill="white"
-                stroke="black"
-                strokeWidth="3"
-              />
+             
               
 
               {/* ================= CHARACTER (illustration) ================= */}
