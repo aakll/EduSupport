@@ -130,7 +130,7 @@ export default function AuthChoiceModal({
           {/* Primary Action: Sign Up (Green/Black Style) */}
           <button
             onClick={handleSignup}
-            className="w-full py-4 bg-white text-black text-lg font-bold rounded-[50px] border-[3px] border-black hover:bg-gray-100 transition-colors duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]"
+            className="w-full py-4 bg-white text-black text-lg font-bold rounded-[50px] border-[3px] border-black hover:bg-[#16a34a] transition-colors duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]"
           >
             Sign Up
           </button>
@@ -138,7 +138,7 @@ export default function AuthChoiceModal({
           {/* Secondary Action: Log In (White/Black Style) */}
           <button
             onClick={handleLogin}
-            className="w-full py-4 bg-white text-black text-lg font-bold rounded-[50px] border-[3px] border-black hover:bg-gray-100 transition-colors duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]"
+            className="w-full py-4 bg-white text-black text-lg font-bold rounded-[50px] border-[3px] border-black hover:bg-[#16a34a] transition-colors duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]"
           >
             Log In
           </button>

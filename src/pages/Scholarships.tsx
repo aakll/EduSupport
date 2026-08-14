@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../supabaseClient";
-import GuestBanner from "../components/GuestBanner";
+import GuestBanner from "../components/GuestBanner"; // Assuming you want to use the component now
 
 interface Scholarship {
   id: string;
@@ -69,9 +69,10 @@ export default function Scholarships() {
 
   return (
     <div className="min-h-screen bg-white font-sans text-black">
+      {/* Using the GuestBanner component for consistency, or keep your inline version if preferred */}
       {isGuest && <GuestBanner redirectTo="/scholarships" />}
 
-      {/* Hero Section - High Contrast */}
+      {/* Hero Section */}
       <section className="relative h-[50vh] flex items-center justify-center overflow-hidden border-b-4 border-black bg-gray-100">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 grayscale"
@@ -86,29 +87,41 @@ export default function Scholarships() {
       </section>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Programs Grid */}
+        {/* Programs Grid - RESTORED IMAGES, UNIFIED STYLE */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {programs.map((p) => (
             <Link
               key={p.name}
               to={p.path}
-              className="group bg-white border-[3px] border-black rounded-[20px] p-6 relative overflow-hidden hover:bg-black hover:text-white transition-colors duration-300 shadow-[8px_8px_0px_0px_rgba(22,163,74,1)] active:shadow-none active:translate-x-[8px] active:translate-y-[8px] flex flex-col h-full"
+              className="group bg-white border-[3px] border-black rounded-[20px] p-0 relative overflow-hidden hover:bg-black hover:text-white transition-colors duration-300 shadow-[8px_8px_0px_0px_rgba(22,163,74,1)] active:shadow-none active:translate-x-[8px] active:translate-y-[8px] flex flex-col h-full"
             >
-              {/* Decorative corner */}
-              <div className="absolute top-0 right-0 w-16 h-16 bg-[#16a34a] opacity-20 rounded-bl-full group-hover:opacity-100 transition-opacity"></div>
+              {/* Top Accent Bar - Now Solid Green instead of gradient */}
+              <div className="h-2 bg-[#16a34a] w-full group-hover:bg-white transition-colors" />
               
-              <h2 className="text-2xl font-black mb-3 uppercase tracking-tight relative z-10">
-                {p.name}
-              </h2>
-              <p className="text-gray-600 group-hover:text-gray-300 font-medium mb-6 flex-grow relative z-10 leading-relaxed">
-                {p.desc}
-              </p>
-              
-              <div className="mt-auto relative z-10">
-                <span className="inline-flex items-center gap-2 text-sm font-bold uppercase border-b-2 border-current pb-1 group-hover:border-[#16a34a] group-hover:text-[#16a34a] transition-colors">
-                  View Program 
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                </span>
+              <div className="p-8 md:p-10 text-center relative z-10 flex flex-col h-full">
+                {/* Title */}
+                <h2 className="text-2xl font-black mb-3 uppercase tracking-tight relative z-20">
+                  {p.name}
+                </h2>
+                
+                {/* Description */}
+                <p className="text-gray-600 group-hover:text-gray-300 font-medium mb-8 flex-grow relative z-20 leading-relaxed">
+                  {p.desc}
+                </p>
+                
+                {/* Action Button - Outline style that fills on hover */}
+                <div className="mt-auto relative z-20">
+                   <span className="inline-flex items-center gap-2 px-6 py-3 border-2 border-black group-hover:border-white text-black group-hover:text-white font-bold rounded-full transition-all text-sm uppercase tracking-wide group-hover:bg-[#16a34a] group-hover:border-[#16a34a]">
+                    View Program 
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                  </span>
+                </div>
+
+                {/* BACKGROUND IMAGE - Restored but Grayscale/Opacity to fit theme */}
+                <div
+                  className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity grayscale pointer-events-none"
+                  style={{ backgroundImage: `url('${p.image}')` }}
+                />
               </div>
             </Link>
           ))}

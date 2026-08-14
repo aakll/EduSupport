@@ -7,9 +7,11 @@ export default function HighSchoolStudent() {
       heroImage="https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=1920"
       heroTitle="High School Hub"
       heroSubtitle="Your path to university starts here."
-      // Changed from Blue gradients to Green/Black logic
-      gradientFrom="from-[#16a34a]" 
+      
+      // CHANGE THESE TWO LINES
+      gradientFrom="from-black" 
       gradientTo="to-black"
+      
       iconColor="text-[#16a34a]"
       ctaLabel="Explore Scholarships"
       ctaPath="/scholarships"
