@@ -154,12 +154,19 @@ export default function Home() {
           <div className="absolute top-10 left-10 w-32 h-32 border-4 border-green-500 rounded-full opacity-20 blur-xl"></div>
 
           {/* BIG TITLE - Positioned Higher */}
-          <h1
-            className={`text-6xl md:text-7xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-600 stroke-black transition-all duration-1000 z-10 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"}`}
-            style={{ WebkitTextStroke: "2px black" }}
+          <div
+            className={`flex flex-col items-center transition-all duration-1000 z-10 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"}`}
           >
-            EduSupport
-          </h1>
+            <h1
+              className="text-6xl md:text-7xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-600 stroke-black"
+              style={{ WebkitTextStroke: "2px black" }}
+            >
+              EduSupport
+            </h1>
+            <p className="mt-4 text-lg md:text-xl font-bold text-gray-600 text-center max-w-xs md:max-w-md">
+              Your guide to scholarships, majors, and university admissions.
+            </p>
+          </div>
 
           {/* THE SCENE (SVG) - Positioned Lower */}
           <div
@@ -510,7 +517,7 @@ export default function Home() {
             {/* Bubble 2: Major? (Top Right of head) */}
             <div
               className="bubble-group group-2"
-              style={{ top: "15%", right: "35%" }}
+              style={{ top: "25%", right: "65%" }}
             >
               <div
                 className="bubble-dot-1"
@@ -531,7 +538,7 @@ export default function Home() {
             {/* Bubble 3: Scholarships? (Mid Right of head) */}
             <div
               className="bubble-group group-3"
-              style={{ top: "30%", right: "30%" }}
+              style={{ top: "50%", right: "60%" }}
             >
               <div
                 className="bubble-dot-1"
@@ -559,9 +566,12 @@ export default function Home() {
           >
             <button
               onClick={() => handleCardClick("high_school", "/high-school")}
-              className="w-full py-5 rounded-[50px] border-[3px] border-black bg-white text-xl font-bold hover:bg-black hover:text-white transition-colors duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]"
+              className="w-full py-5 rounded-[50px] border-[3px] border-black bg-white hover:bg-black hover:text-white transition-colors duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] flex flex-col items-center justify-center"
             >
-              High-School Student
+              <span className="text-xl font-bold">High-School Student</span>
+              <span className="text-sm font-medium opacity-70 mt-1">
+                Start Exploring
+              </span>
             </button>
             <button
               onClick={() => handleCardClick("volunteer", "/volunteer")}
@@ -617,9 +627,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <h4 className="text-lg font-bold mb-4 text-white">
-                Quick Links
-              </h4>
+              <h4 className="text-lg font-bold mb-4 text-white">Quick Links</h4>
               <ul className="space-y-2">
                 <li>
                   <a
@@ -641,9 +649,7 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h4 className="text-lg font-bold mb-4 text-white">
-                Team
-              </h4>
+              <h4 className="text-lg font-bold mb-4 text-white">Team</h4>
               <ul className="space-y-2 text-gray-400">
                 <li className="flex items-center gap-2">
                   <span className="text-pink-500">•</span> Founder
