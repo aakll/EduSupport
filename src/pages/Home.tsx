@@ -617,7 +617,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <h4 className="text-lg font-bold mb-4 text-white underline decoration-wavy decoration-green-500">
+              <h4 className="text-lg font-bold mb-4 text-white">
                 Quick Links
               </h4>
               <ul className="space-y-2">
@@ -641,7 +641,7 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h4 className="text-lg font-bold mb-4 text-white underline decoration-wavy decoration-pink-500">
+              <h4 className="text-lg font-bold mb-4 text-white">
                 Team
               </h4>
               <ul className="space-y-2 text-gray-400">
