@@ -195,65 +195,189 @@ export default function Home() {
                 strokeWidth="2"
               />
               <path d="M250 290 L250 350" stroke="black" strokeWidth="2" />
-              {/* Character Body */}
+
+              {/* Character Body (Hoodie) */}
               <path
-                d="M180 280 C180 200, 320 200, 320 280"
+                d="M180 280
+     C180 220, 210 200, 250 200
+     C290 200, 320 220, 320 280"
                 fill="white"
                 stroke="black"
                 strokeWidth="3"
               />
-              {/* Head */}
-              <circle
-                cx="250"
-                cy="160"
-                r="50"
+
+              {/* Hoodie */}
+              <path
+                d="M220 205
+     Q250 180 280 205
+     L270 230
+     Q250 215 230 230 Z"
                 fill="white"
                 stroke="black"
-                strokeWidth="3"
+                strokeWidth="2.5"
               />
-              {/* Hair (Messy/Sketchy) */}
-              <path
-                d="M190 160 C180 100, 250 80, 280 90 C320 100, 320 160, 310 180 C330 140, 300 100, 250 100 C200 100, 180 140, 190 160"
-                fill="black"
-                opacity="0.1"
+
+              {/* Hoodie Strings */}
+              <line
+                x1="242"
+                y1="228"
+                x2="238"
+                y2="245"
                 stroke="black"
                 strokeWidth="2"
-              />
-              <path
-                d="M195 140 Q250 80 305 140"
-                fill="none"
-                stroke="black"
-                strokeWidth="4"
                 strokeLinecap="round"
               />
-              {/* Eyes (Animated) - CHANGED TO GREEN */}
-              <g className="animate-blink">
-                <ellipse cx="235" cy="155" rx="4" ry="6" fill="#16a34a" />
-                <ellipse cx="265" cy="155" rx="4" ry="6" fill="#16a34a" />
-              </g>
-              {/* Mouth - Now Animated (Smile -> Sad -> Smile) */}
-              <path
-                className="animated-mouth"
-                d="M243 174 Q250 182 257 174"
-                fill="none"
+              <line
+                x1="258"
+                y1="228"
+                x2="262"
+                y2="245"
+                stroke="black"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+
+              {/* Neck */}
+              <line
+                x1="242"
+                y1="205"
+                x2="242"
+                y2="220"
                 stroke="black"
                 strokeWidth="2"
               />
+              <line
+                x1="258"
+                y1="205"
+                x2="258"
+                y2="220"
+                stroke="black"
+                strokeWidth="2"
+              />
+
+              {/* Head */}
+              <g transform="rotate(-5 250 160)">
+                <circle
+                  cx="250"
+                  cy="160"
+                  r="50"
+                  fill="white"
+                  stroke="black"
+                  strokeWidth="3"
+                />
+
+                {/* Hair */}
+                <path
+                  d="
+      M205 145
+      Q215 95 250 92
+      Q285 95 295 145
+      Q295 190 282 205
+      Q268 192 250 192
+      Q232 192 218 205
+      Q205 190 205 145
+    "
+                  fill="white"
+                  stroke="black"
+                  strokeWidth="3"
+                />
+
+                {/* Bangs */}
+                <path
+                  d="
+      M214 135
+      Q235 108 250 120
+      Q265 108 286 135
+    "
+                  fill="none"
+                  stroke="black"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+
+                {/* Left Hair */}
+                <path
+                  d="M208 145 Q190 175 205 205"
+                  fill="none"
+                  stroke="black"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+
+                {/* Right Hair */}
+                <path
+                  d="M292 145 Q310 175 295 205"
+                  fill="none"
+                  stroke="black"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+
+                {/* Eyes */}
+                <g className="animate-blink">
+                  <ellipse cx="235" cy="158" rx="5" ry="7" fill="#16a34a" />
+                  <ellipse cx="265" cy="158" rx="5" ry="7" fill="#16a34a" />
+
+                  {/* Highlights */}
+                  <circle cx="236" cy="156" r="1.3" fill="white" />
+                  <circle cx="266" cy="156" r="1.3" fill="white" />
+                </g>
+
+                {/* Nose */}
+                <path
+                  d="M250 164 Q248 170 251 171"
+                  fill="none"
+                  stroke="black"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+
+                {/* Animated Mouth */}
+                <path
+                  className="animated-mouth"
+                  d="M242 181 Q250 186 258 181"
+                  fill="none"
+                  stroke="black"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </g>
+
               {/* Arms */}
               <path
-                d="M180 240 Q150 280 200 300"
+                d="M182 238 Q160 270 198 300"
                 fill="none"
                 stroke="black"
                 strokeWidth="3"
                 strokeLinecap="round"
               />
+
               <path
-                d="M320 240 Q350 280 300 300"
+                d="M318 238 Q340 270 302 300"
                 fill="none"
                 stroke="black"
                 strokeWidth="3"
                 strokeLinecap="round"
               />
+
+              {/* Hands */}
+              <circle
+                cx="198"
+                cy="300"
+                r="4"
+                fill="white"
+                stroke="black"
+                strokeWidth="2"
+              />
+              <circle
+                cx="302"
+                cy="300"
+                r="4"
+                fill="white"
+                stroke="black"
+                strokeWidth="2"
+              />
+
               {/* COFFEE/PLANT (NOW RIGHT SIDE) */}
               <g transform="translate(360, 300)">
                 {/* Cup/Pot */}
