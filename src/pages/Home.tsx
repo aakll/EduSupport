@@ -117,7 +117,7 @@ export default function Home() {
               {/* Laptop/Book on desk */}
               <rect
                 x="200"
-                y="390"
+                y="190"
                 width="100"
                 height="60"
                 fill="white"
@@ -222,10 +222,10 @@ export default function Home() {
                 {/* Tail (Animated) - SWAPPED DIRECTION & REDUCED RANGE */}
                 <path
                   className="animate-wag"
-                  d="M15 50 Q-10 20 0 0"
+                  d="M20 50 Q-10 20 0 0"
                   fill="none"
                   stroke="#16a34a"
-                  strokeWidth="5"
+                  strokeWidth="4"
                   strokeLinecap="round"
                 />
 
