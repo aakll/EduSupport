@@ -169,9 +169,6 @@ export default function Home() {
               viewBox="0 0 500 400"
               className="w-full h-auto drop-shadow-xl overflow-visible"
             >
-             
-              
-
               {/* ================= CHARACTER (illustration) ================= */}
               <g transform="translate(-50,60) scale(0.22)">
                 <path
@@ -556,13 +553,29 @@ export default function Home() {
 
         {/* RIGHT SIDE: CONTENT */}
         <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 md:p-12 gap-10 bg-slate-50/50">
+          {/* Action Buttons (Ovals) */}
+          <div
+            className={`flex flex-col gap-6 w-full max-w-md items-center transition-all duration-700 delay-200 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+          >
+            <button
+              onClick={() => handleCardClick("high_school", "/high-school")}
+              className="w-full py-5 rounded-[50px] border-[3px] border-black bg-white text-xl font-bold hover:bg-black hover:text-white transition-colors duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]"
+            >
+              High-School Student
+            </button>
+            <button
+              onClick={() => handleCardClick("volunteer", "/volunteer")}
+              className="w-full py-5 rounded-[50px] border-[3px] border-black bg-white text-xl font-bold hover:bg-black hover:text-white transition-colors duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]"
+            >
+              Volunteer with us
+            </button>
+          </div>
           {/* Founder Card */}
           <div
-            className={`w-full max-w-md sketch-border-green bg-white p-6 relative transition-all duration-700 delay-200 ${mounted ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}
+            className={`w-full max-w-md sketch-border-green bg-white p-6 relative transition-all duration-700 delay-500 ${mounted ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}
           >
             {/* Green scribble accent */}
             <div className="absolute -top-3 -left-3 w-full h-full border-2 border-green-500 rounded-lg -z-10 opacity-50"></div>
-
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-full border-2 border-black flex-shrink-0 bg-gray-100"></div>
               <div>
@@ -585,25 +598,6 @@ export default function Home() {
                 "
               </span>
             </div>
-          </div>
-
-          {/* Action Buttons (Ovals) */}
-          <div
-            className={`flex flex-col gap-6 w-full max-w-md items-center transition-all duration-700 delay-500 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-          >
-            <button
-              onClick={() => handleCardClick("high_school", "/high-school")}
-              className="w-full py-5 rounded-[50px] border-[3px] border-black bg-white text-xl font-bold hover:bg-black hover:text-white transition-colors duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]"
-            >
-              High-School Student
-            </button>
-
-            <button
-              onClick={() => handleCardClick("volunteer", "/volunteer")}
-              className="w-full py-5 rounded-[50px] border-[3px] border-black bg-white text-xl font-bold hover:bg-black hover:text-white transition-colors duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-[4px] active:translate-y-[4px]"
-            >
-              Volunteer with us
-            </button>
           </div>
         </div>
       </main>
