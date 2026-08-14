@@ -355,7 +355,7 @@ export default function Home() {
             {/* Bubble 2: Major? (Top Right of head) */}
             <div
               className="bubble-group group-2"
-              style={{ top: "15%", right: "20%" }}
+              style={{ top: "15%", right: "10%" }}
             >
               <div
                 className="bubble-dot-1"
