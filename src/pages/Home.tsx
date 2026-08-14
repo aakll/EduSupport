@@ -109,25 +109,14 @@ export default function Home() {
      }
      .bubble-dot-1 { width: 8px; height: 8px; }
      .bubble-dot-2 { width: 14px; height: 14px; }
-       .bubble-main { 
-    padding: 8px 16px; 
-    font-weight: bold; 
-    color: #15803d; 
-    white-space: nowrap;
-    border-radius: 50px;
-    border-width: 3px;
-    /* Add these lines to prevent overflow */
-    max-width: 80vw; /* Ensures it never exceeds 80% of viewport width */
-    transform-origin: center; 
-  }
-  
-  /* Add a media query to scale down bubbles on very small screens */
-  @media (max-width: 480px) {
-    .bubble-main {
-      font-size: 0.8rem;
-      padding: 6px 12px;
-    }
-  }
+     .bubble-main { 
+       padding: 8px 16px; 
+       font-weight: bold; 
+       color: #15803d; 
+       white-space: nowrap;
+       border-radius: 50px;
+       border-width: 3px;
+     }
 
      /* --- NEW TIMING (9s Cycle) --- */
      
@@ -542,7 +531,7 @@ export default function Home() {
             {/* Bubble 3: Scholarships? (Mid Right of head) */}
             <div
               className="bubble-group group-3"
-              style={{ top: "30%", right: "5%" }}
+              style={{ top: "30%", right: "30%" }}
             >
               <div
                 className="bubble-dot-1"
