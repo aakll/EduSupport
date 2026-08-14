@@ -108,7 +108,7 @@ export default function Volunteer() {
           <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-black mb-4 uppercase" style={{ WebkitTextStroke: "1px black" }}>
             Volunteer
           </h1>
-          <p className="text-lg font-bold text-gray-600 max-w-xl mx-auto">
+          <p className="text-lg font-bold bg-white max-w-xl mx-auto">
             Join our community of mentors empowering Lebanese students.
           </p>
         </div>

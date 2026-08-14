@@ -97,7 +97,7 @@ export default function Scholarships() {
           >
             Scholarships
           </h1>
-          <p className="text-lg font-bold text-gray-600">Find your funding.</p>
+          <p className="text-lg font-bold text-black">Find your funding.</p>
         </div>
       </section>
 
