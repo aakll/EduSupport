@@ -43,42 +43,79 @@ export default function Home() {
         }
         @keyframes wag {
           0%, 100% { transform: rotate(0deg); }
-          50% { transform: rotate(-5deg); } /* Negative for left swing, smaller degree */
+          50% { transform: rotate(-5deg); }
         }
         @keyframes steam {
           0% { transform: translateY(0) scale(1); opacity: 0.8; }
           100% { transform: translateY(-15px) scale(1.2); opacity: 0; }
         }
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
+        
+        /* Bubble Appearance Loop: 12s total cycle */
+        @keyframes bubbleLife {
+          0% { opacity: 0; transform: scale(0.5); }
+          5% { opacity: 1; transform: scale(1); }
+          75% { opacity: 1; transform: scale(1); }
+          85% { opacity: 0; transform: scale(0.8); }
+          100% { opacity: 0; transform: scale(0.5); }
         }
-        @keyframes popIn {
-          0% { opacity: 0; transform: scale(0.5) translateY(20px); }
-          100% { opacity: 1; transform: scale(1) translateY(0); }
+
+        /* Face Mood Loop: Happy -> Sad when bubbles appear -> Happy when they vanish */
+        @keyframes moodSwing {
+          0%, 5% { d: path("M245 175 Q250 180 255 175"); } /* Smile */
+          10%, 75% { d: path("M245 180 Q250 175 255 180"); } /* Frown */
+          85%, 100% { d: path("M245 175 Q250 180 255 175"); } /* Smile */
         }
+
         .animate-blink { transform-origin: center; animation: blink 4s infinite; }
         .animate-wag { transform-origin: bottom left; animation: wag 2s ease-in-out infinite; }
         .animate-steam { animation: steam 2s infinite ease-out; }
-        .animate-float { animation: float 3s ease-in-out infinite; }
-        .pop-in-1 { opacity: 0; animation: popIn 0.5s forwards 0.5s; }
-        .pop-in-2 { opacity: 0; animation: popIn 0.5s forwards 1.2s; }
-        .pop-in-3 { opacity: 0; animation: popIn 0.5s forwards 1.9s; }
         
-        /* Hand-drawn border effect */
-        .sketch-border {
-          border: 3px solid black;
-          border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-        }
-        .sketch-border-green {
+        /* Organic Bubble Shape */
+        .thought-bubble {
+          position: relative;
+          background: #f0fdf4;
           border: 3px solid #16a34a;
-          border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+          border-radius: 50%;
+          padding: 12px 20px;
+          font-weight: bold;
+          color: #15803d;
+          white-space: nowrap;
+        }
+        /* Bubble Tail (3 small circles) */
+        .thought-bubble::before,
+        .thought-bubble::after {
+          content: '';
+          position: absolute;
+          background: #f0fdf4;
+          border: 3px solid #16a34a;
+          border-radius: 50%;
+        }
+        .thought-bubble::before {
+          width: 12px; height: 12px;
+          bottom: -8px; left: 20px;
+        }
+        .thought-bubble::after {
+          width: 8px; height: 8px;
+          bottom: -18px; left: 12px;
+        }
+
+        /* Staggered bubble animations */
+        .bubble-anim { 
+          opacity: 0; 
+          animation: bubbleLife 12s infinite ease-in-out; 
+        }
+        .bubble-delay-1 { animation-delay: 0s; }
+        .bubble-delay-2 { animation-delay: 0.8s; }
+        .bubble-delay-3 { animation-delay: 1.6s; }
+
+        /* Sad mouth class driven by CSS animation on the path */
+        .animated-mouth {
+          animation: moodSwing 12s infinite ease-in-out;
         }
       `}</style>
 
       {/* --- MAIN SPLIT SECTION --- */}
       <main className="flex-1 flex flex-col md:flex-row min-h-[80vh]">
-
         {/* LEFT SIDE: ILLUSTRATION */}
         <div className="w-full md:w-1/2 flex items-center justify-center p-8 relative border-r-0 md:border-r-2 border-black bg-white overflow-hidden">
           {/* Decorative Green Scribble Background */}
@@ -87,9 +124,9 @@ export default function Home() {
           <div
             className={`relative w-full max-w-lg transition-all duration-1000 ${mounted ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
           >
-            {/* BIG TITLE */}
+            {/* BIG TITLE - CENTERED */}
             <h1
-              className="text-6xl md:text-7xl font-black mb-8 tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-600 stroke-black"
+              className="absolute top-8 left-1/2 -translate-x-1/2 text-6xl md:text-7xl font-black mb-8 tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-600 stroke-black whitespace-nowrap z-10"
               style={{ WebkitTextStroke: "2px black" }}
             >
               EduSupport
@@ -166,8 +203,9 @@ export default function Home() {
                 <ellipse cx="265" cy="155" rx="4" ry="6" fill="#16a34a" />
               </g>
 
-              {/* Mouth */}
+              {/* Mouth - Now animated between smile and frown */}
               <path
+                className="animated-mouth"
                 d="M245 175 Q250 180 255 175"
                 fill="none"
                 stroke="black"
@@ -268,31 +306,23 @@ export default function Home() {
               </g>
             </svg>
 
-            {/* FLOATING THOUGHT BUBBLES (GREEN & Animated) */}
-            <div className="absolute top-20 left-0 pop-in-1 animate-float">
-              <div className="sketch-border bg-green-50 border-green-600 px-4 py-2 rotate-[-10deg] shadow-sm">
-                <span className="font-bold text-green-700">Exams?</span>
-              </div>
+            {/* THOUGHT BUBBLES (Organic Shape + Loop Animation) */}
+            {/* Exams? - Top Left */}
+            <div className="absolute top-24 left-4 bubble-anim bubble-delay-1 z-20">
+              <div className="thought-bubble">Exams?</div>
             </div>
-            <div
-              className="absolute top-10 right-10 pop-in-2 animate-float"
-              style={{ animationDelay: "1s" }}
-            >
-              <div className="sketch-border bg-green-50 border-green-600 px-4 py-2 rotate-[5deg] shadow-sm">
-                <span className="font-bold text-green-700">Major?</span>
-              </div>
+
+            {/* Major? - Top Right (Lowered) */}
+            <div className="absolute top-32 right-8 bubble-anim bubble-delay-2 z-20">
+              <div className="thought-bubble">Major?</div>
             </div>
-            <div
-              className="absolute top-40 right-0 pop-in-3 animate-float"
-              style={{ animationDelay: "2s" }}
-            >
-              <div className="sketch-border bg-green-50 border-green-600 px-4 py-2 rotate-[-5deg] shadow-sm">
-                <span className="font-bold text-green-700">Scholarships</span>
-              </div>
+
+            {/* Scholarships? - Mid Right */}
+            <div className="absolute top-52 right-0 bubble-anim bubble-delay-3 z-20">
+              <div className="thought-bubble">Scholarships?</div>
             </div>
           </div>
         </div>
-
 
         {/* RIGHT SIDE: CONTENT */}
         <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 md:p-12 gap-10 bg-slate-50/50">
