@@ -1,10 +1,13 @@
-import { useState } from "react";
 import { supabase } from "../supabaseClient";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Signup() {
   // Category is always chosen by the user in the dropdown below —
   // no pre-fill from AuthChoiceModal / router state.
+  const location = useLocation();
+  const redirectTo =
+    (location.state as { redirectTo?: string } | null)?.redirectTo || "/";
   const navigate = useNavigate();
   const [category, setCategory] = useState<string>("");
   const [formData, setFormData] = useState({
@@ -29,6 +32,20 @@ export default function Signup() {
 
   const update = (field: string, value: string) =>
     setFormData((prev) => ({ ...prev, [field]: value }));
+
+  useEffect(() => {
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (event === "SIGNED_IN" && session) {
+          navigate(redirectTo);
+        }
+      },
+    );
+
+    return () => {
+      listener.subscription.unsubscribe();
+    };
+  }, [navigate, redirectTo]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
