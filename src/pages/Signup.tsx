@@ -1,26 +1,10 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import { supabase } from "../supabaseClient";
-import type { UserCategory } from "../components/AuthChoiceModal";
-
-const CATEGORY_LABELS: Record<string, string> = {
-  high_school: "High School Student",
-  university: "University Student",
-  other: "Other",
-};
 
 export default function Signup() {
-  const location = useLocation();
-  const incomingCategory = location.state?.category as UserCategory | undefined;
-
-  // --- REVERTED TO ORIGINAL LOGIC ---
-  // Only pre-fill if a category was explicitly passed.
-  // If incomingCategory exists (e.g., "high_school"), we use it.
-  // If it doesn't exist, we default to empty string "" to force the dropdown.
-  const [category, setCategory] = useState<string>(
-    incomingCategory ? incomingCategory : ""
-  );
-  // ----------------------------------
+  // Category is always chosen by the user in the dropdown below —
+  // no pre-fill from AuthChoiceModal / router state.
+  const [category, setCategory] = useState<string>("");
 
   const [formData, setFormData] = useState({
     firstName: " ", lastName: " ", email: " ", password: " ",
@@ -96,30 +80,20 @@ export default function Signup() {
             
             <form onSubmit={handleSubmit} className="space-y-4">
               
-              {/* --- RESTORED ORIGINAL UI LOGIC --- */}
-              {/* Show dropdown ONLY if no category was passed from the modal */}
-              {!incomingCategory ? (
-                <div>
-                  <label className={labelClass}>Which best describes you?</label>
-                  <select
-                    required
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className={`${inputClass} cursor-pointer`}
-                  >
-                    <option value="" disabled>Select one…</option>
-                    <option value="high_school">High School Student</option>
-                    <option value="university">University Student</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-              ) : (
-                <div className="bg-gray-50 border-[2px] border-dashed border-gray-300 rounded-lg p-3 text-center mb-4">
-                  <span className="text-xs font-bold text-gray-400 uppercase block">Signing up as</span>
-                  <span className="font-black text-[#16a34a] text-lg">{CATEGORY_LABELS[category]}</span>
-                </div>
-              )}
-              {/* ------------------------- */}
+              <div>
+                <label className={labelClass}>Which best describes you?</label>
+                <select
+                  required
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className={`${inputClass} cursor-pointer`}
+                >
+                  <option value="" disabled>Select one…</option>
+                  <option value="high_school">High School Student</option>
+                  <option value="university">University Student</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
