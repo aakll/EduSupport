@@ -109,7 +109,7 @@ export default function Volunteer() {
             Volunteer
           </h1>
           <p className="text-lg font-bold bg-white max-w-xl mx-auto">
-            Join our community of mentors empowering Lebanese students.
+            Join our community of volunteers empowering students in Lebanon
           </p>
         </div>
       </section>
@@ -136,7 +136,7 @@ export default function Volunteer() {
                 <h2 className="text-2xl font-black text-black group-hover:text-[#16a34a] transition-colors uppercase tracking-tight">
                   Become a Mentor
                 </h2>
-                <p className="text-sm font-bold text-gray-500 mt-1">Help students with applications</p>
+                <p className="text-sm font-bold text-gray-500 mt-1">Help students with scholarship applications</p>
               </div>
             </div>
             <svg
@@ -150,7 +150,7 @@ export default function Volunteer() {
           <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
             <div className="px-8 md:px-10 pb-10 pt-2 border-t-2 border-dashed border-gray-200">
               <p className="text-gray-700 font-medium leading-relaxed mb-4 text-lg">
-                Guide high school students through the scholarship process:
+                Guide high school students through the scholarship process by doing any of the below:
               </p>
               <ol className="text-gray-700 leading-relaxed mb-6 list-decimal list-inside space-y-2 font-medium marker:text-[#16a34a] marker:font-black">
                 <li>Introduce scholarships and benefits.</li>
