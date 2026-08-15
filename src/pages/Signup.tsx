@@ -13,13 +13,14 @@ export default function Signup() {
   const location = useLocation();
   const incomingCategory = location.state?.category as UserCategory | undefined;
 
-  // --- RESTORED LOGIC ---
-  // If the incoming category is "volunteer" or undefined, we force the user to pick one.
-  // Only pre-fill if it's a valid student category (high_school, university, other).
+  // --- REVERTED TO ORIGINAL LOGIC ---
+  // Only pre-fill if a category was explicitly passed.
+  // If incomingCategory exists (e.g., "high_school"), we use it.
+  // If it doesn't exist, we default to empty string "" to force the dropdown.
   const [category, setCategory] = useState<string>(
-    incomingCategory && incomingCategory !== "volunteer" ? incomingCategory : ""
+    incomingCategory ? incomingCategory : ""
   );
-  // ----------------------
+  // ----------------------------------
 
   const [formData, setFormData] = useState({
     firstName: " ", lastName: " ", email: " ", password: " ",
@@ -40,7 +41,6 @@ export default function Signup() {
     setMessage("");
     setError("");
     
-    // Validation: Ensure a category is selected
     if (!category) {
       setError("Please select which category best describes you.");
       return;
@@ -96,11 +96,11 @@ export default function Signup() {
             
             <form onSubmit={handleSubmit} className="space-y-4">
               
-              {/* --- RESTORED UI LOGIC --- */}
-              {/* Show dropdown if category is empty (which happens if they clicked Volunteer) */}
-              {!incomingCategory || incomingCategory === "volunteer" ? (
+              {/* --- RESTORED ORIGINAL UI LOGIC --- */}
+              {/* Show dropdown ONLY if no category was passed from the modal */}
+              {!incomingCategory ? (
                 <div>
-                  <label className={labelClass}>I am a...</label>
+                  <label className={labelClass}>Which best describes you?</label>
                   <select
                     required
                     value={category}
