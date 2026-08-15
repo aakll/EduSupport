@@ -600,9 +600,12 @@ export default function Home() {
                 "
               </span>
               <p className="text-gray-700 italic pl-2 leading-relaxed">
-                We believe every student deserves a clear path to their future.
-                EduSupport is here to guide you through exams, majors, and
-                scholarships.
+                I always remember how stressful high school was.
+                Dealing with academic pressure, figuring out what major to pursue,
+                which university to apply for, and how to fund my studies...
+                It felt like my future is at stake!
+                That is why I lunched EduSupport, 
+                to not let any student go through this stress again. 
               </p>
               <span className="absolute -right-2 -bottom-4 text-4xl text-green-500 opacity-30 font-serif">
                 "
