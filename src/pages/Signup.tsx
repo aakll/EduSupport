@@ -7,11 +7,11 @@ export default function Signup() {
   const [category, setCategory] = useState<string>("");
 
   const [formData, setFormData] = useState({
-    firstName: " ", lastName: " ", email: " ", password: " ",
-    age: " ",
-    schoolName: " ", grade: " ", graduationDate: " ",
-    universityName: " ", major: " ", standing: "undergrad ", expectedGraduation: " ",
-    organization: " ", role: " ",
+    firstName: "", lastName: "", email: "", password: "",
+    age: "",
+    schoolName: "", grade: "", graduationDate: "",
+    universityName: "", major: "", standing: "undergrad", expectedGraduation: "",
+    organization: "", role: "",
   });
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
