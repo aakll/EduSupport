@@ -97,11 +97,11 @@ export default function Signup() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                     <label className={labelClass}>First Name</label>
-                    <input type="text" placeholder="Jane" required value={formData.firstName} onChange={(e) => update("firstName", e.target.value)} className={inputClass} />
+                    <input type="text" placeholder="" required value={formData.firstName} onChange={(e) => update("firstName", e.target.value)} className={inputClass} />
                 </div>
                 <div>
                     <label className={labelClass}>Last Name</label>
-                    <input type="text" placeholder="Doe" required value={formData.lastName} onChange={(e) => update("lastName", e.target.value)} className={inputClass} />
+                    <input type="text" placeholder="" required value={formData.lastName} onChange={(e) => update("lastName", e.target.value)} className={inputClass} />
                 </div>
               </div>
 
