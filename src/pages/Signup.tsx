@@ -12,9 +12,15 @@ const CATEGORY_LABELS: Record<string, string> = {
 export default function Signup() {
   const location = useLocation();
   const incomingCategory = location.state?.category as UserCategory | undefined;
+
+  // --- RESTORED LOGIC ---
+  // If the incoming category is "volunteer" or undefined, we force the user to pick one.
+  // Only pre-fill if it's a valid student category (high_school, university, other).
   const [category, setCategory] = useState<string>(
     incomingCategory && incomingCategory !== "volunteer" ? incomingCategory : ""
   );
+  // ----------------------
+
   const [formData, setFormData] = useState({
     firstName: " ", lastName: " ", email: " ", password: " ",
     age: " ",
@@ -33,10 +39,13 @@ export default function Signup() {
     e.preventDefault();
     setMessage("");
     setError("");
+    
+    // Validation: Ensure a category is selected
     if (!category) {
       setError("Please select which category best describes you.");
       return;
     }
+
     setIsLoading(true);
     try {
       const { error: signUpError } = await supabase.auth.signUp({
@@ -69,20 +78,16 @@ export default function Signup() {
     }
   };
 
-  // Matching Home.tsx input style
+  // Styles matching Home.tsx
   const inputClass = "w-full px-4 py-3 border-[3px] border-black rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#16a34a] focus:border-black transition-all placeholder:text-gray-400 font-medium";
   const labelClass = "block text-xs font-black uppercase tracking-wider text-gray-500 mb-1 ml-1";
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4 font-sans text-black relative overflow-hidden">
-       {/* Decorative Background Elements matching Home */}
        <div className="absolute top-10 right-10 w-32 h-32 border-4 border-green-500 rounded-full opacity-10 blur-xl pointer-events-none"></div>
       
       <div className="bg-white max-w-md w-full p-4 md:p-8 relative z-10 my-8">
-        {/* Sketchy Border Container */}
         <div className="border-[3px] border-black p-6 md:p-8 rounded-[20px] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative">
-            
-            {/* Green Accent Scribble */}
             <div className="absolute -top-3 -left-3 w-full h-full border-2 border-[#16a34a] rounded-[25px] -z-10 opacity-60 pointer-events-none"></div>
 
             <h3 className="text-3xl font-black text-black mb-6 text-center tracking-tighter uppercase">
@@ -90,8 +95,10 @@ export default function Signup() {
             </h3>
             
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Category picker */}
-              {!incomingCategory ? (
+              
+              {/* --- RESTORED UI LOGIC --- */}
+              {/* Show dropdown if category is empty (which happens if they clicked Volunteer) */}
+              {!incomingCategory || incomingCategory === "volunteer" ? (
                 <div>
                   <label className={labelClass}>I am a...</label>
                   <select
@@ -112,6 +119,7 @@ export default function Signup() {
                   <span className="font-black text-[#16a34a] text-lg">{CATEGORY_LABELS[category]}</span>
                 </div>
               )}
+              {/* ------------------------- */}
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -124,7 +132,6 @@ export default function Signup() {
                 </div>
               </div>
 
-              {/* Category-specific fields */}
               {category === "high_school" && (
                 <div className="space-y-4 pt-2 border-t-2 border-dashed border-gray-100">
                   <div className="grid grid-cols-2 gap-4">
