@@ -34,18 +34,24 @@ export default function Signup() {
     setFormData((prev) => ({ ...prev, [field]: value }));
 
   useEffect(() => {
-    const { data: listener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        if (event === "SIGNED_IN" && session) {
-          navigate(redirectTo);
-        }
-      },
-    );
+    if (!message) return; // only start polling after successful signup
 
-    return () => {
-      listener.subscription.unsubscribe();
-    };
-  }, [navigate, redirectTo]);
+    const interval = setInterval(async () => {
+      const { data, error: pollError } = await supabase.auth.signInWithPassword(
+        {
+          email: formData.email,
+          password: formData.password,
+        },
+      );
+
+      if (!pollError && data.session) {
+        clearInterval(interval);
+        navigate(redirectTo);
+      }
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [message, formData.email, formData.password, navigate, redirectTo]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
