@@ -156,13 +156,13 @@ export default function Volunteer() {
                 Guide high school students through the scholarship application process by doing any of the following:
               </p>
               <ol className="text-gray-700 leading-relaxed mb-6 list-decimal list-inside space-y-2 font-medium marker:text-[#16a34a] marker:font-black">
-                    <li>1. Introduce the scholarship and what it provides.</li>
-                    <li>2. Assist students in understanding the eligibility criteria and requirements.</li>
-                    <li>3. Give them tips on how to present themselves effectively in their applications, including writing compelling essays and preparing for interviews.</li>
-                    <li>4. State your experience applying for this scholarship and the challenges you faced, so they can learn from your journey.</li>
-                    <li>5. Highlight the skills you had and you believe were important for your acceptance, and how they can develop those skills.</li>
-                    <li>6. Walk them through the application process.</li>
-                    <li>7. Provide useful resources and references to help them succeed.</li>
+                    <li>Introduce the scholarship and what it provides.</li>
+                    <li>Assist students in understanding the eligibility criteria and requirements.</li>
+                    <li>Give them tips on how to present themselves effectively in their applications, including writing compelling essays and preparing for interviews.</li>
+                    <li>State your experience applying for this scholarship and the challenges you faced, so they can learn from your journey.</li>
+                    <li>Highlight the skills you had and you believe were important for your acceptance, and how they can develop those skills.</li>
+                    <li>Walk them through the application process.</li>
+                    <li>Provide useful resources and references to help them succeed.</li>
 
                     You can provide the content either as written or as a video, or both.
               </ol>
