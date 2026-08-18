@@ -25,6 +25,7 @@ export default function Volunteer() {
   const [major, setMajor] = useState("");
   const [level, setLevel] = useState("");
   const [graduationDate, setGraduationDate] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
@@ -54,7 +55,7 @@ export default function Volunteer() {
   const handleApply = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!userId) return;
-    if (!firstName || !lastName || !scholarshipReceived || !university || !major || !level || !graduationDate) {
+    if (!firstName || !lastName || !scholarshipReceived || !university || !major || !level || !graduationDate || !phoneNumber) {
       setError("Please fill in all required fields.");
       return;
     }
@@ -72,7 +73,9 @@ export default function Volunteer() {
       major,
       level,
       graduation_date: graduationDate,
+      phoneNumber: phoneNumber,
       status: "pending",
+
     }]);
 
     if (insertError) {
@@ -150,16 +153,18 @@ export default function Volunteer() {
           <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
             <div className="px-8 md:px-10 pb-10 pt-2 border-t-2 border-dashed border-gray-200">
               <p className="text-gray-700 font-medium leading-relaxed mb-4 text-lg">
-                Guide high school students through the scholarship process by doing any of the below:
+                Guide high school students through the scholarship application process by doing any of the following:
               </p>
               <ol className="text-gray-700 leading-relaxed mb-6 list-decimal list-inside space-y-2 font-medium marker:text-[#16a34a] marker:font-black">
-                <li>Introduce scholarships and benefits.</li>
-                <li>Explain eligibility criteria.</li>
-                <li>Tips for essays and interviews.</li>
-                <li>Share your personal experience.</li>
-                <li>Highlight key skills for acceptance.</li>
-                <li>Walk through the application steps.</li>
-                <li>Provide resources.</li>
+                    <li>1. Introduce the scholarship and what it provides.</li>
+                    <li>2. Assist students in understanding the eligibility criteria and requirements.</li>
+                    <li>3. Give them tips on how to present themselves effectively in their applications, including writing compelling essays and preparing for interviews.</li>
+                    <li>4. State your experience applying for this scholarship and the challenges you faced, so they can learn from your journey.</li>
+                    <li>5. Highlight the skills you had and you believe were important for your acceptance, and how they can develop those skills.</li>
+                    <li>6. Walk them through the application process.</li>
+                    <li>7. Provide useful resources and references to help them succeed.</li>
+
+                    You can provide the content either as written or as a video, or both.
               </ol>
 
               {/* Status / Action Area */}
@@ -227,11 +232,11 @@ export default function Volunteer() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                     <label className="block text-xs font-black uppercase tracking-wider text-gray-500 mb-2 ml-1">First Name</label>
-                    <input type="text" required value={firstName} onChange={(e) => setFirstName(e.target.value)} className={inputClass} placeholder="Jane" />
+                    <input type="text" required value={firstName} onChange={(e) => setFirstName(e.target.value)} className={inputClass} placeholder="" />
                 </div>
                 <div>
                     <label className="block text-xs font-black uppercase tracking-wider text-gray-500 mb-2 ml-1">Last Name</label>
-                    <input type="text" required value={lastName} onChange={(e) => setLastName(e.target.value)} className={inputClass} placeholder="Doe" />
+                    <input type="text" required value={lastName} onChange={(e) => setLastName(e.target.value)} className={inputClass} placeholder="" />
                 </div>
               </div>
 
@@ -267,6 +272,13 @@ export default function Volunteer() {
                             {l}
                         </label>
                     ))}
+                </div>
+              </div>
+
+              <div>
+                <div>
+                    <label className="block text-xs font-black uppercase tracking-wider text-gray-500 mb-2 ml-1">WhatsApp Number</label>
+                    <input type="text" required value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className={inputClass} placeholder="..." />
                 </div>
               </div>
 
