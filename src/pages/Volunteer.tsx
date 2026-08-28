@@ -436,7 +436,7 @@ export default function Volunteer() {
           >
             <div className="px-8 md:px-10 pb-10 pt-2 border-t-2 border-dashed border-gray-200">
               <p className="text-gray-700 font-medium leading-relaxed mb-4 text-lg">
-                Guide high school students through standardized test preparation
+                Guide high school students through standardized test preparation (SAT/IELTS/TOEFL)
                 by sharing your strategies and resources.
               </p>
 
