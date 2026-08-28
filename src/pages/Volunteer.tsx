@@ -27,6 +27,7 @@ export default function Volunteer() {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [appStatus, setAppStatus] = useState<AppStatus>("not_applied");
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isExamExpanded, setIsExamExpanded] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
   // Form State
@@ -388,7 +389,7 @@ export default function Volunteer() {
         <div className="bg-white border-[3px] border-black rounded-[20px] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden mb-8 relative">
           <div className="h-3 bg-[#16a34a] w-full"></div>
           <button
-            onClick={() => setIsExpanded(!isExpanded)}
+            onClick={() => setIsExamExpanded(!isExamExpanded)} 
             className="w-full p-8 md:p-10 text-left flex items-center justify-between group hover:bg-gray-50 transition-colors"
           >
             <div className="flex items-center gap-5">
@@ -417,7 +418,7 @@ export default function Volunteer() {
               </div>
             </div>
             <svg
-              className={`w-8 h-8 text-black transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+              className={`w-8 h-8 text-black transition-transform duration-300 ${isExamExpanded ? "rotate-180" : ""}`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -431,7 +432,7 @@ export default function Volunteer() {
             </svg>
           </button>
           <div
-            className={`overflow-hidden transition-all duration-500 ease-in-out ${isExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}
+            className={`overflow-hidden transition-all duration-500 ease-in-out ${isExamExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}
           >
             <div className="px-8 md:px-10 pb-10 pt-2 border-t-2 border-dashed border-gray-200">
               <p className="text-gray-700 font-medium leading-relaxed mb-4 text-lg">
