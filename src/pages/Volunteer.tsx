@@ -268,7 +268,7 @@ export default function Volunteer() {
               </div>
               <div>
                 <h2 className="text-2xl font-black text-black group-hover:text-[#16a34a] transition-colors uppercase tracking-tight">
-                  Become a Mentor
+                  Become a Scholarship Mentor
                 </h2>
                 <p className="text-sm font-bold text-gray-500 mt-1">
                   Help students with scholarship applications
@@ -384,7 +384,7 @@ export default function Volunteer() {
             </div>
           </div>
         </div>
-        //added
+        
         {/* SECOND CARD: EXAM MENTOR */}
         <div className="bg-white border-[3px] border-black rounded-[20px] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden mb-8 relative">
           <div className="h-3 bg-[#16a34a] w-full"></div>
@@ -495,7 +495,7 @@ export default function Volunteer() {
             </div>
           </div>
         </div>
-        //
+        
       </main>
       {/* Application Modal */}
       {showForm && (
