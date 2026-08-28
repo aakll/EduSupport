@@ -16,7 +16,7 @@ const SCHOLARSHIPS = [
 ];
 const LEVELS = ["1st year", "2nd year", "3rd year", "4th year", "5th year"];
 
-//added
+
 const EXAM_TYPES = ["SAT", "IELTS", "TOEFL"];
 //
 
@@ -42,7 +42,7 @@ export default function Volunteer() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  //added
+  
   const [examAppStatus, setExamAppStatus] = useState<AppStatus>("not_applied");
   const [showExamForm, setShowExamForm] = useState(false);
   const [examType, setExamType] = useState(" ");
@@ -57,7 +57,7 @@ export default function Volunteer() {
   const [examIsSubmitting, setExamIsSubmitting] = useState(false);
   const [examMessage, setExamMessage] = useState("");
   const [examError, setExamError] = useState("");
-  //
+  
 
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -78,7 +78,7 @@ export default function Volunteer() {
           .maybeSingle();
         if (data) setAppStatus(data.status as AppStatus);
 
-        //added
+        
         const { data: examData } = await supabase
           .from("volunteer_applications")
           .select("status")
@@ -86,7 +86,7 @@ export default function Volunteer() {
           .eq("role_applied_for", "Exam Mentor")
           .maybeSingle();
         if (examData) setExamAppStatus(examData.status as AppStatus);
-        //
+        
       }
       setIsCheckingAuth(false);
     };
@@ -145,7 +145,7 @@ export default function Volunteer() {
     setIsSubmitting(false);
   };
 
-  //added
+  
   const handleExamApply = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!userId) return;
@@ -196,7 +196,7 @@ export default function Volunteer() {
     }
     setExamIsSubmitting(false);
   };
-  //
+ 
 
   if (isCheckingAuth) {
     return (
@@ -690,7 +690,7 @@ export default function Volunteer() {
           </div>
         </div>
       )}
-      //added
+      
       {/* EXAM APPLICATION MODAL */}
       {showExamForm && (
         <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/60 backdrop-blur-sm p-4 py-10">
