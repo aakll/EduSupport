@@ -600,44 +600,36 @@ export default function Home() {
               <div className="w-12 h-12 rounded-full border-2 border-black flex-shrink-0 bg-gray-100"></div>
               <div>
                 <h3 className="text-xl font-bold text-black">Ali Kawar</h3>
-                <div className="relative h-48 overflow-y-auto scrollbar-hide">
-                  <span className="absolute -left-4 -top-2 text-4xl text-green-500 opacity-30 font-serif">
-                    "
-                  </span>
-                  <p className="text-gray-700 italic leading-relaxed pr-4 transition-opacity duration-500">
-                    {founderNotes[noteIndex]}
-                  </p>
-                  <span className="absolute -right-2 -bottom-4 text-4xl text-green-500 opacity-30 font-serif">
-                    "
-                  </span>
-                </div>
-                <div className="flex gap-2 mt-4 justify-center">
-                  {founderNotes.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setNoteIndex(i)}
-                      className={`w-3 h-3 rounded-full border-2 border-black transition-colors ${
-                        noteIndex === i ? "bg-black" : "bg-white"
-                      }`}
-                    />
-                  ))}
-                </div>
+                <p className="text-sm font-bold text-gray-500 uppercase tracking-wide">
+                  Founder
+                </p>
               </div>
             </div>
-            <div className="mt-4 relative">
+
+            {/* Scrollable Note - NOW A SIBLING, not nested inside the header div */}
+            <div className="mt-4 relative h-48 overflow-y-auto scrollbar-hide">
               <span className="absolute -left-4 -top-2 text-4xl text-green-500 opacity-30 font-serif">
                 "
               </span>
-              <p className="text-gray-700 italic pl-2 leading-relaxed">
-                I always remember how stressful high school was. Dealing with
-                academic pressure, figuring out what major to pursue, which
-                university to apply for, and how to fund my studies... It felt
-                like my future is at stake! That is why I lunched EduSupport, to
-                not let any student go through this stress again.
+              <p className="text-gray-700 italic leading-relaxed pr-4 transition-opacity duration-500">
+                {founderNotes[noteIndex]}
               </p>
               <span className="absolute -right-2 -bottom-4 text-4xl text-green-500 opacity-30 font-serif">
                 "
               </span>
+            </div>
+
+            {/* Dot Navigation - Also a sibling */}
+            <div className="flex gap-2 mt-4 justify-center">
+              {founderNotes.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setNoteIndex(i)}
+                  className={`w-3 h-3 rounded-full border-2 border-black transition-colors ${
+                    noteIndex === i ? "bg-black" : "bg-white"
+                  }`}
+                />
+              ))}
             </div>
           </div>
         </div>
