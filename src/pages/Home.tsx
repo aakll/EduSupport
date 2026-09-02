@@ -12,9 +12,21 @@ export default function Home() {
 
   const [noteIndex, setNoteIndex] = useState(0);
   const founderNotes = [
-    "I always remember how stressful high school was. Dealing with academic pressure, figuring out what major to pursue, which university to apply for, and how to fund my studies... It felt like my future is at stake! That is why I launched EduSupport, to not let any student go through this stress again.",
-    "EduSupport connects students with personalized scholarship matches, major exploration tools, and university guidance — all in one place. We believe every student deserves a clear path forward.",
-    "Our volunteer mentors have helped over 5,000 students find their ideal majors and secure scholarships. Join our community and start building your future today!",
+    {
+      name: "Ali Kawar",
+      title: "Founder",
+      text: "I always remember how stressful high school was. Dealing with academic pressure, figuring out what major to pursue, which university to apply for, and how to fund my studies... It felt like my future is at stake! That is why I launched EduSupport, to not let any student go through this stress again.",
+    },
+    {
+      name: "Qamar Alhamedi",
+      title: "Co-Founder",
+      text: "There was a time when I felt completely lost trying to plan my future. Between academic expectations, university admissions, scholarship searches, and the pressure of making the “right” choices, the process felt overwhelming. I often wished I had someone who could guide me, answer my questions, and reassure me that I was not facing these challenges alone. That experience inspired me to become a co-founder of EduSupport. We built this initiative because we believe every student deserves access to support, reliable information, and opportunities that can help them move forward with confidence and turn their ambitions into reality.",
+    },
+    {
+      name: "Ali Kawar",
+      title: "Founder",
+      text: "Our volunteer mentors have helped over 5,000 students find their ideal majors and secure scholarships. Join our community and start building your future today!",
+    },
   ];
 
   useEffect(() => {
@@ -599,9 +611,11 @@ export default function Home() {
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-full border-2 border-black flex-shrink-0 bg-gray-100"></div>
               <div>
-                <h3 className="text-xl font-bold text-black">Ali Kawar</h3>
+                <h3 className="text-xl font-bold text-black">
+                  {founderNotes[noteIndex].name}
+                </h3>
                 <p className="text-sm font-bold text-gray-500 uppercase tracking-wide">
-                  Founder
+                  {founderNotes[noteIndex].title}
                 </p>
               </div>
             </div>
@@ -612,7 +626,7 @@ export default function Home() {
                 "
               </span>
               <p className="text-gray-700 italic leading-relaxed pr-4 transition-opacity duration-500">
-                {founderNotes[noteIndex]}
+                {founderNotes[noteIndex].text}
               </p>
               <span className="absolute -right-2 -bottom-4 text-4xl text-green-500 opacity-30 font-serif">
                 "
