@@ -10,6 +10,13 @@ export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [mounted, setMounted] = useState(false);
 
+  const [noteIndex, setNoteIndex] = useState(0);
+  const founderNotes = [
+    "I always remember how stressful high school was. Dealing with academic pressure, figuring out what major to pursue, which university to apply for, and how to fund my studies... It felt like my future is at stake! That is why I launched EduSupport, to not let any student go through this stress again.",
+    "EduSupport connects students with personalized scholarship matches, major exploration tools, and university guidance — all in one place. We believe every student deserves a clear path forward.",
+    "Our volunteer mentors have helped over 5,000 students find their ideal majors and secure scholarships. Join our community and start building your future today!",
+  ];
+
   useEffect(() => {
     const checkAuth = async () => {
       const { data } = await supabase.auth.getSession();
@@ -36,7 +43,10 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white flex flex-col font-sans text-black overflow-x-hidden">
       {/* --- CSS ANIMATIONS --- */}
+
       <style>{`
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
         @keyframes blink {
           0%, 96%, 100% { transform: scaleY(1); }
           98% { transform: scaleY(0.1); }
@@ -590,9 +600,28 @@ export default function Home() {
               <div className="w-12 h-12 rounded-full border-2 border-black flex-shrink-0 bg-gray-100"></div>
               <div>
                 <h3 className="text-xl font-bold text-black">Ali Kawar</h3>
-                <p className="text-sm font-bold text-gray-500 uppercase tracking-wide">
-                  Founder
-                </p>
+                <div className="relative h-48 overflow-y-auto scrollbar-hide">
+                  <span className="absolute -left-4 -top-2 text-4xl text-green-500 opacity-30 font-serif">
+                    "
+                  </span>
+                  <p className="text-gray-700 italic leading-relaxed pr-4 transition-opacity duration-500">
+                    {founderNotes[noteIndex]}
+                  </p>
+                  <span className="absolute -right-2 -bottom-4 text-4xl text-green-500 opacity-30 font-serif">
+                    "
+                  </span>
+                </div>
+                <div className="flex gap-2 mt-4 justify-center">
+                  {founderNotes.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setNoteIndex(i)}
+                      className={`w-3 h-3 rounded-full border-2 border-black transition-colors ${
+                        noteIndex === i ? "bg-black" : "bg-white"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
             <div className="mt-4 relative">
@@ -600,12 +629,11 @@ export default function Home() {
                 "
               </span>
               <p className="text-gray-700 italic pl-2 leading-relaxed">
-                I always remember how stressful high school was.
-                Dealing with academic pressure, figuring out what major to pursue,
-                which university to apply for, and how to fund my studies...
-                It felt like my future is at stake!
-                That is why I lunched EduSupport, 
-                to not let any student go through this stress again. 
+                I always remember how stressful high school was. Dealing with
+                academic pressure, figuring out what major to pursue, which
+                university to apply for, and how to fund my studies... It felt
+                like my future is at stake! That is why I lunched EduSupport, to
+                not let any student go through this stress again.
               </p>
               <span className="absolute -right-2 -bottom-4 text-4xl text-green-500 opacity-30 font-serif">
                 "
