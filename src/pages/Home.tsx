@@ -607,7 +607,17 @@ export default function Home() {
             </div>
 
             {/* Scrollable Note - NOW A SIBLING, not nested inside the header div */}
-           
+            <div className="mt-4 relative h-48 overflow-y-auto scrollbar-hide">
+              <span className="absolute -left-4 -top-2 text-4xl text-green-500 opacity-30 font-serif">
+                "
+              </span>
+              <p className="text-gray-700 italic leading-relaxed pr-4 transition-opacity duration-500">
+                {founderNotes[noteIndex]}
+              </p>
+              <span className="absolute -right-2 -bottom-4 text-4xl text-green-500 opacity-30 font-serif">
+                "
+              </span>
+            </div>
 
             {/* Dot Navigation - Also a sibling */}
             <div className="flex gap-2 mt-4 justify-center">
