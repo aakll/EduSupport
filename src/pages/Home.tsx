@@ -13,6 +13,11 @@ export default function Home() {
   const [noteIndex, setNoteIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
+  const [teamOpen, setTeamOpen] = useState({
+    founder: false,
+    cofounders: false,
+    volunteers: false,
+  });
   const founderNotes = [
     {
       name: "Ali Kawar",
@@ -759,14 +764,161 @@ export default function Home() {
             <div>
               <h4 className="text-lg font-bold mb-4 text-white">Team</h4>
               <ul className="space-y-2 text-gray-400">
-                <li className="flex items-center gap-2">
-                  <span className="text-pink-500">•</span> Founder
+                {/* Founder */}
+                <li>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setTeamOpen((prev) => ({
+                        ...prev,
+                        founder: !prev.founder,
+                      }))
+                    }
+                    className="w-full flex items-center justify-between gap-2 text-left hover:text-white transition-colors"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="text-pink-500">•</span> Founder
+                    </span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className={`w-4 h-4 flex-shrink-0 transition-transform duration-300 ${
+                        teamOpen.founder ? "rotate-180" : ""
+                      }`}
+                    >
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </button>
+                  {teamOpen.founder && (
+                    <div className="mt-2 bg-white text-black rounded-lg p-4 shadow-lg">
+                      <div className="flex items-center gap-3">
+                        <div className="w-14 h-14 rounded-full border-2 border-black flex-shrink-0 bg-gray-100"></div>
+                        <div>
+                          <p className="font-bold text-black">Ali Kawar</p>
+                          <p className="text-sm text-gray-600">
+                            3rd year bioinformatics student at Lebanese
+                            American University
+                          </p>
+                          <a
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-blue-600 hover:underline"
+                          >
+                            LinkedIn
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-pink-500">•</span> Co-Founders
+
+                {/* Co-Founders */}
+                <li>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setTeamOpen((prev) => ({
+                        ...prev,
+                        cofounders: !prev.cofounders,
+                      }))
+                    }
+                    className="w-full flex items-center justify-between gap-2 text-left hover:text-white transition-colors"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="text-pink-500">•</span> Co-Founders
+                    </span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className={`w-4 h-4 flex-shrink-0 transition-transform duration-300 ${
+                        teamOpen.cofounders ? "rotate-180" : ""
+                      }`}
+                    >
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </button>
+                  {teamOpen.cofounders && (
+                    <div className="mt-2 bg-white text-black rounded-lg p-4 shadow-lg space-y-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-14 h-14 rounded-full border-2 border-black flex-shrink-0 bg-gray-100"></div>
+                        <div>
+                          <p className="font-bold text-black">
+                            Qamar Alhamedi
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            Biomedical science graduate from Lebanese
+                            International University
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-14 h-14 rounded-full border-2 border-black flex-shrink-0 bg-gray-100"></div>
+                        <div>
+                          <p className="font-bold text-black">Reem Ghorabi</p>
+                          <p className="text-sm text-gray-600">
+                            3rd year bioinformatics student at Lebanese
+                            American University
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-pink-500">•</span> Volunteers
+
+                {/* Volunteers */}
+                <li>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setTeamOpen((prev) => ({
+                        ...prev,
+                        volunteers: !prev.volunteers,
+                      }))
+                    }
+                    className="w-full flex items-center justify-between gap-2 text-left hover:text-white transition-colors"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="text-pink-500">•</span> Volunteers
+                    </span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className={`w-4 h-4 flex-shrink-0 transition-transform duration-300 ${
+                        teamOpen.volunteers ? "rotate-180" : ""
+                      }`}
+                    >
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </button>
+                  {teamOpen.volunteers && (
+                    <div className="mt-2 bg-white text-black rounded-lg p-4 shadow-lg grid grid-cols-2 gap-4">
+                      {[0, 1, 2, 3].map((i) => (
+                        <div
+                          key={i}
+                          className="flex flex-col items-center text-center gap-2"
+                        >
+                          <div className="w-14 h-14 rounded-full border-2 border-black bg-gray-100"></div>
+                          <p className="text-sm text-gray-400">—</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </li>
               </ul>
             </div>
