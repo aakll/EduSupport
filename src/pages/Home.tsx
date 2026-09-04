@@ -805,7 +805,7 @@ export default function Home() {
                             American University
                           </p>
                           <a
-                            href="#"
+                            href="https://www.linkedin.com/in/alikawar/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-sm text-blue-600 hover:underline"
