@@ -29,7 +29,6 @@ export default function Home() {
       title: "Co-Founder",
       text: "There was a time when I felt completely lost trying to plan my future. Between academic expectations, university admissions, scholarship searches, and the pressure of making the “right” choices, the process felt overwhelming. I often wished I had someone who could guide me, answer my questions, and reassure me that I was not facing these challenges alone. That experience inspired me to become a co-founder of EduSupport. We built this initiative because we believe every student deserves access to support, reliable information, and opportunities that can help them move forward with confidence and turn their ambitions into reality.",
     },
-    
   ];
 
   useEffect(() => {
@@ -681,13 +680,23 @@ export default function Home() {
                 touchStartY.current = e.touches[0].clientY;
               }}
               onTouchEnd={(e) => {
-                if (touchStartX.current === null || touchStartY.current === null) return;
-                const deltaX = e.changedTouches[0].clientX - touchStartX.current;
-                const deltaY = e.changedTouches[0].clientY - touchStartY.current;
+                if (
+                  touchStartX.current === null ||
+                  touchStartY.current === null
+                )
+                  return;
+                const deltaX =
+                  e.changedTouches[0].clientX - touchStartX.current;
+                const deltaY =
+                  e.changedTouches[0].clientY - touchStartY.current;
                 touchStartX.current = null;
                 touchStartY.current = null;
                 // Ignore mostly-vertical swipes so scrolling still works
-                if (Math.abs(deltaX) < 40 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+                if (
+                  Math.abs(deltaX) < 40 ||
+                  Math.abs(deltaX) < Math.abs(deltaY)
+                )
+                  return;
                 if (deltaX < 0) {
                   setNoteIndex((prev) => (prev + 1) % founderNotes.length);
                 } else {
@@ -797,12 +806,18 @@ export default function Home() {
                   {teamOpen.founder && (
                     <div className="mt-2 bg-white text-black rounded-lg p-4 shadow-lg">
                       <div className="flex items-center gap-3">
-                        <div className="w-14 h-14 rounded-full border-2 border-black flex-shrink-0 bg-gray-100"></div>
+                        <div className="w-14 h-14 rounded-full border-2 border-black flex-shrink-0 overflow-hidden">
+                          <img
+                            src="https://avatars.githubusercontent.com/u/178187488?s=400&u=d53a184443b9bc3dfddf99c5f29109ccd201f807&v=4"
+                            alt="Ali Kawar"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
                         <div>
                           <p className="font-bold text-black">Ali Kawar</p>
                           <p className="text-sm text-gray-600">
-                            3rd year bioinformatics student at Lebanese
-                            American University
+                            3rd year bioinformatics student at Lebanese American
+                            University
                           </p>
                           <a
                             href="https://www.linkedin.com/in/alikawar/"
@@ -853,9 +868,7 @@ export default function Home() {
                       <div className="flex items-center gap-3">
                         <div className="w-14 h-14 rounded-full border-2 border-black flex-shrink-0 bg-gray-100"></div>
                         <div>
-                          <p className="font-bold text-black">
-                            Qamar Alhamedi
-                          </p>
+                          <p className="font-bold text-black">Qamar Alhamedi</p>
                           <p className="text-sm text-gray-600">
                             Biomedical science graduate from Lebanese
                             International University
@@ -867,8 +880,8 @@ export default function Home() {
                         <div>
                           <p className="font-bold text-black">Reem Ghorabi</p>
                           <p className="text-sm text-gray-600">
-                            3rd year bioinformatics student at Lebanese
-                            American University
+                            3rd year bioinformatics student at Lebanese American
+                            University
                           </p>
                         </div>
                       </div>
