@@ -22,11 +22,7 @@ export default function Home() {
       title: "Co-Founder",
       text: "There was a time when I felt completely lost trying to plan my future. Between academic expectations, university admissions, scholarship searches, and the pressure of making the “right” choices, the process felt overwhelming. I often wished I had someone who could guide me, answer my questions, and reassure me that I was not facing these challenges alone. That experience inspired me to become a co-founder of EduSupport. We built this initiative because we believe every student deserves access to support, reliable information, and opportunities that can help them move forward with confidence and turn their ambitions into reality.",
     },
-    {
-      name: "Ali Kawar",
-      title: "Founder",
-      text: "Our volunteer mentors have helped over 5,000 students find their ideal majors and secure scholarships. Join our community and start building your future today!",
-    },
+    
   ];
 
   useEffect(() => {
