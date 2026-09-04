@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import AuthChoiceModal from "../components/AuthChoiceModal";
@@ -11,6 +11,8 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
 
   const [noteIndex, setNoteIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
   const founderNotes = [
     {
       name: "Ali Kawar",
@@ -604,6 +606,56 @@ export default function Home() {
           >
             {/* Green scribble accent */}
             <div className="absolute -top-3 -left-3 w-full h-full border-2 border-green-500 rounded-lg -z-10 opacity-50"></div>
+
+            {/* Left arrow */}
+            <button
+              type="button"
+              aria-label="Previous note"
+              onClick={() =>
+                setNoteIndex(
+                  (prev) =>
+                    (prev - 1 + founderNotes.length) % founderNotes.length,
+                )
+              }
+              className="absolute left-[-14px] top-1/2 -translate-y-1/2 w-8 h-8 rounded-full border-2 border-black bg-white flex items-center justify-center hover:bg-black hover:text-white transition-colors z-10"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-4 h-4"
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+
+            {/* Right arrow */}
+            <button
+              type="button"
+              aria-label="Next note"
+              onClick={() =>
+                setNoteIndex((prev) => (prev + 1) % founderNotes.length)
+              }
+              className="absolute right-[-14px] top-1/2 -translate-y-1/2 w-8 h-8 rounded-full border-2 border-black bg-white flex items-center justify-center hover:bg-black hover:text-white transition-colors z-10"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-4 h-4"
+              >
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-full border-2 border-black flex-shrink-0 bg-gray-100"></div>
               <div>
@@ -616,8 +668,31 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Scrollable Note - NOW A SIBLING, not nested inside the header div */}
-            <div className="mt-4 relative h-48 overflow-y-auto scrollbar-hide">
+            {/* Scrollable Note - swipeable on touch devices */}
+            <div
+              className="mt-4 relative h-48 overflow-y-auto scrollbar-hide touch-pan-y"
+              onTouchStart={(e) => {
+                touchStartX.current = e.touches[0].clientX;
+                touchStartY.current = e.touches[0].clientY;
+              }}
+              onTouchEnd={(e) => {
+                if (touchStartX.current === null || touchStartY.current === null) return;
+                const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+                const deltaY = e.changedTouches[0].clientY - touchStartY.current;
+                touchStartX.current = null;
+                touchStartY.current = null;
+                // Ignore mostly-vertical swipes so scrolling still works
+                if (Math.abs(deltaX) < 40 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+                if (deltaX < 0) {
+                  setNoteIndex((prev) => (prev + 1) % founderNotes.length);
+                } else {
+                  setNoteIndex(
+                    (prev) =>
+                      (prev - 1 + founderNotes.length) % founderNotes.length,
+                  );
+                }
+              }}
+            >
               <span className="absolute -left-4 -top-2 text-4xl text-green-500 opacity-30 font-serif">
                 "
               </span>
