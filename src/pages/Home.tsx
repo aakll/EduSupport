@@ -786,7 +786,7 @@ export default function Home() {
                     className="w-full flex items-center justify-between gap-2 text-left hover:text-white transition-colors"
                   >
                     <span className="flex items-center gap-2">
-                      <span className="text-pink-500">•</span> Founder
+                      <span className="text-green-500">•</span> Founder
                     </span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -846,7 +846,7 @@ export default function Home() {
                     className="w-full flex items-center justify-between gap-2 text-left hover:text-white transition-colors"
                   >
                     <span className="flex items-center gap-2">
-                      <span className="text-pink-500">•</span> Co-Founders
+                      <span className="text-green-500">•</span> Co-Founders
                     </span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -902,7 +902,7 @@ export default function Home() {
                     className="w-full flex items-center justify-between gap-2 text-left hover:text-white transition-colors"
                   >
                     <span className="flex items-center gap-2">
-                      <span className="text-pink-500">•</span> Volunteers
+                      <span className="text-green-500">•</span> Volunteers
                     </span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
