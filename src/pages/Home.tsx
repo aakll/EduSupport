@@ -18,11 +18,14 @@ export default function Home() {
     cofounders: false,
     volunteers: false,
   });
+
   const founderNotes = [
     {
       name: "Ali Kawar",
       title: "Founder",
       text: "I always remember how stressful high school was. Dealing with academic pressure, figuring out what major to pursue, which university to apply for, and how to fund my studies... It felt like my future is at stake! That is why I launched EduSupport, to not let any student go through this stress again.",
+      image:
+        "https://avatars.githubusercontent.com/u/178187488?s=400&u=d53a184443b9bc3dfddf99c5f29109ccd201f807&v=4",
     },
     {
       name: "Qamar Alhamedi",
@@ -661,7 +664,13 @@ export default function Home() {
             </button>
 
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-full border-2 border-black flex-shrink-0 bg-gray-100"></div>
+              <div className="w-12 h-12 rounded-full border-2 border-black flex-shrink-0 overflow-hidden">
+                <img
+                  src={founderNotes[noteIndex].image}
+                  alt={founderNotes[noteIndex].name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <div>
                 <h3 className="text-xl font-bold text-black">
                   {founderNotes[noteIndex].name}
